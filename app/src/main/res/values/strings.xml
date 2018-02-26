@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">EasyVocabulary</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="number_of_words">Number of words to learn</string>
+    <string name="number_of_words_summary">Select the number of words you would like to receive</string>
+    <string name="number_of_words_key">numberOfWordsKey</string>
+    <string name="frequency_of_words">Frequency of new words to practice</string>
+    <string name="frequency_of_words_summary">Select the frequency of new words to practice</string>
+    <string name="frequency_of_words_key">frequencyOfWords</string>
+    <string name="level_of_words_for_practice">Level of words for practice</string>
+    <string name="level_of_words_for_practice_summary">Select the level of words for practice </string>
+    <string name="level_of_words_for_practice_key">levelOfWords</string>
+    <string name="word_preference_settings">Settings</string>
+    <string name="daily">Daily</string>
+    <string name="easy">Easy</string>
+
 </resources>
