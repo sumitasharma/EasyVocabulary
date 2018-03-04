@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     break;
                 case DICTIONARY_CARD_VIEW_IDENTIFIER:
                     DictionaryFragment dictionaryFragment = new DictionaryFragment();
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
+                    fragmentManager.beginTransaction().add(R.id.dictionary_word_frame_layout, dictionaryFragment).commit();
                     break;
                 default:
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();

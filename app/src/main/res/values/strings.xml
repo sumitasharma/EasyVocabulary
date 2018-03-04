@@ -13,5 +13,7 @@
     <string name="word_preference_settings">Settings</string>
     <string name="daily">Daily</string>
     <string name="easy">Easy</string>
+    <string name="error_dictionary">Kindly check the typed word</string>
+    <string name="search_button">Search</string>
 
 </resources>

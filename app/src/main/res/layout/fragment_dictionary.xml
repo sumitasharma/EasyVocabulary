@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <EditText
+        android:id="@+id/dictionary_search_word_edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Dictionary" />
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/search_button" />
+    <TextView
+        android:id="@+id/dictionary_word_meaning_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="20dp" />
 
 </LinearLayout>
 
