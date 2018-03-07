@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
         setupSharedPreference();
+//        //Populate initial values for database
+//        populateDB();
         Bundle bundle = this.getIntent().getExtras();
 
         //Checking if it is a tablet
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
         }
     }
+
+//    private void populateDB(){
+//        new WordDbPopulatorService().execute();
+//    }
+
     private void setupSharedPreference() {
         Log.i(TAG, "Inside setupSharedPreference");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -109,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     break;
                 case DICTIONARY_CARD_VIEW_IDENTIFIER:
                     DictionaryFragment dictionaryFragment = new DictionaryFragment();
-                    fragmentManager.beginTransaction().add(R.id.dictionary_word_frame_layout, dictionaryFragment).commit();
+                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
                     break;
                 default:
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();

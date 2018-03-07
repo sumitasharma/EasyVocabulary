@@ -6,19 +6,20 @@
 
     <EditText
         android:id="@+id/dictionary_search_word_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_word_search"
         android:inputType="text" />
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/search_button" />
     <TextView
         android:id="@+id/dictionary_word_meaning_text"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="20dp" />
 
 </LinearLayout>

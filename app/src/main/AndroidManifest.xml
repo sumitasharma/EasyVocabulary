@@ -42,6 +42,18 @@
         <activity android:name=".wordui.WordQuizSummaryActivity" />
         <activity android:name=".wordui.WordQuizAnswerActivity" />
         <activity android:name=".wordui.DictionaryActivity" />
+
+        <service
+            android:name=".services.WordDbPopulatorService"
+            android:label="Word service"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+
+        </service>
+        <receiver android:name=".services.MyStartServiceReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
