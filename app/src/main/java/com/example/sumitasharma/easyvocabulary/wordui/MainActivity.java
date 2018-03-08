@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent();
+        intent.setAction("com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT");
+        Log.i(TAG, "Sending Intent");
+        sendBroadcast(intent);
         setupSharedPreference();
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
         Bundle bundle = this.getIntent().getExtras();

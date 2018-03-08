@@ -55,7 +55,7 @@
             android:name=".services.MyStartServiceReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT" />
             </intent-filter>
         </receiver>
     </application>
