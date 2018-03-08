@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
         setupSharedPreference();
-//        //Populate initial values for database
-//        populateDB();
+        // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
         Bundle bundle = this.getIntent().getExtras();
 
         //Checking if it is a tablet

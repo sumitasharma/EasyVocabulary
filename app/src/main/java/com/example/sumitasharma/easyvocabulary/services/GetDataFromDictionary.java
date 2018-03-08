@@ -1,7 +1,9 @@
 package com.example.sumitasharma.easyvocabulary.services;
 
 import android.app.job.JobInfo;
+import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,14 +23,18 @@ import timber.log.Timber;
 
 public class GetDataFromDictionary {
     private Context mContext;
-    ;
+    private JobService mJobService;
+    private JobParameters mJobParameters;
 
-    public GetDataFromDictionary(Context context) {
+    public GetDataFromDictionary(WordDbPopulatorService wordDbPopulatorService, Context context, JobParameters jobParameters) {
         mContext = context;
+        mJobParameters = jobParameters;
+        mJobService = wordDbPopulatorService;
     }
 
     // schedule the start of the service every 10 - 30 seconds
     public static void scheduleJob(Context context) {
+        Timber.i("Inside scheduleJob");
         ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
         builder.setMinimumLatency(1 * 1000); // wait at least
@@ -40,8 +46,8 @@ public class GetDataFromDictionary {
         jobScheduler.schedule(builder.build());
     }
 
-    public static void wordSearchDictionary(final List<String> words, final Context context) {
-
+    public void wordSearchDictionary(final List<String> words, final Context context) {
+        Timber.i("Inside wordSearchDictionary");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
@@ -60,25 +66,25 @@ public class GetDataFromDictionary {
                     if (response.isSuccessful()) {
                         Example example = response.body();
                         List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-
+                        String meaning = null;
                         for (String definition : definitions) {
+                            meaning = definition;
+                        }
                             // Create new empty ContentValues object
                             ContentValues contentValues = new ContentValues();
 
                             // Put the task description and selected mPriority into the ContentValues
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, String.valueOf((example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions())));
-                            String meaning = String.valueOf(example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions());
-                            // Insert the content values via a ContentResolver
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
+                        // Insert the content values via a ContentResolver
                             Timber.i("meaning :" + meaning);
                             context.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
 
-                        }
 
                     } else {
                         Timber.i("Error while fetching the data from API");
                     }
-
+                    mJobService.jobFinished(mJobParameters, true);
                 }
 
                 @Override
