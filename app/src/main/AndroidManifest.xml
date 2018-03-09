@@ -34,8 +34,10 @@
 
         <provider
             android:name=".data.WordContentProvider"
-            android:authorities="com.example.sumitasharma.easyvocabulary.data"
-            android:exported="false" />
+            android:authorities="com.example.sumitasharma.easyvocabulary"
+            android:exported="false">
+
+        </provider>
 
         <activity android:name=".wordui.PracticeWordsActivity" />
         <activity android:name=".wordui.WordQuizPracticeActivity" />

@@ -21,7 +21,7 @@ class WordDbHelper extends SQLiteOpenHelper {
                 WordContract.WordsEntry.COLUMN_WORD + " TEXT NOT NULL, " +
                 WordContract.WordsEntry.COLUMN_WORD_MEANING + " TEXT NOT NULL, " +
                 WordContract.WordsEntry.COLUMN_WORD_LEVEL + " TEXT NOT NULL, " +
-                WordContract.WordsEntry.COLUMN_LAST_UPDATED + " DATE NOT NULL, " +
+                WordContract.WordsEntry.COLUMN_LAST_UPDATED + " DATE DEFAULT CURRENT_DATE, " +
                 WordContract.WordsEntry.COLUMN_WORD_PRACTICED + " BOOLEAN);");
     }
 

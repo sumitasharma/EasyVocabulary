@@ -13,7 +13,7 @@ import com.example.sumitasharma.easyvocabulary.dictionaryutils.ApiService;
 import com.example.sumitasharma.easyvocabulary.dictionaryutils.Example;
 import com.example.sumitasharma.easyvocabulary.dictionaryutils.RetroClient;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,7 +46,7 @@ public class GetDataFromDictionary {
         jobScheduler.schedule(builder.build());
     }
 
-    public void wordSearchDictionary(final List<String> words, final Context context) {
+    public void wordSearchDictionary(final HashMap<String, String> words, final Context context) {
         Timber.i("Inside wordSearchDictionary");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
@@ -97,10 +97,10 @@ public class GetDataFromDictionary {
     }
 
     public void dataFromDictionary() {
-        List<String> words = new ArrayList<String>();
-        words.add("ocean");
-        words.add("rich");
-        words.add("igloo");
+        HashMap<String, String> words = new HashMap<>();
+        words.put("ocean", "Moderate");
+        words.put("rich", "Easy");
+        words.put("igloo", "Difficult");
         wordSearchDictionary(words, mContext);
     }
 
