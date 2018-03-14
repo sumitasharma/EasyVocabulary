@@ -98,9 +98,21 @@ public class GetDataFromDictionary {
 
     public void dataFromDictionary() {
         HashMap<String, String> words = new HashMap<>();
-        words.put("ocean", "Moderate");
-        words.put("rich", "Easy");
-        words.put("igloo", "Difficult");
+        words.put("finale", "Moderate");
+        words.put("picture", "Easy");
+        words.put("altercation", "Difficult");
+        words.put("belief", "Moderate");
+        words.put("flower", "Easy");
+        words.put("suspension", "Difficult");
+        words.put("betray", "Moderate");
+        words.put("actor", "Easy");
+        words.put("altruistic", "Difficult");
+        words.put("union", "Moderate");
+        words.put("fish", "Easy");
+        words.put("incredible", "Difficult");
+        words.put("adopt", "Moderate");
+        words.put("past", "Easy");
+        words.put("anxiety", "Difficult");
         wordSearchDictionary(words, mContext);
     }
 

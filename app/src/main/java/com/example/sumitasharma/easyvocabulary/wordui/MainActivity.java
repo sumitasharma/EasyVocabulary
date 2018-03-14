@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         intent.setAction("com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT");
         Log.i(TAG, "Sending Intent");
         //sendBroadcast(intent);
-        dataFromDictionary();
+        //  dataFromDictionary();
         setupSharedPreference();
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
         Bundle bundle = this.getIntent().getExtras();
