@@ -1,10 +1,5 @@
-package com.example.sumitasharma.easyvocabulary.services;
+package com.example.sumitasharma.easyvocabulary.util;
 
-import android.app.job.JobInfo;
-import android.app.job.JobParameters;
-import android.app.job.JobScheduler;
-import android.app.job.JobService;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -25,33 +20,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class GetDataFromDictionary {
+public class WordsLocalDictionary {
     private Context mContext;
-    private JobService mJobService;
-    private JobParameters mJobParameters;
-    private HashMap<String, String> words = new HashMap<>();
 
-    public GetDataFromDictionary(WordDbPopulatorService wordDbPopulatorService, Context context, JobParameters jobParameters) {
-        mContext = context;
-        mJobParameters = jobParameters;
-        mJobService = wordDbPopulatorService;
+    public WordsLocalDictionary(Context context) {
+        this.mContext = context;
     }
 
-    // schedule the start of the service every 10 - 30 seconds
-    public static void scheduleJob(Context context) {
-        Timber.i("Inside scheduleJob");
-        ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
-        builder.setMinimumLatency(1 * 1000); // wait at least
-        builder.setOverrideDeadline(3 * 1000); // maximum delay
-        //builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED); // require unmetered network
-        //builder.setRequiresDeviceIdle(true); // device should be idle
-        //builder.setRequiresCharging(false); // we don't care if the device is charging or not
-        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
-        jobScheduler.schedule(builder.build());
-    }
-
-    public void wordSearchDictionary(final HashMap<String, String> words, final Context context) {
+    public static void wordSearchDictionary(final HashMap<String, String> words, final Context context) {
         Timber.i("Inside wordSearchDictionary");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
@@ -59,9 +35,8 @@ public class GetDataFromDictionary {
         /**
          * Calling JSON
          */
-        for (int i = 0; i < words.size(); i++) {
-            Call<Example> call = api.getMyJSON(words.get(i));
-            final String word = words.get(i);
+        for (final String word : words.keySet()) {
+            Call<Example> call = api.getMyJSON(word);
             /**
              * Enqueue Callback will be call when get response...
              */
@@ -75,21 +50,22 @@ public class GetDataFromDictionary {
                         for (String definition : definitions) {
                             meaning = definition;
                         }
-                            // Create new empty ContentValues object
-                            ContentValues contentValues = new ContentValues();
+                        // Create new empty ContentValues object
+                        ContentValues contentValues = new ContentValues();
 
-                            // Put the task description and selected mPriority into the ContentValues
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
+                        // Put the task description and selected mPriority into the ContentValues
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, "true");
+                        contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
                         // Insert the content values via a ContentResolver
-                            Timber.i("meaning :" + meaning);
-                            context.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
-
-
+                        Timber.i("meaning :" + meaning);
+                        context.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
                     } else {
                         Timber.i("Error while fetching the data from API");
                     }
-                    mJobService.jobFinished(mJobParameters, true);
+
                 }
 
                 @Override
@@ -176,4 +152,5 @@ public class GetDataFromDictionary {
         }
         //   wordSearchDictionary(words, mContext);
     }
+
 }

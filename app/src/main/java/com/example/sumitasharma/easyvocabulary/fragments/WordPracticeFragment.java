@@ -1,9 +1,12 @@
 package com.example.sumitasharma.easyvocabulary.fragments;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -23,15 +26,17 @@ import timber.log.Timber;
 
 public class WordPracticeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = WordPracticeFragment.class.getSimpleName();
+    private final static int LOADER_ID = 101;
     private final LoaderManager.LoaderCallbacks<Cursor> callback = WordPracticeFragment.this;
     // This is the Adapter being used to display the list's data.
     View rootView;
     // If non-null, this is the current filter the user has provided.
     String mCurFilter;
     RecyclerView mWordPracticeRecyclerView;
-    private int mLoaderId = 101;
+    private int mLoaderId;
     private Context mContext = getContext();
     private PracticeWordsAdapter mAdapter;
+
 
     public WordPracticeFragment() {
 
@@ -45,32 +50,39 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
         mWordPracticeRecyclerView = rootView.findViewById(R.id.recycler_view_practice_words);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
-        initializeLoader(mLoaderId, getContext());
+        initializeLoader(LOADER_ID, getContext());
         return rootView;
     }
 
     private void initializeLoader(int loaderId, Context context) {
-        // Timber.i( "Inside initializeLoader");
         Timber.i("Inside initializeLoader");
         this.mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivity().getSupportLoaderManager();
-        //Loader<String> movieSearchLoader = loaderManager.getLoader(mLoaderId);
-        //if (movieSearchLoader == null) {
-        loaderManager.initLoader(mLoaderId, null, callback);
-        // } else {
-        ////   loaderManager.restartLoader(mLoaderId, null, callback);
-        // }
+        Loader<String> wordPracticeLoader = loaderManager.getLoader(mLoaderId);
+        if (wordPracticeLoader == null) {
+            loaderManager.initLoader(mLoaderId, null, callback);
+        } else {
+            loaderManager.restartLoader(mLoaderId, null, callback);
+        }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        int numberOfWordsForPractice;
+        String frequencyOfWordsForPractice;
+        String levelOfWordsForPractice;
         Timber.i("Inside oncreateloader WordPracticeFragment");
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "1"));
+        frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "sharedpreference"));
+        levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "shared"));
         //Setup the uri that will get the data I need from my ContentProvider
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
-        CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, null, null, null, null);
-
+        String[] level = {levelOfWordsForPractice, String.valueOf(numberOfWordsForPractice)};
+        String where = WordContract.WordsEntry.COLUMN_WORD_LEVEL + "=?";
+        String sortOrder = "RANDOM() LIMIT ?";
+        CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, null, where, level, sortOrder);
         //and get a CursorLoader from my ContentProvider
         return cursorLoader;
 
@@ -79,16 +91,19 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        //When the loader has loaded some data (either initially, or the
-        //datasource has changed and a new cursor is being provided),
-        //Then we'll swap out the curser in our recyclerview's adapter
-        // and we'll create the adapter if necessary
-        // if (mCursorAdapter == null) {
-        //   mCursorAdapter = new PracticeWordsAdapter(mContext,data);
-        mAdapter = new PracticeWordsAdapter(mContext, data);
-        mWordPracticeRecyclerView.setAdapter(mAdapter);
-        // }
+        if (mAdapter == null) {
+            mAdapter = new PracticeWordsAdapter(mContext, data);
+            mWordPracticeRecyclerView.setAdapter(mAdapter);
+        }
 
+        // Update the rows seen by user as practiced.
+        Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
+        ContentValues values = new ContentValues();
+        while (data.moveToNext()) {
+            values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
+            mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", new String[]{String.valueOf(data.getString(data.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)))});
+
+        }
         // mAdapter.swapCursor(data);
     }
 
@@ -96,7 +111,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     public void onLoaderReset(Loader<Cursor> loader) {
         //If the loader is reset, we need to clear out the
         //current cursor from the adapter.
-        // mAdapter.swapCursor(null);
+        // this.mAdapter.swapCursor(null);
     }
 
 }

@@ -13,6 +13,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import timber.log.Timber;
+
 import static android.content.ContentValues.TAG;
 
 public class WordContentProvider extends ContentProvider {
@@ -30,7 +32,7 @@ public class WordContentProvider extends ContentProvider {
         /*
           All paths added to the UriMatcher have a corresponding int.
           For each kind of uri you may want to access, add the corresponding match with addURI.
-          The two calls below add matches for the Movie directory and a single Movie by ID.
+          The two calls below add matches for the Words directory and a single Words by ID.
          */
         uriMatcher.addURI(WordContract.AUTHORITY, WordContract.PATH_WORDS, WORDS);
         uriMatcher.addURI(WordContract.AUTHORITY, WordContract.PATH_WORDS + "/#", WORD_WITH_ID);
@@ -67,6 +69,16 @@ public class WordContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
+                    do {
+                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
+                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+
+
+                    } while (retCursor.moveToNext());
+                }
+
+
                 break;
             // Default exception
             default:
@@ -103,7 +115,7 @@ public class WordContentProvider extends ContentProvider {
                 long id = db.insert(WordContract.WordsEntry.TABLE_NAME, null, values);
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(WordContract.WordsEntry.CONTENT_URI, id);
-                    Log.i(TAG, "inserted " + returnUri.toString());
+                    Log.i(TAG, "inserted " + values.toString());
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
@@ -152,6 +164,20 @@ public class WordContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int count = 0;
+        final SQLiteDatabase db = mWordDbHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        switch (match) {
+
+            case WORD_WITH_ID:
+                count = db.update(WordContract.WordsEntry.TABLE_NAME, values, selection, selectionArgs);
+
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 }

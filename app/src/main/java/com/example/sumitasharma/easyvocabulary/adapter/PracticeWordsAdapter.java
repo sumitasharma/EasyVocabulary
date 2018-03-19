@@ -18,13 +18,13 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     private final static String TAG = PracticeWordsAdapter.class.getSimpleName();
     private final Context mContext;
-    private final Cursor mWords;
+    private final Cursor mWordsCursor;
 
     public PracticeWordsAdapter(Context context, Cursor words) {
         //Timber.i( "Inside RecipeStepsAdapter Constructor");
         Timber.i("Inside PracticeWordsAdapter Constructor");
         this.mContext = context;
-        this.mWords = words;
+        this.mWordsCursor = words;
     }
 
     @Override
@@ -37,16 +37,18 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     @Override
     public void onBindViewHolder(RecyclerViewHolderWords holder, int position) {
-        holder.mWordPractice.setText(mWords.getString(mWords.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-        holder.mWordMeaning.setText(mWords.getString(mWords.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+        if (mWordsCursor.moveToPosition(position) && mWordsCursor.getCount() >= 1) {
+            holder.mWordPractice.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
+            holder.mWordMeaning.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+        }
 
     }
 
     @Override
     public int getItemCount() {
         //Timber.i( "getItemCount Called. Size is:" + mStep.size());
-        Timber.i("getItemCount Called. Size is:" + mWords.getCount());
-        return mWords.getCount();
+        Timber.i("getItemCount Called. Size is:" + mWordsCursor.getCount());
+        return mWordsCursor.getCount();
     }
 
 

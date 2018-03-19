@@ -46,5 +46,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     //Logging Network Calls
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    //For Graphs
+    compile 'com.jjoe64:graphview:4.2.1'
 
 }
