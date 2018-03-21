@@ -48,6 +48,7 @@ public class WordContentProvider extends ContentProvider {
         return true;
     }
 
+
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
@@ -69,14 +70,14 @@ public class WordContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
-                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
-                    do {
-                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
-
-
-                    } while (retCursor.moveToNext());
-                }
+//                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
+//                    do {
+//                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
+//                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+//
+//
+//                    } while (retCursor.moveToNext());
+//                }
 
 
                 break;
@@ -169,9 +170,9 @@ public class WordContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
 
-            case WORD_WITH_ID:
+            case WORDS:
                 count = db.update(WordContract.WordsEntry.TABLE_NAME, values, selection, selectionArgs);
-
+                Timber.i("Update Performed");
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
