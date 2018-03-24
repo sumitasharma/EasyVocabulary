@@ -72,6 +72,7 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
 
         public RecyclerViewHolderQuizPractice(View itemView) {
             super(itemView);
+            Timber.i("Insider RecyclerViewHolderQuizPractice");
 
 
         }
