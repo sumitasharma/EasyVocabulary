@@ -1,11 +1,7 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/myCoordinatorLayoutWordQuiz"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:id="@+id/myCoordinatorLayoutWordQuiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="vertical">-->
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/swipe_refresh_layout_word_quiz"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,26 +19,13 @@
             android:scrollbarStyle="outsideOverlay" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_word_quiz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<android.support.design.widget.AppBarLayout--><!--android:id="@+id/appbar_word_quiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_word_quiz"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways" />
+    <!--<android.support.v7.widget.Toolbar--><!--android:id="@+id/toolbar_word_quiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--app:layout_scrollFlags="scroll|enterAlways" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="quiz" />
+    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:text="quiz" />-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </android.support.design.widget.AppBarLayout>
+    <!--<ImageView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content" />--><!--</android.support.design.widget.AppBarLayout>-->
 
 
-</android.support.design.widget.CoordinatorLayout>
+    <!--</android.support.design.widget.CoordinatorLayout>-->

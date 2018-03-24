@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 
@@ -96,14 +94,14 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
             //         Timber.i("Inside data moveToNext" + data.getString(data.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_PRACTICED)));
 
         }
-        Timber.i("wordsgraph :" + wordsGraphCount.get(0));
-        // Timber.i("data is : "+data.getInt(0));
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(0, wordsGraphCount.get(0)),
-                new DataPoint(1, wordsGraphCount.get(0)),
-                new DataPoint(2, wordsGraphCount.get(0))
-        });
-        graph.addSeries(series);
+//        Timber.i("wordsgraph :" + wordsGraphCount.get(0));
+//        // Timber.i("data is : "+data.getInt(0));
+//        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
+//                new DataPoint(0, wordsGraphCount.get(0)),
+//                new DataPoint(1, wordsGraphCount.get(0)),
+//                new DataPoint(2, wordsGraphCount.get(0))
+//        });
+//        graph.addSeries(series);
     }
 
     @Override

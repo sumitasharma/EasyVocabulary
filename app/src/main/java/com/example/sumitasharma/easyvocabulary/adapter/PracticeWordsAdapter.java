@@ -64,5 +64,6 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
         }
 
     }
+
 }
 
