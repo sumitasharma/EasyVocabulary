@@ -65,13 +65,15 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
     }
 
     class RecyclerViewHolderQuizPractice extends RecyclerView.ViewHolder {
-        @BindView(R.id.radio)
-        RadioGroup radioButtonGroup;
-        @BindView(R.id.word_quiz_meaning)
-        TextView wordQuizMeaning;
+        //@BindView(R.id.radio)
+        private final RadioGroup mRadioButtonGroup;
+        //@BindView(R.id.word_quiz_meaning)
+        private final TextView mWordQuizMeaning;
 
         public RecyclerViewHolderQuizPractice(View itemView) {
             super(itemView);
+            mRadioButtonGroup = itemView.findViewById(R.id.radio);
+            mWordQuizMeaning = itemView.findViewById(R.id.word_quiz_meaning);
             Timber.i("Insider RecyclerViewHolderQuizPractice");
 
 

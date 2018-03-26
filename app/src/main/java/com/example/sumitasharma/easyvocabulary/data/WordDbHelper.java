@@ -1,6 +1,7 @@
 package com.example.sumitasharma.easyvocabulary.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -29,5 +30,13 @@ class WordDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WordContract.WordsEntry.TABLE_NAME);
         onCreate(db);
+    }
+
+    public boolean isDbPopulated() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from words limit 5" ,null);
+        if (res.getCount() > 0)
+            return true;
+        else return false;
     }
 }

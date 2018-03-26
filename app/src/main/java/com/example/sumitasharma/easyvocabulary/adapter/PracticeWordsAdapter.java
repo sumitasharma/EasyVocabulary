@@ -1,8 +1,10 @@
 package com.example.sumitasharma.easyvocabulary.adapter;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,15 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             holder.mWordPractice.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
             holder.mWordMeaning.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
         }
+        // Update the rows seen by user as practiced.
+        Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
+        ContentValues values = new ContentValues();
+
+
+        Timber.i("Updating Practiced Word" + mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
+        values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
+        mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", new String[]{String.valueOf(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))});
+
 
     }
 

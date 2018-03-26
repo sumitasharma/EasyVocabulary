@@ -3,6 +3,7 @@ package com.example.sumitasharma.easyvocabulary.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.dictionaryutils.ApiService;
@@ -20,15 +21,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class WordsLocalDictionary {
+public class WordsDbUtil {
     private Context mContext;
 
-    public WordsLocalDictionary(Context context) {
+    public WordsDbUtil(Context context) {
         this.mContext = context;
     }
 
-    public static void wordSearchDictionary(final HashMap<String, String> words, final Context context) {
-        Timber.i("Inside wordSearchDictionary");
+    public void populateDatabase() {
+        Timber.i("Inside populateDatabase");
+        final HashMap<String, String> words = readWordsFromAssets();
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
@@ -61,7 +63,7 @@ public class WordsLocalDictionary {
                         contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
                         // Insert the content values via a ContentResolver
                         Timber.i("meaning :" + meaning);
-                        context.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
+                        mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
                     } else {
                         Timber.i("Error while fetching the data from API");
                     }
@@ -77,7 +79,15 @@ public class WordsLocalDictionary {
         }
     }
 
-    public void dataFromDictionary() {
+    public boolean isDatabasePopulated() {
+        Cursor cursor = mContext.getContentResolver().query(WordContract.WordsEntry.CONTENT_URI, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public HashMap<String, String> readWordsFromAssets() {
         Timber.i("dataFrom Dictionary");
         HashMap<String, String> words = new HashMap<>();
 
@@ -86,7 +96,7 @@ public class WordsLocalDictionary {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(
-                    new InputStreamReader(mContext.getAssets().open("words_easy"), "UTF-8"));
+                    new InputStreamReader(mContext.getAssets().open("words_easy_init"), "UTF-8"));
 
             // do reading, usually loop until end of file reading
             String mLine;
@@ -108,7 +118,7 @@ public class WordsLocalDictionary {
         }
         try {
             bufferedReader = new BufferedReader(
-                    new InputStreamReader(mContext.getAssets().open("words_moderate"), "UTF-8"));
+                    new InputStreamReader(mContext.getAssets().open("words_moderate_init"), "UTF-8"));
 
             // do reading, usually loop until end of file reading
             String mLine;
@@ -130,7 +140,7 @@ public class WordsLocalDictionary {
         }
         try {
             bufferedReader = new BufferedReader(
-                    new InputStreamReader(mContext.getAssets().open("words_difficult"), "UTF-8"));
+                    new InputStreamReader(mContext.getAssets().open("words_difficult_init"), "UTF-8"));
 
             // do reading, usually loop until end of file reading
             String mLine;
@@ -150,7 +160,8 @@ public class WordsLocalDictionary {
                 }
             }
         }
-        //   wordSearchDictionary(words, mContext);
+        return words;
+        //  populateDatabase(words, mContext);
     }
 
 }

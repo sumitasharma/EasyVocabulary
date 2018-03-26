@@ -17,6 +17,10 @@ import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
+import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
+import com.facebook.stetho.Stetho;
+
+import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_CARD_VIEW_IDENTIFIER;
@@ -32,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize stetho
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
+
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
         Intent intent = new Intent();
@@ -42,7 +52,13 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         //Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         //getContentResolver().delete(loaderUri,null,null);
         /* Insert the table */
-        //new WordsLocalDictionary(this). dataFromDictionary();
+        //new WordsDbUtil(this).readWordsFromAssets();
+        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
+        if (!wordsDbUtil.isDatabasePopulated()){
+            Timber.i("Database is not populated, populating it");
+            wordsDbUtil.populateDatabase();
+        }
+
         setupSharedPreference();
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
         Bundle bundle = this.getIntent().getExtras();

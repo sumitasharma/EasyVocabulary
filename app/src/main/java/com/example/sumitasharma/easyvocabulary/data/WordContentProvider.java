@@ -172,7 +172,7 @@ public class WordContentProvider extends ContentProvider {
 
             case WORDS:
                 count = db.update(WordContract.WordsEntry.TABLE_NAME, values, selection, selectionArgs);
-                Timber.i("Update Performed");
+               // Timber.i("Update Performed");
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);

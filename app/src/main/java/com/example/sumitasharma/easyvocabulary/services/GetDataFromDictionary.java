@@ -52,7 +52,7 @@ public class GetDataFromDictionary {
     }
 
     public void wordSearchDictionary(final HashMap<String, String> words, final Context context) {
-        Timber.i("Inside wordSearchDictionary");
+        Timber.i("Inside populateDatabase");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
@@ -174,6 +174,6 @@ public class GetDataFromDictionary {
                 }
             }
         }
-        //   wordSearchDictionary(words, mContext);
+        //   populateDatabase(words, mContext);
     }
 }

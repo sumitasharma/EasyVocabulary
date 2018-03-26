@@ -35,7 +35,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     RecyclerView mWordPracticeRecyclerView;
     private int mLoaderId;
     private Context mContext = getContext();
-    private PracticeWordsAdapter mAdapter;
+    private PracticeWordsAdapter mAdapter = null;
 
 
     public WordPracticeFragment() {
@@ -93,17 +93,11 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
         if (mAdapter == null) {
             mAdapter = new PracticeWordsAdapter(mContext, data);
+            Timber.i("Setting PracticeWordsAdapter for recycler view");
             mWordPracticeRecyclerView.setAdapter(mAdapter);
         }
 
-        // Update the rows seen by user as practiced.
-        Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
-        ContentValues values = new ContentValues();
-        while (data.moveToNext()) {
-            values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
-            mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", new String[]{String.valueOf(data.getString(data.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)))});
 
-        }
         // mAdapter.swapCursor(data);
     }
 
