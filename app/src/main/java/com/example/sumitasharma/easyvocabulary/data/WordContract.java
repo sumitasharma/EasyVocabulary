@@ -19,7 +19,6 @@ public class WordContract {
         // MovieEntry content URI = base content URI + path
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_WORDS).build();
-
         public static final String TABLE_NAME = "words";
         public static final String COLUMN_ID = "wordID";
         public static final String COLUMN_WORD = "word";
@@ -27,6 +26,10 @@ public class WordContract {
         public static final String COLUMN_WORD_LEVEL = "wordLevel";
         public static final String COLUMN_LAST_UPDATED = "lastUpdated";
         public static final String COLUMN_WORD_PRACTICED = "wordPracticed";
+
+        public static Uri buildWordUri(long _id) {
+            return BASE_CONTENT_URI.buildUpon().appendPath(PATH_WORDS).appendPath(Long.toString(_id)).build();
+        }
 
     }
 

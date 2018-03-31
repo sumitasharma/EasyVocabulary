@@ -14,6 +14,8 @@ public class WordUtil {
     public final static String API_KEY = "";
     public final static String APP_ID = "";
     public final static String ERROR_CALLING_API = "error_calling_api";
+    public static final String DEFAULT_SORT = "RANDOM() LIMIT 5";
+    public static final String DEFAULT_WHERE = "wordPracticed = 'true'";
 
     /**
      * Checks Internet Connectivity

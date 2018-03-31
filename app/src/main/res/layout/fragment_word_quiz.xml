@@ -1,31 +1,44 @@
-<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:id="@+id/myCoordinatorLayoutWordQuiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="vertical">-->
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/swipe_refresh_layout_word_quiz"
+    <TextView
+        android:id="@+id/word_quiz_meaning"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_word_quiz"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="4dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:paddingTop="4dp"
-            android:scrollbarStyle="outsideOverlay" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <!--<android.support.design.widget.AppBarLayout--><!--android:id="@+id/appbar_word_quiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
+        <RadioButton
+            android:id="@+id/radio_quiz_word1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="word1" />
 
-    <!--<android.support.v7.widget.Toolbar--><!--android:id="@+id/toolbar_word_quiz"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--app:layout_scrollFlags="scroll|enterAlways" />-->
+        <RadioButton
+            android:id="@+id/radio_quiz_word2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="word2" />
 
-    <!--<TextView--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:text="quiz" />-->
+        <RadioButton
+            android:id="@+id/radio_quiz_word3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="word3" />
 
-    <!--<ImageView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content" />--><!--</android.support.design.widget.AppBarLayout>-->
+        <RadioButton
+            android:id="@+id/radio_quiz_word4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="word4" />
 
+    </RadioGroup>
 
-    <!--</android.support.design.widget.CoordinatorLayout>-->
+</LinearLayout>

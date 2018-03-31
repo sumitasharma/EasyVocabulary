@@ -17,7 +17,6 @@ import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
-import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -49,15 +48,15 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Sending Intent");
         //sendBroadcast(intent);
         /* Delete the table */
-        //Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
-        //getContentResolver().delete(loaderUri,null,null);
+        //  Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
+        //  getContentResolver().delete(loaderUri,null,null);
         /* Insert the table */
         //new WordsDbUtil(this).readWordsFromAssets();
-        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
-        if (!wordsDbUtil.isDatabasePopulated()){
-            Timber.i("Database is not populated, populating it");
-            wordsDbUtil.populateDatabase();
-        }
+//        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
+//        if (!wordsDbUtil.isDatabasePopulated()){
+//            Timber.i("Database is not populated, populating it");
+//            wordsDbUtil.populateDatabase();
+//        }
 
         setupSharedPreference();
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
@@ -157,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             } else if (cardViewNumber.equals(QUIZ_CARD_VIEW_IDENTIFIER)) {
                 Intent intent = new Intent();
                 intent.setClass(this, WordQuizPracticeActivity.class);
+                Timber.i("Inside WordQuizPractice selected");
                 startActivity(intent);
             } else if (cardViewNumber.equals(PROGRESS_CARD_VIEW_IDENTIFIER)) {
                 Intent intent = new Intent();

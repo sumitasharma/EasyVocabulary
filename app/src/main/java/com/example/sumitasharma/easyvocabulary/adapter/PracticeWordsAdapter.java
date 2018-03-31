@@ -50,7 +50,8 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
         Timber.i("Updating Practiced Word" + mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
         values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
-        mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", new String[]{String.valueOf(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))});
+        String[] selectArgs = {mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))};
+        mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", selectArgs);
 
 
     }

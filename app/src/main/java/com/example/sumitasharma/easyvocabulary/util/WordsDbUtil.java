@@ -59,7 +59,7 @@ public class WordsDbUtil {
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
-                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, "true");
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
                         contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
                         // Insert the content values via a ContentResolver
                         Timber.i("meaning :" + meaning);
