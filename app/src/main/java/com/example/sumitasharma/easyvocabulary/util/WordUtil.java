@@ -6,6 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class WordUtil {
+    public static final String QUIZ_WORD = "word";
+    public static final String QUIZ_WORD_MEANING = "word_meaning";
+    public static final String QUIZ_WORD_ID = "word_id";
     public final static String WORD_MEANING_CARD_VIEW_IDENTIFIER = "1";
     public final static String QUIZ_CARD_VIEW_IDENTIFIER = "2";
     public final static String PROGRESS_CARD_VIEW_IDENTIFIER = "3";
@@ -14,8 +17,9 @@ public class WordUtil {
     public final static String API_KEY = "";
     public final static String APP_ID = "";
     public final static String ERROR_CALLING_API = "error_calling_api";
-    public static final String DEFAULT_SORT = "RANDOM() LIMIT 5";
-    public static final String DEFAULT_WHERE = "wordPracticed = 'true'";
+    public static final String QUIZ_SORT = "RANDOM() LIMIT 5";
+    public static final String QUIZ_WHERE = "wordPracticed = 1";
+
 
     /**
      * Checks Internet Connectivity

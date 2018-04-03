@@ -7,21 +7,30 @@ import android.support.v4.content.CursorLoader;
 
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DEFAULT_SORT;
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DEFAULT_WHERE;
+import timber.log.Timber;
+
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_SORT;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WHERE;
 
 public class WordQuizLoader extends CursorLoader {
 
-    private WordQuizLoader(Context context, Uri uri) {
-        super(context, uri, Query.PROJECTION, DEFAULT_WHERE, null, DEFAULT_SORT);
+    private WordQuizLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortBy) {
+        super(context, uri, projection, selection, null, sortBy);
+        Timber.i("Inside WordQuizLoader Second Constructor" + Query.PROJECTION + QUIZ_WHERE + QUIZ_SORT);
+
     }
 
     public static WordQuizLoader newWordQuizInstance(Context context) {
-        return new WordQuizLoader(context, WordContract.WordsEntry.CONTENT_URI);
+        Timber.i("Inside WordQuizLoader");
+        return new WordQuizLoader(context, WordContract.WordsEntry.CONTENT_URI, Query.PROJECTION, QUIZ_WHERE, null, QUIZ_SORT);
     }
 
     public static WordQuizLoader newInstanceForWordId(Context context, long wordId) {
-        return new WordQuizLoader(context, WordContract.WordsEntry.buildWordUri(wordId));
+        Timber.i("Inside WordQuizLoader newInstanceForWordId");
+        String[] level = {String.valueOf(wordId)};
+        String where = WordContract.WordsEntry.COLUMN_ID + "!=?";
+        String sortOrder = "RANDOM() LIMIT 3";
+        return new WordQuizLoader(context, WordContract.WordsEntry.buildWordUri(wordId), null, where, level, sortOrder);
     }
 
     public interface Query {

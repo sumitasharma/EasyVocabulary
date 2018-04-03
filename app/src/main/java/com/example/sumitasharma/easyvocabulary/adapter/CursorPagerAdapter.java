@@ -10,6 +10,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
 
+import timber.log.Timber;
+
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD_ID;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD_MEANING;
+
 public class CursorPagerAdapter extends FragmentStatePagerAdapter {
     private Cursor mCursor;
 
@@ -21,8 +27,11 @@ public class CursorPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (mCursor.moveToPosition(position)) {
+            Timber.i("Inside CursorPager Adapter");
             Bundle arguments = new Bundle();
-            arguments.putString(WordQuizFragment.WORD_ID, mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+            arguments.putString(QUIZ_WORD_ID, mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_ID)));
+            arguments.putString(QUIZ_WORD, mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
+            arguments.putString(QUIZ_WORD_MEANING, mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
             WordQuizFragment fragment = new WordQuizFragment();
             fragment.setArguments(arguments);
             return fragment;

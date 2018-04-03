@@ -21,12 +21,17 @@ import com.example.sumitasharma.easyvocabulary.wordui.WordQuizPracticeActivity;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
+
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD_ID;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WORD_MEANING;
 
 
 public class WordQuizFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String WORD_ID = "word_id";
+
     private static final String TAG = WordQuizFragment.class.getSimpleName();
     private final static int LOADER_ID = 102;
     HashMap<String, String> mWordAndMeaning = null;
@@ -39,6 +44,8 @@ public class WordQuizFragment extends Fragment implements
     private int mLoaderId;
     private Cursor mCursor;
     private long mWordId;
+    private String mWord;
+    private String mWordMeaning;
     private View mRootView;
 
 
@@ -46,9 +53,12 @@ public class WordQuizFragment extends Fragment implements
 
     }
 
-    public static WordQuizFragment newInstance(long wordId) {
+    public static WordQuizFragment newInstance(String wordMeaning, String word, long word_id) {
+        Timber.i("Inside WordQuizFragment newInstance");
         Bundle arguments = new Bundle();
-        arguments.putLong(WORD_ID, wordId);
+        arguments.putLong(QUIZ_WORD_ID, word_id);
+        arguments.putString(QUIZ_WORD, word);
+        arguments.putString(QUIZ_WORD_MEANING, wordMeaning);
         WordQuizFragment fragment = new WordQuizFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -58,9 +68,14 @@ public class WordQuizFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(WORD_ID)) {
-            mWordId = getArguments().getLong(WORD_ID);
+        if (getArguments().containsKey(QUIZ_WORD_ID)) {
+            mWordId = getArguments().getLong(QUIZ_WORD_ID);
+        }
+        if (getArguments().containsKey(QUIZ_WORD)) {
+            mWord = getArguments().getString(QUIZ_WORD);
+        }
+        if (getArguments().containsKey(QUIZ_WORD_MEANING)) {
+            mWordMeaning = getArguments().getString(QUIZ_WORD_MEANING);
         }
 
         setHasOptionsMenu(true);
@@ -87,6 +102,7 @@ public class WordQuizFragment extends Fragment implements
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mRootView = inflater.inflate(R.layout.fragment_word_quiz, container, false);
+        ButterKnife.bind(this, mRootView);
         Timber.i("Inside onCreateView WordQuizFragment");
 //        //mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 //
@@ -130,7 +146,8 @@ public class WordQuizFragment extends Fragment implements
 //        RadioButton radio = (RadioButton) radioButtonGroup.getChildAt(index);
 //        String selectedWord = radio.getText().toString();
 
-        quizWordMeaning.setText(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING));
+        quizWordMeaning.setText(mWordMeaning);
+        Timber.i("quizwordmeaning" + mWordMeaning);
         // mWordAndMeaning= new HashMap<>(mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING));
 
 //        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);

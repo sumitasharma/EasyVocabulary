@@ -2,11 +2,23 @@ package com.example.sumitasharma.easyvocabulary.util;
 
 
 public class Words {
+
+
+    String wordId;
     String word;
     String wordMeaning;
     String wordLevel;
     String lastUpdated;
     Boolean wordPracticed;
+
+    public String getWordId() {
+        return wordId;
+    }
+
+    public void setWordId(String wordId) {
+        this.wordId = wordId;
+    }
+
 
     public String getWord() {
         return word;

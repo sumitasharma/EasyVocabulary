@@ -40,7 +40,7 @@ public class WordContentProvider extends ContentProvider {
         return uriMatcher;
     }
 
-    //MovieDetails movieDetails;
+
     @Override
     public boolean onCreate() {
         Context context = getContext();
@@ -70,6 +70,7 @@ public class WordContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                Timber.i("Inside query of content provider" + retCursor.getCount());
 //                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
 //                    do {
 //                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
@@ -80,6 +81,15 @@ public class WordContentProvider extends ContentProvider {
 //                }
 
 
+                break;
+            case WORD_WITH_ID:
+                retCursor = db.query(WordContract.WordsEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
                 break;
             // Default exception
             default:
