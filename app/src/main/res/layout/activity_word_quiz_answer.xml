@@ -5,4 +5,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.sumitasharma.easyvocabulary.wordui.WordQuizAnswerActivity">
 
+    <FrameLayout
+        android:id="@+id/quiz_correct_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>

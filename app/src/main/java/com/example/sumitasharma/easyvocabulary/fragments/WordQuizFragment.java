@@ -101,7 +101,9 @@ public class WordQuizFragment extends Fragment implements
             mWordMeaning = getArguments().getString(QUIZ_WORD_MEANING);
         }
         if (getArguments().containsKey(LAST_VIEW_PAGER)) {
+
             mLastViewPager = getArguments().getBoolean(LAST_VIEW_PAGER);
+            Timber.i("last page ? " + mLastViewPager);
         }
 
         setHasOptionsMenu(true);
@@ -129,6 +131,7 @@ public class WordQuizFragment extends Fragment implements
         } else {
             submitButton.setVisibility(View.INVISIBLE);
         }
+        radioButtonGroup.clearCheck();
         bindViews();
         return mRootView;
     }
@@ -151,7 +154,6 @@ public class WordQuizFragment extends Fragment implements
     public void selectRadioButton() {
 
         int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
-        radioButtonGroup.clearCheck();
 
         radioButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -162,8 +164,10 @@ public class WordQuizFragment extends Fragment implements
                 RadioButton radio = (RadioButton) radioButtonGroup.getChildAt(index);
                 String selectedWord = radio.getText().toString();
                 if (selectedWord == mWord) {
+                    Timber.i("User chose the correct word " + selectedWord + mWord);
                     mPassUserChoice.callback(mWordId, true);
                 } else {
+                    Timber.i("User didn't choose the correct word " + selectedWord + mWord);
                     mPassUserChoice.callback(mWordId, false);
                 }
             }

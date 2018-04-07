@@ -16,6 +16,7 @@
     <string name="error_dictionary">Kindly check the typed word</string>
     <string name="search_button">Search</string>
     <string name="enter_word_search">Enter a word here to search</string>
+    <string name="submit_quiz_answers">Submit Answers</string>
 
 
 </resources>

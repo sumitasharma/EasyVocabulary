@@ -6,6 +6,12 @@
     <TextView
         android:id="@+id/user_quiz_summary_text_view"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_quiz_answers" />
+
+    <Button
+        android:id="@+id/correct_answers"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

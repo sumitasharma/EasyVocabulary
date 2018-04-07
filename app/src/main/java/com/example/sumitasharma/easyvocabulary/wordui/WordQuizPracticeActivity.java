@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import timber.log.Timber;
 
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSWERS;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_ANSWERS;
 
 public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
@@ -72,9 +73,11 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     public void callback(long wordId, Boolean answer) {
         if (mUserAnswer.containsKey(wordId)) {
             mUserAnswer.remove(wordId);
+            Timber.i("answer :" + answer);
             mUserAnswer.put(wordId, answer);
         } else {
             mUserAnswer.put(wordId, answer);
+            Timber.i("answer :" + answer);
         }
     }
 
@@ -83,8 +86,9 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         Intent intent = new Intent();
         Bundle b = new Bundle();
         b.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
+        b.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
         intent.putExtras(b);
-        intent.setClass(this, WordQuizAnswerActivity.class);
+        intent.setClass(this, WordQuizSummaryActivity.class);
         startActivity(intent);
     }
 
@@ -101,10 +105,13 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
             Timber.i("Inside MyPagerAdapter WordQuizPracticeActivity");
-            if (mPager.getAdapter().getCount() >= 4)
+            if (position >= 2) {
+                Timber.i("last page");
                 mLastViewPager = true;
-            else
+            } else {
+                Timber.i("not the last page");
                 mLastViewPager = false;
+            }
             mCursor.moveToPosition(position);
             mWordAndMeaning.put(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD));
             return WordQuizFragment.newInstance(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getLong(WordQuizLoader.Query.COLUMN_ID), mLastViewPager);

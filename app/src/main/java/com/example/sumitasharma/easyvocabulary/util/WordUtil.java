@@ -12,6 +12,7 @@ public class WordUtil {
     public static final String LAST_VIEW_PAGER = "last_view_pager";
     public static final String USER_QUIZ_ANSWERS = "user_quiz_answers";
     public static final String USER_TOTAL = "user_total";
+    public static final String CORRECT_ANSWERS = "correct_answers";
     public final static String WORD_MEANING_CARD_VIEW_IDENTIFIER = "1";
     public final static String QUIZ_CARD_VIEW_IDENTIFIER = "2";
     public final static String PROGRESS_CARD_VIEW_IDENTIFIER = "3";
