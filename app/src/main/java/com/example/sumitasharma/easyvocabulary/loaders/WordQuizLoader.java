@@ -15,7 +15,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_WHERE;
 public class WordQuizLoader extends CursorLoader {
 
     private WordQuizLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortBy) {
-        super(context, uri, projection, selection, null, sortBy);
+        super(context, uri, projection, selection, selectionArgs, sortBy);
         Timber.i("Inside WordQuizLoader Second Constructor" + Query.PROJECTION + QUIZ_WHERE + QUIZ_SORT);
 
     }
@@ -27,10 +27,12 @@ public class WordQuizLoader extends CursorLoader {
 
     public static WordQuizLoader newInstanceForWordId(Context context, long wordId) {
         Timber.i("Inside WordQuizLoader newInstanceForWordId");
-        String[] level = {String.valueOf(wordId)};
-        String where = WordContract.WordsEntry.COLUMN_ID + "!=?";
+        //String[] projection = {WordContract.WordsEntry.COLUMN_WORD};
+        String[] args = {String.valueOf(wordId)};
+        String where = WordContract.WordsEntry.COLUMN_ID + " !=?";
         String sortOrder = "RANDOM() LIMIT 3";
-        return new WordQuizLoader(context, WordContract.WordsEntry.buildWordUri(wordId), null, where, level, sortOrder);
+        Timber.i("select * from words where " + where + "order by " + sortOrder + String.valueOf(wordId));
+        return new WordQuizLoader(context, WordContract.WordsEntry.buildWordUri(wordId), Query.PROJECTION, where, args, sortOrder);
     }
 
     public interface Query {

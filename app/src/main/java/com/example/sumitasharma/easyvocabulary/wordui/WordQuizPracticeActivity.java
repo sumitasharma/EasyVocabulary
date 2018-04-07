@@ -1,5 +1,6 @@
 package com.example.sumitasharma.easyvocabulary.wordui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -14,16 +15,22 @@ import com.example.sumitasharma.easyvocabulary.adapter.CursorPagerAdapter;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
 import com.example.sumitasharma.easyvocabulary.loaders.WordQuizLoader;
 
+import java.util.HashMap;
+
 import timber.log.Timber;
 
-public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_ANSWERS;
+
+public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
 
     private final int QUIZ_LOADER = 101;
+    HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
+    boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-
+    private HashMap<Long, Boolean> mUserAnswer = new HashMap<Long, Boolean>();
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -33,25 +40,12 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_quiz_practice);
-//        WordQuizFragment wordQuizFragment = new WordQuizFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().add(R.id.quiz_word_frame_layout, wordQuizFragment).commit();
         //  Instantiate a ViewPager and a PagerAdapter.
         Timber.i("Inside oncreate WordQuizPractice activity");
         getSupportLoaderManager().initLoader(QUIZ_LOADER, null, this);
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
-
-
-//        if (savedInstanceState == null) {
-//            if (getIntent() != null && getIntent().getData() != null) {
-//                mStartId = getIntent().getData();
-//                mSelectedItemId = mStartId;
-//            }
-//        }
-
-
     }
 
     @Override
@@ -63,19 +57,8 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursor = data;
         mPager.setAdapter(mPagerAdapter);
-        //mPagerAdapter.notifyDataSetChanged();
-//            mCursor.moveToFirst();
+
         Timber.i("Inside onloadfinished WordQuizPracticeActivity" + mCursor.getCount());
-//            // TODO: optimize
-//            while (!mCursor.isAfterLast()) {
-//                if (mCursor.getLong(WordQuizLoader.Query.COLUMN_ID) == mStartId) {
-//                    final int position = mCursor.getPosition();
-//                    mPager.setCurrentItem(position, false);
-//                    break;
-//                }
-//                mCursor.moveToNext();
-//            }
-//            mStartId = 0;
 
     }
 
@@ -83,6 +66,26 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursor = null;
         mPagerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void callback(long wordId, Boolean answer) {
+        if (mUserAnswer.containsKey(wordId)) {
+            mUserAnswer.remove(wordId);
+            mUserAnswer.put(wordId, answer);
+        } else {
+            mUserAnswer.put(wordId, answer);
+        }
+    }
+
+    @Override
+    public void submitAnswer(boolean submitAnswer) {
+        Intent intent = new Intent();
+        Bundle b = new Bundle();
+        b.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
+        intent.putExtras(b);
+        intent.setClass(this, WordQuizAnswerActivity.class);
+        startActivity(intent);
     }
 
 
@@ -98,8 +101,13 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
             Timber.i("Inside MyPagerAdapter WordQuizPracticeActivity");
+            if (mPager.getAdapter().getCount() >= 4)
+                mLastViewPager = true;
+            else
+                mLastViewPager = false;
             mCursor.moveToPosition(position);
-            return WordQuizFragment.newInstance(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getLong(WordQuizLoader.Query.COLUMN_ID));
+            mWordAndMeaning.put(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD));
+            return WordQuizFragment.newInstance(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getLong(WordQuizLoader.Query.COLUMN_ID), mLastViewPager);
         }
 
         @Override

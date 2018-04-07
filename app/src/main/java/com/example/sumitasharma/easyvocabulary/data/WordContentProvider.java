@@ -90,6 +90,7 @@ public class WordContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                Timber.i("Inside word_with_id query of content provider" + retCursor.getCount());
                 break;
             // Default exception
             default:
