@@ -39,6 +39,7 @@ public class WordQuizAnswerKeyFragment extends Fragment {
     @BindView(R.id.quiz_answer_meaning4)
     TextView meaning4;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,10 +49,33 @@ public class WordQuizAnswerKeyFragment extends Fragment {
         if (getArguments() != null) {
             mCorrectAnswers = (HashMap<String, String>) getArguments().getSerializable(CORRECT_ANSWERS);
         }
-
+        int i = 1;
         for (Map.Entry<String, String> entry : mCorrectAnswers.entrySet()) {
-            word1.setText(entry.getKey());
-            meaning1.setText(entry.getValue());
+            switch (i) {
+                case 1:
+                    word1.setText(entry.getKey());
+                    meaning1.setText(entry.getValue());
+                    i = 2;
+                    break;
+                case 2:
+                    word2.setText(entry.getKey());
+                    meaning2.setText(entry.getValue());
+                    i = 3;
+                    break;
+                case 3:
+                    word3.setText(entry.getKey());
+                    meaning3.setText(entry.getValue());
+                    i = 4;
+                    break;
+                case 4:
+                    word4.setText(entry.getKey());
+                    meaning4.setText(entry.getValue());
+                    break;
+                default:
+                    Timber.i("Default");
+                    break;
+            }
+
         }
         return mRootView;
     }

@@ -73,8 +73,8 @@ public class WordContentProvider extends ContentProvider {
                 Timber.i("Inside query of content provider" + retCursor.getCount());
 //                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
 //                    do {
-//                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-//                        Timber.i("Checking" + retCursor.getString(retCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+//                        Timber.i("Inside ContentProvider 1st value" + retCursor.getInt(0));
+//                        Timber.i("Inside ContentProvider 2nd value" + retCursor.getInt(1));
 //
 //
 //                    } while (retCursor.moveToNext());

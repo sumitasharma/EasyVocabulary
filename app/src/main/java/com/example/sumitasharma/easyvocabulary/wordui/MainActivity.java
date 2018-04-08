@@ -17,7 +17,10 @@ import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
+import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
+
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -27,6 +30,8 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_CARD_VI
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
 public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation {
     public static final String TAG = MainActivity.class.getSimpleName();
+    HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
+    HashMap<String, String> mCorrectAnswers = new HashMap<>();
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
     private String levelOfWordsForPractice;
@@ -52,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         //  getContentResolver().delete(loaderUri,null,null);
         /* Insert the table */
         //new WordsDbUtil(this).readWordsFromAssets();
-//        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
-//        if (!wordsDbUtil.isDatabasePopulated()){
-//            Timber.i("Database is not populated, populating it");
-//            wordsDbUtil.populateDatabase();
-//        }
+        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
+        if (!wordsDbUtil.isDatabasePopulated()) {
+            Timber.i("Database is not populated, populating it");
+            wordsDbUtil.populateDatabase();
+        }
 
         setupSharedPreference();
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));

@@ -39,12 +39,58 @@
 
         </provider>
 
-        <activity android:name=".wordui.PracticeWordsActivity" />
-        <activity android:name=".wordui.WordQuizPracticeActivity" />
-        <activity android:name=".wordui.ProgressActivity" />
-        <activity android:name=".wordui.WordQuizSummaryActivity" />
-        <activity android:name=".wordui.WordQuizAnswerActivity" />
-        <activity android:name=".wordui.DictionaryActivity" />
+        <activity
+            android:name=".wordui.PracticeWordsActivity"
+            android:label="Word Practice"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".wordui.WordQuizPracticeActivity"
+            android:label="Quiz"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".wordui.ProgressActivity"
+            android:label="Your Progress"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+
+        </activity>
+        <activity
+            android:name=".wordui.WordQuizSummaryActivity"
+            android:label="Quiz Summary"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+
+        </activity>
+        <activity
+            android:name=".wordui.WordQuizAnswerActivity"
+            android:label="Quiz Answer"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+
+        </activity>
+        <activity
+            android:name=".wordui.DictionaryActivity"
+            android:label="Search Dictionary"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wordui.MainActivity" />
+
+        </activity>
 
         <service
             android:name=".services.WordDbPopulatorService"

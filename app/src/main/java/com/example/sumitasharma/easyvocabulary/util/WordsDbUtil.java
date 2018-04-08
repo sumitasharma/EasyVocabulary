@@ -52,6 +52,8 @@ public class WordsDbUtil {
                         for (String definition : definitions) {
                             meaning = definition;
                         }
+
+
                         // Create new empty ContentValues object
                         ContentValues contentValues = new ContentValues();
 
@@ -60,7 +62,7 @@ public class WordsDbUtil {
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                        contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
+                        //contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
                         // Insert the content values via a ContentResolver
                         Timber.i("meaning :" + meaning);
                         mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
