@@ -16,7 +16,6 @@ import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
-import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
 import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
     @Override
     public void cardViewInformation(String cardViewNumber) {
-        if (mTwoPane) {
+        if (mTwoPane) { // Handle Tablet devices
             FragmentManager fragmentManager = getSupportFragmentManager();
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
             switch (cardViewNumber) {
@@ -133,15 +132,20 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
                     break;
                 case QUIZ_CARD_VIEW_IDENTIFIER:
-                    WordQuizFragment wordQuizFragment = new WordQuizFragment();
-                    // FragmentManager fragmentManager = getSupportFragmentManager();
-                    // Add the fragment to its container using a FragmentManager and a Transaction
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordQuizFragment).commit();
+//                    WordQuizFragment wordQuizFragment = new WordQuizFragment();
+//                    // FragmentManager fragmentManager = getSupportFragmentManager();
+//                    // Add the fragment to its container using a FragmentManager and a Transaction
+//                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordQuizFragment).commit();
+                    Intent intent = new Intent();
+                    intent.setClass(this, WordQuizPracticeActivity.class);
+                    Timber.i("Inside WordQuizPractice selected");
+                    startActivity(intent);
                     break;
                 case PROGRESS_CARD_VIEW_IDENTIFIER:
                     ProgressFragment progressFragment = new ProgressFragment();
                     // FragmentManager fragmentManager = getSupportFragmentManager();
                     // Add the fragment to its container using a FragmentManager and a Transaction
+                    Timber.i("Entering Progress Fragment");
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
                     break;
                 case DICTIONARY_CARD_VIEW_IDENTIFIER:
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     break;
 
             }
-        } else {
+        } else {  // Handle mobile devices
             if (cardViewNumber.equals(WORD_MEANING_CARD_VIEW_IDENTIFIER)) {
                 Intent intent = new Intent();
                 intent.setClass(this, PracticeWordsActivity.class);

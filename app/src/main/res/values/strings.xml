@@ -17,6 +17,8 @@
     <string name="search_button">Search</string>
     <string name="enter_word_search">Enter a word here to search</string>
     <string name="submit_quiz_answers">Submit Answers</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>

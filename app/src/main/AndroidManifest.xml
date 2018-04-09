@@ -35,9 +35,7 @@
         <provider
             android:name=".data.WordContentProvider"
             android:authorities="com.example.sumitasharma.easyvocabulary"
-            android:exported="false">
-
-        </provider>
+            android:exported="false"></provider>
 
         <activity
             android:name=".wordui.PracticeWordsActivity"
@@ -62,7 +60,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".wordui.MainActivity" />
-
         </activity>
         <activity
             android:name=".wordui.WordQuizSummaryActivity"
@@ -71,7 +68,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".wordui.MainActivity" />
-
         </activity>
         <activity
             android:name=".wordui.WordQuizAnswerActivity"
@@ -80,7 +76,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".wordui.MainActivity" />
-
         </activity>
         <activity
             android:name=".wordui.DictionaryActivity"
@@ -89,22 +84,29 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".wordui.MainActivity" />
-
         </activity>
 
         <service
             android:name=".services.WordDbPopulatorService"
             android:exported="true"
             android:label="Word service"
-            android:permission="android.permission.BIND_JOB_SERVICE">
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
 
-        </service>
         <receiver
             android:name=".services.MyStartServiceReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT" />
             </intent-filter>
+        </receiver>
+        <receiver android:name=".EasyVocabularyWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/easy_vocabulary_widget_info" />
         </receiver>
     </application>
 

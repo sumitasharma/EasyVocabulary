@@ -13,6 +13,9 @@ import com.example.sumitasharma.easyvocabulary.dictionaryutils.RetroClient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +65,9 @@ public class WordsDbUtil {
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                        //contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, System.currentTimeMillis());
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String date = dateFormat.format(new Date());
+                        contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
                         // Insert the content values via a ContentResolver
                         Timber.i("meaning :" + meaning);
                         mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);

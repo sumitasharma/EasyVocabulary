@@ -28,10 +28,11 @@ import java.util.Date;
 
 import timber.log.Timber;
 
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_LOADER;
+
 
 public class ProgressFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = ProgressFragment.class.getSimpleName();
-    private final static int LOADER_ID = 102;
     private final LoaderManager.LoaderCallbacks<Cursor> callback = ProgressFragment.this;
     View rootView;
     ArrayList<Integer> wordsGraphCount = new ArrayList<>();
@@ -49,7 +50,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
         rootView = inflater.inflate(R.layout.fragment_progress, container, false);
         mGraphView = rootView.findViewById(R.id.graph);
-        initializeLoader(LOADER_ID, getContext());
+        initializeLoader(PROGRESS_LOADER, getContext());
 
 //        select
 //        strftime('%D', lastUpdated) as Days,
@@ -64,8 +65,8 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         this.mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivity().getSupportLoaderManager();
-        Loader<String> wordPracticeLoader = loaderManager.getLoader(mLoaderId);
-        if (wordPracticeLoader == null) {
+        Loader<String> progressLoader = loaderManager.getLoader(mLoaderId);
+        if (progressLoader == null) {
             loaderManager.initLoader(mLoaderId, null, callback);
         } else {
             loaderManager.restartLoader(mLoaderId, null, callback);
