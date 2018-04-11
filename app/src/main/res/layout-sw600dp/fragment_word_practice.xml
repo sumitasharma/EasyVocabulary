@@ -1,5 +1,4 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myCoordinatorLayoutWordPractice"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,22 +16,6 @@
             android:background="@color/orange"
             android:scrollbarStyle="outsideOverlay" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_word_practice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.Bacon">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_word_practice"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/Theme.Bacon" />
-
-
-    </android.support.design.widget.AppBarLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

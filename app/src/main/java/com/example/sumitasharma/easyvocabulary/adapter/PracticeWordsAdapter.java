@@ -39,9 +39,15 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     @Override
     public void onBindViewHolder(RecyclerViewHolderWords holder, int position) {
+        String wordPractice;
+        String wordMeaning;
         if (mWordsCursor.moveToPosition(position) && mWordsCursor.getCount() >= 1) {
-            holder.mWordPractice.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-            holder.mWordMeaning.setText(mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+            wordPractice = mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD));
+            wordMeaning = mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING));
+            wordPractice = wordPractice.substring(0, 1).toUpperCase() + wordPractice.substring(1).toLowerCase();
+            wordMeaning = wordMeaning.substring(0, 1).toUpperCase() + wordMeaning.substring(1).toLowerCase();
+            holder.mWordPractice.setText(wordPractice);
+            holder.mWordMeaning.setText(wordMeaning);
         }
         // Update the rows seen by user as practiced.
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;

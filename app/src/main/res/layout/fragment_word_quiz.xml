@@ -1,50 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/nature3"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/word_quiz_meaning"
+        android:id="@+id/word_quiz_title"
+        style="@style/EasyVocabularyTitleAppearance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:text="@string/take_a_quiz" />
 
-    <RadioGroup
-        android:id="@+id/radio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        style="@style/MainViewCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardUseCompatPadding="true">
 
-        <RadioButton
-            android:id="@+id/radio_quiz_word1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="word1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/radio_quiz_word2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word2" />
+            <TextView
+                android:id="@+id/word_quiz_meaning"
+                style="@style/MainMenuCardViewAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <RadioButton
-            android:id="@+id/radio_quiz_word3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word3" />
+            <RadioGroup
+                android:id="@+id/radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
 
-        <RadioButton
-            android:id="@+id/radio_quiz_word4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word4" />
+                <RadioButton
+                    android:id="@+id/radio_quiz_word1"
+                    style="@style/QuizViewCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radio_quiz_word2"
+                    style="@style/QuizViewCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radio_quiz_word3"
+                    style="@style/QuizViewCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radio_quiz_word4"
+                    style="@style/QuizViewCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/word_quiz_swipe_text"
+        style="@style/EasyVocabularyBodyAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:text="@string/swipe" />
+
 
     <Button
         android:id="@+id/submit_button"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/submit_quiz_answers"
         android:visibility="invisible" />
 
 </LinearLayout>
+

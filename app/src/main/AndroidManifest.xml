@@ -99,7 +99,7 @@
                 <action android:name="com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".EasyVocabularyWidget">
+        <receiver android:name=".wordwidget.EasyVocabularyWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -108,6 +108,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/easy_vocabulary_widget_info" />
         </receiver>
+
+        <service android:name=".wordwidget.EasyVocabularyService" />
     </application>
 
 </manifest>

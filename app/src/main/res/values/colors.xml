@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="theme_primary">#009688</color>
+    <color name="theme_primary_dark">#CFD8DC</color>
+    <color name="theme_accent">#1DE9B6</color>
+    <color name="ltgray">#ffe0e0e0</color>
+    <color name="black">#000000</color>
+    <color name="grey">#263238</color>
+    <color name="teal">#E0F2F1</color>
+    <color name="orange">#FFF3E0</color>
+    <color name="darker_orange">#FFE0B2</color>
+    <color name="text_color_title">#303F9F</color>
+    <color name="text_color_progress">#8fff</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.sumitasharma.easyvocabulary.adapter;
 
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
-import com.example.sumitasharma.easyvocabulary.util.Words;
 
 import java.util.Random;
 
@@ -21,8 +19,8 @@ import timber.log.Timber;
 
 public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapter.RecyclerViewHolderQuizPractice> {
     private final Context mContext;
+    String meaning = null;
     private Cursor mCursor;
-    private Words[] words = null;
 
 
     public QuizPracticeAdapter(Context context, Cursor cursor) {
@@ -41,21 +39,29 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
     public void onBindViewHolder(QuizPracticeAdapter.RecyclerViewHolderQuizPractice holder, int position) {
         Timber.i("Inside onBindViewHolder ");
         // Setting the word meanings in a TextView
-        holder.mWordQuizMeaning.setText(mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
+        meaning = mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING));
+        meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1).toLowerCase();
+        Timber.i("meaning :" + meaning);
+        holder.mWordQuizMeaning.setText(meaning);
 
         //        // Getting the words and meaning in a string array
         String[] mWordsOptions = null;
         mCursor.moveToFirst();
         int stringIndex = 0;
-        while (mCursor.moveToNext()) {
-            mWordsOptions[stringIndex] = mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD));
-            stringIndex++;
-        }
+        String word;
+        if (mCursor != null) {
 
+            while (mCursor.moveToNext()) {
+                word = mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD));
+                word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+                Timber.i("words :" + word);
+                mWordsOptions[stringIndex] = word;
+                stringIndex++;
+            }
+        }
         int max = 1;
         Random random = new Random();
         int wordIndex;
-
         for (int i = 0; i < mCursor.getCount(); i++) {
             wordIndex = random.nextInt(max);
             RadioButton radioButton = (RadioButton) holder.mRadioButtonGroup.getChildAt(wordIndex);

@@ -29,6 +29,8 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
+    private String word;
+    private String meaning;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
     private HashMap<Long, Boolean> mUserAnswer = new HashMap<Long, Boolean>();
@@ -112,7 +114,11 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
                 mLastViewPager = false;
             }
             mCursor.moveToPosition(position);
-            mWordAndMeaning.put(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD));
+            word = mCursor.getString(WordQuizLoader.Query.COLUMN_WORD);
+            word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+            meaning = mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING);
+            meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1).toLowerCase();
+            mWordAndMeaning.put(meaning, word);
             return WordQuizFragment.newInstance(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getLong(WordQuizLoader.Query.COLUMN_ID), mLastViewPager);
         }
 

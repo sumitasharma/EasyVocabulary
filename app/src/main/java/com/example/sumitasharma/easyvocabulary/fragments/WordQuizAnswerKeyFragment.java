@@ -53,23 +53,24 @@ public class WordQuizAnswerKeyFragment extends Fragment {
         for (Map.Entry<String, String> entry : mCorrectAnswers.entrySet()) {
             switch (i) {
                 case 1:
-                    word1.setText(entry.getKey());
-                    meaning1.setText(entry.getValue());
+
+                    word1.setText(entry.getValue());
+                    meaning1.setText(entry.getKey());
                     i = 2;
                     break;
                 case 2:
-                    word2.setText(entry.getKey());
-                    meaning2.setText(entry.getValue());
+                    word2.setText(entry.getValue());
+                    meaning2.setText(entry.getKey());
                     i = 3;
                     break;
                 case 3:
-                    word3.setText(entry.getKey());
-                    meaning3.setText(entry.getValue());
+                    word3.setText(entry.getValue());
+                    meaning3.setText(entry.getKey());
                     i = 4;
                     break;
                 case 4:
-                    word4.setText(entry.getKey());
-                    meaning4.setText(entry.getValue());
+                    word4.setText(entry.getValue());
+                    meaning4.setText(entry.getKey());
                     break;
                 default:
                     Timber.i("Default");

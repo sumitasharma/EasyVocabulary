@@ -56,6 +56,8 @@ public class WordQuizFragment extends Fragment implements
     TextView quizWordMeaning;
     @BindView(R.id.submit_button)
     Button submitButton;
+    @BindView(R.id.word_quiz_swipe_text)
+    TextView swipeText;
     int mLoaderId;
     List<Integer> mIndex = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
     PassUserChoice mPassUserChoice;
@@ -128,8 +130,11 @@ public class WordQuizFragment extends Fragment implements
         Timber.i("Inside onCreateView WordQuizFragment");
         if (mLastViewPager) {
             submitButton.setVisibility(View.VISIBLE);
+            swipeText.setVisibility(View.INVISIBLE);
+
         } else {
             submitButton.setVisibility(View.INVISIBLE);
+            swipeText.setVisibility(View.VISIBLE);
         }
         radioButtonGroup.clearCheck();
         bindViews();
@@ -180,9 +185,7 @@ public class WordQuizFragment extends Fragment implements
         if (mRootView == null) {
             return;
         }
-
-
-
+        mWordMeaning = mWordMeaning.substring(0, 1).toUpperCase() + mWordMeaning.substring(1).toLowerCase();
         quizWordMeaning.setText(mWordMeaning);
         Timber.i("quizwordmeaning" + mWordMeaning);
 
@@ -193,17 +196,19 @@ public class WordQuizFragment extends Fragment implements
         if (mRootView == null) {
             return;
         }
-
+        String word;
         Collections.shuffle(mIndex);
         if (mCursor != null) {
             mCursor.moveToFirst();
             for (int i = 0; i < mIndex.size() - 1; i++) {
                 RadioButton radio = (RadioButton) radioButtonGroup.getChildAt(mIndex.get(i));
-                String word = mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD));
+                word = mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD));
+                word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
                 radio.setText(word);
                 mCursor.moveToNext();
             }
             RadioButton radio = (RadioButton) radioButtonGroup.getChildAt(mIndex.get(mIndex.size() - 1));
+            mWord = mWord.substring(0, 1).toUpperCase() + mWord.substring(1).toLowerCase();
             radio.setText(mWord);
         } else
             Timber.i("There is no data in mCursor");

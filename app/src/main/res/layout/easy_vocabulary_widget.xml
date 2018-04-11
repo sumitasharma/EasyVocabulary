@@ -1,22 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
+    android:background="@drawable/waterfall"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over"
     android:orientation="vertical"
     android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_margin="8dp"
-        android:background="#09C"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:text="@string/easy_vocabulary"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/appwidget_hint_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:paddingBottom="2dp"
+        android:text="@string/easy_vocabulary_widget"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/wordwidget_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:paddingBottom="2dp"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/meaningwidget_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="#000000"
+        android:textSize="15sp"
         android:textStyle="bold|italic" />
 
 
-</RelativeLayout>
+</LinearLayout>
