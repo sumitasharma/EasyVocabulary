@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class DictionaryFragment extends Fragment {
 
     @OnClick(R.id.search_button)
     public void searchForMeaning() {
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(dictionarySearchWord.getWindowToken(), 0);
         wordForSearch = String.valueOf(dictionarySearchWord.getText());
         Timber.i("Before Calling CallbackTask");
         //Creating an object of our api interface

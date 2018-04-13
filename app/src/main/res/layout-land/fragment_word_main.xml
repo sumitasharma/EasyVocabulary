@@ -1,0 +1,25 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/sea2"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over"
+    android:orientation="horizontal">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2">
+
+        <include layout="@layout/first_card" />
+
+        <include layout="@layout/second_card" />
+
+        <include layout="@layout/third_card" />
+
+        <include layout="@layout/fourth_card" />
+
+    </GridLayout>
+</ScrollView>
+

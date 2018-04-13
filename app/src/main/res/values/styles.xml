@@ -9,7 +9,7 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light">
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorPrimaryDark">@color/theme_primary_dark</item>
         <item name="colorAccent">@color/theme_accent</item>
@@ -23,7 +23,6 @@
     <style name="EasyVocabularyTitleAppearance" parent="@android:style/TextAppearance.Large">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/detail_title_text_size</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="EasyVocabularyBodyAppearance" parent="@android:style/TextAppearance.Medium">
@@ -39,7 +38,6 @@
     <style name="MainMenuCardViewAppearance">
         <item name="android:padding">@dimen/card_view_padding_text</item>
         <item name="android:textSize">@dimen/card_view_text_size</item>
-        <item name="android:textStyle">bold|italic</item>
         <item name="android:typeface">serif</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:singleLine">false</item>
@@ -57,14 +55,15 @@
     <style name="QuizViewCardView">
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_margin">4dp</item>
+        <item name="android:textSize">@dimen/card_view_text_size</item>
     </style>
 
     <style name="ButtonStyle">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:padding">10dp</item>
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@drawable/rounded_text_shape</item>
     </style>
 
 </resources>

@@ -3,32 +3,31 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dictionary_card_view"
     style="@style/MainViewCardView"
-    android:layout_width="wrap_content"
-    android:layout_height="150dp"
+    android:layout_width="150dp"
+    android:layout_height="100dp"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
     card_view:cardElevation="@dimen/card_elevation"
     card_view:cardUseCompatPadding="true">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/word_main_fragment_choice_text_view_dictionary"
             style="@style/MainMenuCardViewAppearance"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/dictionary" />
 
         <ImageView
             android:id="@+id/word_main_fragment_image_dictionary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="190dp"
-            android:scaleType="fitXY"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/dictionary" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

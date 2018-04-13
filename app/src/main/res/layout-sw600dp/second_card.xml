@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/dictionary_card_view"
+    android:id="@+id/quiz_card_view"
     style="@style/MainViewCardView"
     android:layout_width="wrap_content"
     android:layout_height="150dp"
@@ -15,19 +15,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/word_main_fragment_choice_text_view_dictionary"
+            android:id="@+id/word_main_fragment_text_view_quiz"
             style="@style/MainMenuCardViewAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dictionary" />
+            android:layout_marginLeft="100dp"
+            android:text="@string/take_a_quiz" />
 
         <ImageView
-            android:id="@+id/word_main_fragment_image_dictionary"
+            android:id="@+id/word_main_fragment_image_quiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="190dp"
+            android:paddingStart="300dp"
             android:scaleType="fitXY"
-            android:src="@drawable/dictionary" />
+            android:src="@drawable/quiz" />
 
     </RelativeLayout>
 

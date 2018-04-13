@@ -32,8 +32,18 @@ public class WordMainFragment extends Fragment {
         mPassCardViewInformation.cardViewInformation(WORD_MEANING_CARD_VIEW_IDENTIFIER);
     }
 
+    @OnClick(R.id.word_main_fragment_text_view_practice)
+    public void cardClickPracticeText() {
+        mPassCardViewInformation.cardViewInformation(WORD_MEANING_CARD_VIEW_IDENTIFIER);
+    }
+
     @OnClick(R.id.quiz_card_view)
     public void cardClickQuiz() {
+        mPassCardViewInformation.cardViewInformation(QUIZ_CARD_VIEW_IDENTIFIER);
+    }
+
+    @OnClick(R.id.word_main_fragment_text_view_quiz)
+    public void cardClickQuizText() {
         mPassCardViewInformation.cardViewInformation(QUIZ_CARD_VIEW_IDENTIFIER);
     }
 
@@ -42,8 +52,18 @@ public class WordMainFragment extends Fragment {
         mPassCardViewInformation.cardViewInformation(PROGRESS_CARD_VIEW_IDENTIFIER);
     }
 
+    @OnClick(R.id.word_main_fragment_choice_text_view_task_progress)
+    public void cardClickProgressText() {
+        mPassCardViewInformation.cardViewInformation(PROGRESS_CARD_VIEW_IDENTIFIER);
+    }
+
     @OnClick(R.id.dictionary_card_view)
     public void cardClickDictionary() {
+        mPassCardViewInformation.cardViewInformation(DICTIONARY_CARD_VIEW_IDENTIFIER);
+    }
+
+    @OnClick(R.id.word_main_fragment_choice_text_view_dictionary)
+    public void cardClickDictionaryText() {
         mPassCardViewInformation.cardViewInformation(DICTIONARY_CARD_VIEW_IDENTIFIER);
     }
 

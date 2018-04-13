@@ -27,6 +27,10 @@
     <string name="dictionary">Dictionary</string>
     <string name="swipe">Swipe left for next question</string>
     <string name="swipe_prev">Swipe right for prev question</string>
+    <string name="you_got_answers">Your Score</string>
+    <string name="out_of_answers">out of 4</string>
+    <string name="correct_answers">Check For Answers</string>
+    <string name="new_words">Scroll down to unviel new words...</string>
 
 
 </resources>

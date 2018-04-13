@@ -14,8 +14,8 @@
         android:layout_gravity="center"
         android:hint="@string/enter_word_search"
         android:inputType="text"
-        android:paddingTop="100dp"
-        android:textStyle="bold" />
+        android:paddingTop="300dp"
+        android:textSize="@dimen/detail_title_text_size" />
 
     <Button
         android:id="@+id/search_button"
@@ -24,14 +24,15 @@
         android:layout_height="wrap_content"
         android:paddingTop="50dp"
         android:text="@string/search_button" />
+
     <TextView
         android:id="@+id/dictionary_word_meaning_text"
         style="@style/EasyVocabularyBodyAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:padding="50dp"
-        android:textStyle="bold" />
+        android:textSize="@dimen/detail_title_text_size" />
 
 </LinearLayout>
 
