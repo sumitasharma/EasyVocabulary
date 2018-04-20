@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="numberOfWordsArray">
         <item>1</item>
         <item>2</item>
@@ -10,6 +11,18 @@
         <item>1</item>
         <item>2</item>
         <item>4</item>
+    </string-array>
+
+    <string-array name="levelOfWordsArray">
+        <item>Easy</item>
+        <item>Moderate</item>
+        <item>Difficult</item>
+    </string-array>
+
+    <string-array name="levelOfWordsValues">
+        <item>Easy</item>
+        <item>Moderate</item>
+        <item>Difficult</item>
     </string-array>
 
     <string-array name="frequencyOfWordsArray">
@@ -24,15 +37,4 @@
         <item>Monthly</item>
     </string-array>
 
-    <string-array name="levelOfWordsArray">
-        <item>Easy</item>
-        <item>Moderate</item>
-        <item>Difficult</item>
-    </string-array>
-
-    <string-array name="levelOfWordsValues">
-        <item>Easy</item>
-        <item>Moderate</item>
-        <item>Difficult</item>
-    </string-array>
 </resources>

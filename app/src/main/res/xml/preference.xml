@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <ListPreference
         android:defaultValue="1"
         android:entries="@array/numberOfWordsArray"
         android:entryValues="@array/numberOfWordsValues"
         android:key="@string/number_of_words_key"
         android:title="@string/number_of_words" />
-    <ListPreference
-        android:defaultValue="daily"
-        android:entries="@array/frequencyOfWordsArray"
-        android:entryValues="@array/frequencyOfWordsValues"
-        android:key="@string/frequency_of_words_key"
-        android:title="@string/frequency_of_words" />
+
     <ListPreference
         android:defaultValue="easy"
         android:entries="@array/levelOfWordsArray"
         android:entryValues="@array/levelOfWordsValues"
         android:key="@string/level_of_words_for_practice_key"
         android:title="@string/level_of_words_for_practice" />
+
+    <ListPreference
+        android:defaultValue="daily"
+        android:entries="@array/frequencyOfWordsArray"
+        android:entryValues="@array/frequencyOfWordsValues"
+        android:key="@string/frequency_of_words_key"
+        android:title="@string/frequency_of_words" />
+
 </PreferenceScreen>

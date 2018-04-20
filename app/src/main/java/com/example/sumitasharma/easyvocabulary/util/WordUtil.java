@@ -23,6 +23,8 @@ public class WordUtil {
     public final static String ERROR_CALLING_API = "error_calling_api";
     public static final String QUIZ_SORT = "RANDOM() LIMIT 5";
     public static final String QUIZ_WHERE = "wordPracticed = 1";
+    public static final String QUIZ_SEARCH_IDENTIFIER = "quiz_search_identifier";
+    public static final String QUIZ_SEARCH_MEANING_IDENTIFIER = "quiz_search_meaning_identifier";
     public static final int QUIZ_LOADER = 101;
     public static final int PROGRESS_LOADER = 102;
 
