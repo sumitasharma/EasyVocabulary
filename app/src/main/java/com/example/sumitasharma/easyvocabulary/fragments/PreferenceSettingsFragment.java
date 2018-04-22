@@ -17,7 +17,7 @@ public class PreferenceSettingsFragment extends PreferenceFragmentCompat impleme
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preference);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String numberOfWords = sharedPref.getString(getString(R.string.number_of_words_key), "1");
+        String numberOfWords = sharedPref.getString(getString(R.string.number_of_words_key), "4");
         android.support.v7.preference.Preference connectionPrefNumber = findPreference(getString(R.string.number_of_words_key));
         connectionPrefNumber.setSummary(numberOfWords);
         String frequencyOfWords = sharedPref.getString(getString(R.string.frequency_of_words_key), getString(R.string.daily));

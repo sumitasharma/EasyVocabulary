@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
     HashMap<String, String> mCorrectAnswers = new HashMap<>();
     long interval;
+
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
     private String levelOfWordsForPractice;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Initialize stetho
         Stetho.initialize(Stetho.newInitializerBuilder(this)
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     private void setupSharedPreference() {
         Log.i(TAG, "Inside setupSharedPreference");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "1"));
+        numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "4"));
         frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
         levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
         Log.i(TAG, "Inside setupSharedPreference after getDefaultSharedPreferences");

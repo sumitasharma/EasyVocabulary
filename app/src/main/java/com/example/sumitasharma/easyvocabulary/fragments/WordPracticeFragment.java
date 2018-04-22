@@ -1,6 +1,5 @@
 package com.example.sumitasharma.easyvocabulary.fragments;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -75,11 +74,12 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
         Timber.i("Inside oncreateloader WordPracticeFragment");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "1"));
-        frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "sharedpreference"));
-        levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "shared"));
+        frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
+        levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
         //Setup the uri that will get the data I need from my ContentProvider
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         String[] level = {levelOfWordsForPractice, String.valueOf(numberOfWordsForPractice)};
+
         String where = WordContract.WordsEntry.COLUMN_WORD_LEVEL + "=?";
         String sortOrder = "RANDOM() LIMIT ?";
         CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, null, where, level, sortOrder);

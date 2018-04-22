@@ -1,11 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/sea2"
+    android:background="@drawable/books"
     android:backgroundTint="#90FFFFFF"
     android:backgroundTintMode="src_over"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,5 +24,17 @@
         <include layout="@layout/fourth_card" />
 
     </GridLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+    </LinearLayout>
+
 </ScrollView>
 

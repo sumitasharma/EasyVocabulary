@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTintMode="src_over"
         android:orientation="vertical">
 
         <include layout="@layout/first_word_and_meaning" />

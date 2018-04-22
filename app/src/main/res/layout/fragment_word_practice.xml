@@ -1,9 +1,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myCoordinatorLayoutWordPractice"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/serene1"
+    android:background="@drawable/books"
     android:backgroundTint="#90FFFFFF"
     android:backgroundTintMode="src_over"
     android:orientation="vertical">
@@ -20,23 +19,6 @@
             android:paddingTop="50dp"
             android:scrollbarStyle="outsideOverlay" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_word_practice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_word_practice"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/Theme.Bacon"
-            app:title="@string/new_words" />
-
-
-    </android.support.design.widget.AppBarLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
