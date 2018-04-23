@@ -146,8 +146,8 @@ public class WordQuizFragment extends Fragment implements
         this.mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivityCast().getSupportLoaderManager();
-        Loader<Object> wordPracticeLoader = loaderManager.getLoader(mLoaderId);
-        if (wordPracticeLoader == null) {
+        Loader<Object> wordQuizLoader = loaderManager.getLoader(mLoaderId);
+        if (wordQuizLoader == null) {
             getLoaderManager().initLoader(mLoaderId, null, this);
         } else {
             getLoaderManager().restartLoader(mLoaderId, null, this);

@@ -6,10 +6,10 @@ import android.app.job.JobService;
 
 import timber.log.Timber;
 
-public class WordDbPopulatorService extends JobService {
+public class WordDbPopulatorJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Timber.i("Inside WordDbPopulator");
+        Timber.i("Inside WordDbPopulatorJobService");
         new GetDataFromDictionary(this, this, jobParameters).dataFromDictionary();
         return true;
     }

@@ -73,14 +73,14 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
         String levelOfWordsForPractice;
         Timber.i("Inside oncreateloader WordPracticeFragment");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "1"));
+        numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "4"));
         frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
         levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
         //Setup the uri that will get the data I need from my ContentProvider
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         String[] level = {levelOfWordsForPractice, String.valueOf(numberOfWordsForPractice)};
 
-        String where = WordContract.WordsEntry.COLUMN_WORD_LEVEL + "=?";
+        String where = WordContract.WordsEntry.COLUMN_WORD_LEVEL + "=? and " + WordContract.WordsEntry.COLUMN_WORD_PRACTICED + "!= 1";
         String sortOrder = "RANDOM() LIMIT ?";
         CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, null, where, level, sortOrder);
         //and get a CursorLoader from my ContentProvider

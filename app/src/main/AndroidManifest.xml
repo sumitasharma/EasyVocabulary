@@ -89,21 +89,16 @@
                 android:value=".wordui.MainActivity" />
         </activity>
 
+
+        <receiver android:name=".services.NotificationPublisher" />
         <service
-            android:name=".services.WordDbPopulatorService"
+            android:name=".services.WordDbPopulatorJobService"
             android:exported="true"
             android:label="Word service"
             android:permission="android.permission.BIND_JOB_SERVICE">
 
         </service>
 
-        <receiver
-            android:name=".services.MyStartServiceReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT" />
-            </intent-filter>
-        </receiver>
         <receiver android:name=".wordwidget.EasyVocabularyWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -115,18 +110,6 @@
         </receiver>
 
         <service android:name=".wordwidget.EasyVocabularyService" />
-
-        <receiver
-            android:name=".services.WordNotificationBootReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".services.WordNotificationReceiver" />
-
 
     </application>
 

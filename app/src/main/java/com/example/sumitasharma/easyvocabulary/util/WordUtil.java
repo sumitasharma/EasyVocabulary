@@ -27,6 +27,11 @@ public class WordUtil {
     public static final String QUIZ_SEARCH_MEANING_IDENTIFIER = "quiz_search_meaning_identifier";
     public static final int QUIZ_LOADER = 101;
     public static final int PROGRESS_LOADER = 102;
+    public static final String LAST_SAVED_POSITION = "last_saved_position";
+    public static final String NOTIFICATION_ID = "notification-id";
+    public static final String NOTIFICATION = "notification";
+    public static final String NOTIFICATION_CHANNEL_NAME = "easyVocabulary";
+    public static final String NOTIFICATION_CHANNEL = "1234";
 
 
     /**

@@ -1,12 +1,23 @@
 package com.example.sumitasharma.easyvocabulary.wordui;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +30,8 @@ import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
+import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
+import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
 import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
@@ -28,6 +41,10 @@ import java.util.HashMap;
 import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_CARD_VIEW_IDENTIFIER;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_CHANNEL;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_CHANNEL_NAME;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_ID;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
@@ -57,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent();
-        intent.setAction("com.example.sumitasharma.easyvocabulary.CUSTOM_INTENT");
-        Log.i(TAG, "Sending Intent");
-        //sendBroadcast(intent);
+
         /* Delete the table */
         //  Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         //  getContentResolver().delete(loaderUri,null,null);
@@ -74,19 +88,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         setupSharedPreference();
 
-        //Start the Word Notification Service
-
-//        Intent notifyIntent = new Intent(this,WordNotificationBootReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast
-//                (this, 3, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),
-//                60*1000, pendingIntent);
-//
-
-
-        NotificationHelper.scheduledNotification(this, frequencyOfWordsForPractice);
-        NotificationHelper.enableBootReceiver(this);
 
         // this.sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
         Bundle bundle = this.getIntent().getExtras();
@@ -105,11 +106,14 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             // Add the fragment to its container using a FragmentManager and a Transaction
             fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
         }
+        //Schedule job to populate Database in the background
+        scheduleDbPopulatorJob(this);
+
+        //Schedule Notification via alarm manager
+        scheduleNotificationAlarm(this);
+
     }
 
-//    private void populateDB(){
-//        new WordDbPopulatorService().execute();
-//    }
 
     private void setupSharedPreference() {
         Log.i(TAG, "Inside setupSharedPreference");
@@ -120,6 +124,99 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside setupSharedPreference after getDefaultSharedPreferences");
         Log.i(TAG, "Inside setupSharedPreference" + numberOfWordsForPractice + frequencyOfWordsForPractice + levelOfWordsForPractice);
 
+    }
+
+    // schedule the start of the service every 10 - 30 seconds
+    private void scheduleDbPopulatorJob(Context context) {
+        Timber.i("Inside scheduleJob");
+        //Set job scheduling based on user preference
+        ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorJobService.class);
+        JobInfo jobInfo = new JobInfo.Builder(1234, serviceComponent)
+                .setMinimumLatency(1 * 60 * 60 * 1000) // wait at least
+                .setOverrideDeadline(24 * 60 * 60 * 1000) // maximum delay
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .build();
+        JobScheduler jobService = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        jobService.schedule(jobInfo);
+    }
+
+    private void scheduleNotificationAlarm(Context context) {
+
+        //Start the Word Notification Service
+
+        switch (frequencyOfWordsForPractice) {
+            case "Daily":
+                scheduleNotification(getNotification(numberOfWordsForPractice), 60 * 1000);
+                break;
+            case "Weekly":
+                scheduleNotification(getNotification(numberOfWordsForPractice), 7 * 24 * 60 * 60 * 1000);
+                break;
+            case "Monthly":
+                scheduleNotification(getNotification(numberOfWordsForPractice), 7 * 24 * 60 * 60 * 1000);
+                break;
+            default:
+                scheduleNotification(getNotification(numberOfWordsForPractice), 24 * 60 * 60 * 1000);
+        }
+    }
+
+    private void scheduleNotification(Notification notification, long delay) {
+
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(int notification) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL);
+
+        Intent intentToRepeat = new Intent(this, MainActivity.class);
+        //set flag to restart/relaunch the app
+        intentToRepeat.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        //Pending intent to handle launch of Activity in intent above
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, NotificationHelper.ALARM_TYPE_RTC, intentToRepeat, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            builder.setChannelId(NOTIFICATION_CHANNEL);
+        }
+        //Notification Channel
+        CharSequence channelName = NOTIFICATION_CHANNEL_NAME;
+        int importance = NotificationManager.IMPORTANCE_LOW;
+        NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL_NAME, importance);
+        notificationChannel.enableLights(true);
+        notificationChannel.setLightColor(Color.RED);
+        notificationChannel.enableVibration(true);
+        notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(notificationChannel);
+
+
+        builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_text) + " Your " + notification + " words are ready.")
+                .setSmallIcon(R.drawable.books)
+                .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                .setSound(null)
+                .setChannelId(NOTIFICATION_CHANNEL)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(false);
+
+
+//        builder.setContentTitle(getString(R.string.app_name));
+//        builder.setContentText(getString(R.string.notification_text)+" Your "+ notification + " words are ready.");
+//        builder.setSmallIcon(R.drawable.easyvocabulary);
+//        builder.setChannelId("easyVocabChannel");
+        return builder.build();
     }
 
     @Override
