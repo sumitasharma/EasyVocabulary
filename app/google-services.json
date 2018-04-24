@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "662657563791",
+    "firebase_url": "https://easyvocabulary-42d9a.firebaseio.com",
+    "project_id": "easyvocabulary-42d9a",
+    "storage_bucket": "easyvocabulary-42d9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662657563791:android:8b5c85a4e62bfb02",
+        "android_client_info": {
+          "package_name": "com.example.sumitasharma.easyvocabulary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662657563791-999br4iunfibge094gko2836rjrspbdb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sumitasharma.easyvocabulary",
+            "certificate_hash": "f0fe6d08ce90c949c8c5ccd05d4e26103470f8be"
+          }
+        },
+        {
+          "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm1RVQOG7j5ovMR6KwTKVbqQ3xmoF4Vp8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662657563791:android:e06f46dd809c3570",
+        "android_client_info": {
+          "package_name": "com.example.sumitasharma.easyvocabulary.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662657563791-pk5m5bdq77lgeoacu29a5htksfupd5vl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sumitasharma.easyvocabulary.free",
+            "certificate_hash": "f0fe6d08ce90c949c8c5ccd05d4e26103470f8be"
+          }
+        },
+        {
+          "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm1RVQOG7j5ovMR6KwTKVbqQ3xmoF4Vp8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662657563791:android:dd24bbdd55026469",
+        "android_client_info": {
+          "package_name": "com.example.sumitasharma.easyvocabulary.paid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662657563791-ui7dvo3issmq7qjliot9ni4697mivalj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sumitasharma.easyvocabulary.paid",
+            "certificate_hash": "f0fe6d08ce90c949c8c5ccd05d4e26103470f8be"
+          }
+        },
+        {
+          "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm1RVQOG7j5ovMR6KwTKVbqQ3xmoF4Vp8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662657563791-ekqs8pk1squqh6p7e7tvstedqoq7v8gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
