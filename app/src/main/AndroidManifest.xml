@@ -109,8 +109,6 @@
                 android:resource="@xml/easy_vocabulary_widget_info" />
         </receiver>
 
-        <service android:name=".wordwidget.EasyVocabularyService" />
-
     </application>
 
 </manifest>

@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EasyVocabulary.iml" filepath="$PROJECT_DIR$/EasyVocabulary.iml" />
+      <module fileurl="file://C:\Projects\Latest\EasyVocabulary\EasyVocabulary.iml" filepath="C:\Projects\Latest\EasyVocabulary\EasyVocabulary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Projects\Latest\EasyVocabulary\app\app.iml" filepath="C:\Projects\Latest\EasyVocabulary\app\app.iml" />
     </modules>
   </component>
 </project>

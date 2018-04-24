@@ -37,6 +37,7 @@
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="last_saved_position">last_saved_position</string>
     <string name="notification_text">Time for learning some new words !!!</string>
+    <string name="api_key">API Key is not set. Kindly check...</string>
 
 
 </resources>
