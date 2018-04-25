@@ -52,53 +52,55 @@ public class DictionaryFragment extends Fragment {
 
     @OnClick(R.id.search_button)
     public void searchForMeaning() {
+
         if (!isOnline(getContext())) {
-            Snackbar snackbar = Snackbar.make(rootView.findViewById(R.id.dictionary_linear_layout), R.string.internet_connectivity,
+            Snackbar snackbar = Snackbar.make(rootView.findViewById(R.id.dictionary_coordinator_layout), R.string.internet_connectivity,
                     Snackbar.LENGTH_LONG);
             snackbar.show();
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(Color.BLUE);
-        } else {
-            InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.hideSoftInputFromWindow(dictionarySearchWord.getWindowToken(), 0);
-            wordForSearch = String.valueOf(dictionarySearchWord.getText());
-            Timber.i("Before Calling CallbackTask");
-            //Creating an object of our api interface
-            ApiService api = RetroClient.getApiService();
+            return;
+        }
 
-            /**
-             * Calling JSON
-             */
-            Call<Example> call = api.getMyJSON(wordForSearch);
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(dictionarySearchWord.getWindowToken(), 0);
+        wordForSearch = String.valueOf(dictionarySearchWord.getText());
+        Timber.i("Before Calling CallbackTask");
+        //Creating an object of our api interface
+        ApiService api = RetroClient.getApiService();
 
-            /**
-             * Enqueue Callback will be call when get response...
-             */
-            call.enqueue(new Callback<Example>() {
-                @Override
-                public void onResponse(Call<Example> call, Response<Example> response) {
-                    if (response.isSuccessful()) {
-                        Example example = response.body();
-                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-                        for (String definition : definitions) {
-                            meaning = definition;
-                            Timber.i("Inside onResponse successful " + meaning);
+        /**
+         * Calling JSON
+         */
+        Call<Example> call = api.getMyJSON(wordForSearch);
 
-                        }
-                        meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1);
-                        dictionarySearchMeaning.setText(meaning);
-                    } else {
-                        dictionarySearchMeaning.setText(R.string.error_dictionary);
+        /**
+         * Enqueue Callback will be call when get response...
+         */
+        call.enqueue(new Callback<Example>() {
+            @Override
+            public void onResponse(Call<Example> call, Response<Example> response) {
+                if (response.isSuccessful()) {
+                    Example example = response.body();
+                    List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
+                    for (String definition : definitions) {
+                        meaning = definition;
+                        Timber.i("Inside onResponse successful " + meaning);
+
                     }
-
-                }
-
-                @Override
-                public void onFailure(Call<Example> call, Throwable t) {
+                    meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1);
+                    dictionarySearchMeaning.setText(meaning);
+                } else {
                     dictionarySearchMeaning.setText(R.string.error_dictionary);
                 }
-            });
-        }
+
+            }
+
+            @Override
+            public void onFailure(Call<Example> call, Throwable t) {
+                dictionarySearchMeaning.setText(R.string.error_dictionary);
+            }
+        });
     }
 
     @Nullable
@@ -106,6 +108,7 @@ public class DictionaryFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
         ButterKnife.bind(this, rootView);
+
         if (savedInstanceState != null) {
             wordForSearch = savedInstanceState.getString(QUIZ_SEARCH_IDENTIFIER);
             meaning = savedInstanceState.getString(QUIZ_SEARCH_MEANING_IDENTIFIER);

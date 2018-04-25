@@ -12,6 +12,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="card_elevation">20sp</dimen>
     <dimen name="card_view_padding_text">25dp</dimen>
     <dimen name="card_view_text_size">20sp</dimen>
+    <dimen name="widget_title_padding_start">100dp</dimen>
+    <dimen name="widget_hint_padding_start">80dp</dimen>
+    <dimen name="widget_padding_top">30dp</dimen>
 
 
 </resources>

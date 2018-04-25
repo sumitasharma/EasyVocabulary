@@ -48,12 +48,7 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursor = data;
         mPager.setAdapter(mPagerAdapter);
-//        getSupportLoaderManager().initLoader(QUIZ_LOADER, null, this);
-//
-//        mPagerAdapter = new MyPagerAdapter(mContext.getSupportFragmentManager());
-//
         Timber.i("Inside onloadfinished WordQuizPracticeActivity" + mCursor.getCount());
-
     }
 
 

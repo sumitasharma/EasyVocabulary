@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dictionary_linear_layout"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dictionary_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/books"
     android:backgroundTint="#90FFFFFF"
-    android:backgroundTintMode="src_over"
-    android:orientation="vertical">
+    android:backgroundTintMode="src_over">
 
-    <EditText
-        android:id="@+id/dictionary_search_word_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="@string/enter_word_search"
-        android:inputType="text"
-        android:paddingTop="100dp"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/search_button"
-        style="@style/ButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp"
-        android:text="@string/search_button" />
-    <TextView
-        android:id="@+id/dictionary_word_meaning_text"
-        style="@style/EasyVocabularyBodyAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="50dp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/dictionary_search_word_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/enter_word_search"
+            android:inputType="text"
+            android:paddingTop="100dp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/search_button"
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:text="@string/search_button" />
+
+        <TextView
+            android:id="@+id/dictionary_word_meaning_text"
+            style="@style/EasyVocabularyBodyAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="50dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
 

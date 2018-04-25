@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/practice_word_linear_layout"
+    android:id="@+id/practice_word_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
@@ -12,4 +12,4 @@
         android:layout_height="wrap_content" />
 
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

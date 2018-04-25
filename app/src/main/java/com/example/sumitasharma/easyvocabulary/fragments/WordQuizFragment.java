@@ -1,6 +1,7 @@
 package com.example.sumitasharma.easyvocabulary.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.loaders.WordQuizLoader;
+import com.example.sumitasharma.easyvocabulary.wordui.MainActivity;
 import com.example.sumitasharma.easyvocabulary.wordui.WordQuizPracticeActivity;
 
 import java.util.ArrayList;
@@ -83,6 +85,12 @@ public class WordQuizFragment extends Fragment implements
         WordQuizFragment fragment = new WordQuizFragment();
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @OnClick(R.id.go_home_main)
+    public void goHomeFromQuiz() {
+        Intent intentMain = new Intent(getContext(), MainActivity.class);
+        startActivity(intentMain);
     }
 
     @OnClick(R.id.submit_button)

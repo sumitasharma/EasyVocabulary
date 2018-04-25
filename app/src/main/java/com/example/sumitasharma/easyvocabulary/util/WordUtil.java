@@ -20,7 +20,6 @@ public class WordUtil {
     public final static String WORD_DICTIONARY_URL = "https://od-api.oxforddictionaries.com/api/v1/";
     public final static String API_KEY = "";
     public final static String APP_ID = "";
-    public final static String ERROR_CALLING_API = "error_calling_api";
     public static final String QUIZ_SORT = "RANDOM() LIMIT 5";
     public static final String QUIZ_WHERE = "wordPracticed = 1";
     public static final String QUIZ_SEARCH_IDENTIFIER = "quiz_search_identifier";
@@ -40,13 +39,14 @@ public class WordUtil {
      * @return true if the Internet Connection is available, false otherwise.
      */
     public static boolean isOnline(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm != null) {
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            return netInfo != null && netInfo.isConnectedOrConnecting();
-        } else
-            return false;
-    }
+        ConnectivityManager ConnectionManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = ConnectionManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected() == true) {
+            return true;
 
+        } else {
+            return false;
+
+        }
+    }
 }

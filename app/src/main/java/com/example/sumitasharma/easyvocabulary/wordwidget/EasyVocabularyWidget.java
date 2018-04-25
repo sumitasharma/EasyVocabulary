@@ -65,6 +65,7 @@ public class EasyVocabularyWidget extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.wordwidget_text, pendingIntent);
                 views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
                 views.setOnClickPendingIntent(R.id.appwidget_hint_text, pendingIntent);
+                views.setOnClickPendingIntent(R.id.widget_linear_layout, pendingIntent);
                 views.setTextViewText(R.id.wordwidget_text, retCursor.getString(0).substring(0, 1).toUpperCase() + retCursor.getString(0).substring(1).toLowerCase());
                 views.setTextViewText(R.id.meaningwidget_text, retCursor.getString(1).substring(0, 1).toUpperCase() + retCursor.getString(1).substring(1).toLowerCase());
 

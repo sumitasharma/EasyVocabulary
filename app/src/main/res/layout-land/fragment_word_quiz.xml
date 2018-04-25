@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/go_home_main"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/home_icon" />
+
         <TextView
             android:id="@+id/word_quiz_title"
             style="@style/EasyVocabularyTitleAppearance"
@@ -20,8 +26,8 @@
             android:text="@string/take_a_quiz" />
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="end"
             android:src="@drawable/scroll_down" />
 

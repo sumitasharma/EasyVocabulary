@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
 
+
         /* Delete the table */
         //  Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         //  getContentResolver().delete(loaderUri,null,null);
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notification_text) + " Your " + notification + " words are ready.")
-                .setSmallIcon(R.drawable.books)
+                .setSmallIcon(R.drawable.easyvocabularyapp)
                 .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                 .setSound(null)
                 .setChannelId(NOTIFICATION_CHANNEL)
@@ -211,11 +212,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false);
 
-
-//        builder.setContentTitle(getString(R.string.app_name));
-//        builder.setContentText(getString(R.string.notification_text)+" Your "+ notification + " words are ready.");
-//        builder.setSmallIcon(R.drawable.easyvocabulary);
-//        builder.setChannelId("easyVocabChannel");
         return builder.build();
     }
 
@@ -244,13 +240,11 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     protected void onResume() {
         super.onResume();
         if (!isOnline(this)) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.word_main_fragment), R.string.internet_connectivity,
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.words_coordinate_layout), R.string.internet_connectivity,
                     Snackbar.LENGTH_SHORT);
             snackbar.show();
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(Color.BLUE);
-            //Toast.makeText(mContext, "Kindly check your Internet Connectivity", Toast.LENGTH_LONG).show();
-            return;
         }
     }
 
@@ -261,16 +255,9 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
             switch (cardViewNumber) {
                 case WORD_MEANING_CARD_VIEW_IDENTIFIER:
-
-                    // FragmentManager fragmentManager = getSupportFragmentManager();
-                    // Add the fragment to its container using a FragmentManager and a Transaction
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
                     break;
                 case QUIZ_CARD_VIEW_IDENTIFIER:
-//                    WordQuizFragment wordQuizFragment = new WordQuizFragment();
-//                    // FragmentManager fragmentManager = getSupportFragmentManager();
-//                    // Add the fragment to its container using a FragmentManager and a Transaction
-//                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordQuizFragment).commit();
                     Intent intent = new Intent();
                     intent.setClass(this, WordQuizPracticeActivity.class);
                     Timber.i("Inside WordQuizPractice selected");
@@ -278,8 +265,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     break;
                 case PROGRESS_CARD_VIEW_IDENTIFIER:
                     ProgressFragment progressFragment = new ProgressFragment();
-                    // FragmentManager fragmentManager = getSupportFragmentManager();
-                    // Add the fragment to its container using a FragmentManager and a Transaction
                     Timber.i("Entering Progress Fragment");
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
                     break;

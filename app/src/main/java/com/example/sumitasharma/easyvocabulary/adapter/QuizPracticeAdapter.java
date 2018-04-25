@@ -46,6 +46,7 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
 
         //        // Getting the words and meaning in a string array
         String[] mWordsOptions = null;
+
         mCursor.moveToFirst();
         int stringIndex = 0;
         String word;
@@ -66,18 +67,7 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
             wordIndex = random.nextInt(max);
             RadioButton radioButton = (RadioButton) holder.mRadioButtonGroup.getChildAt(wordIndex);
             radioButton.setText(mWordsOptions[wordIndex]);
-            // holder.((RadioButton) mRadioButtonGroup.getChildAt(wordIndex)).setText(0) = mWordsOptions[wordIndex];
         }
-
-        //int i = 0;
-        //    Timber.i("Inside onLoadFinished WordQuizFragment");
-        // Getting the data in Words class Array
-//        while (mCursor.moveToNext()) {
-//
-//            words[i].setWord(mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-//            words[i].setWord(mCursor.getString(mCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_MEANING)));
-//            i++;
-//        }
 
 
     }

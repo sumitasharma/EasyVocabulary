@@ -128,4 +128,5 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }
+
 }
