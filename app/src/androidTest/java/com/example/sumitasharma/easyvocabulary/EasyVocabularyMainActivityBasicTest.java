@@ -1,6 +1,7 @@
 package com.example.sumitasharma.easyvocabulary;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -30,8 +31,10 @@ public class EasyVocabularyMainActivityBasicTest {
     @Test
     public void clickEasyVocabulary_ShowsFragments() {
 
+
         Context context = mEasyVocabularyMainActivityTestRule.getActivity().getBaseContext();
-        if (WordUtil.isOnline(context)) {
+        if (WordUtil.isOnline(context) && !isTablet(context)) {
+
             // First scroll to the position that needs to be matched and click on it.
             onView(withId(R.id.word_meaning_card_view))
                     .perform(click());
@@ -62,6 +65,12 @@ public class EasyVocabularyMainActivityBasicTest {
             // Fragment is open.
             onView(withId(R.id.quiz_word_frame_layout)).check(matches(isDisplayed()));
         }
+    }
+
+    public boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }
 

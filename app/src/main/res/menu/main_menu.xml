@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/main_menu"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="@string/main_menu"
         app:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/goto_main"
-                android:orderInCategory="101"
+                android:orderInCategory="201"
                 android:title="@string/main_menu" />
             <item
                 android:id="@+id/goto_practice"
-                android:orderInCategory="101"
+                android:orderInCategory="201"
                 android:title="@string/goto_practice" />
             <item
                 android:id="@+id/goto_quiz"
-                android:orderInCategory="101"
+                android:orderInCategory="201"
                 android:title="@string/goto_quiz" />
             <item
                 android:id="@+id/goto_progress"
-                android:orderInCategory="101"
+                android:orderInCategory="201"
                 android:title="@string/goto_progress" />
             <item
                 android:id="@+id/goto_dictionary"
