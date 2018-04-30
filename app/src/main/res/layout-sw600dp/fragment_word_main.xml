@@ -6,6 +6,14 @@
     android:backgroundTintMode="src_over"
     android:orientation="vertical">
 
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+
     <include layout="@layout/first_card" />
 
     <include layout="@layout/second_card" />
@@ -13,16 +21,6 @@
     <include layout="@layout/third_card" />
 
     <include layout="@layout/fourth_card" />
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
 
 </LinearLayout>
 

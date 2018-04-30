@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -37,7 +38,7 @@ public class EasyVocabularyMainActivityBasicTest {
 
             // First scroll to the position that needs to be matched and click on it.
             onView(withId(R.id.word_meaning_card_view))
-                    .perform(click());
+                    .perform(scrollTo(), click());
             // Fragment is open.
             onView(withId(R.id.practice_word_frame_layout)).check(matches(isDisplayed()));
 
@@ -45,25 +46,44 @@ public class EasyVocabularyMainActivityBasicTest {
 
             // First scroll to the position that needs to be matched and click on it.
             onView(withId(R.id.progress_card_view))
-                    .perform(click());
+                    .perform(scrollTo(), click());
             // Fragment is open.
             onView(withId(R.id.progress_word_frame_layout)).check(matches(isDisplayed()));
 
             onView(withContentDescription("Navigate up")).perform(click());
 
-            // First scroll to the position that needs to be matched and click on it.
-            onView(withId(R.id.dictionary_card_view))
-                    .perform(click());
-            // Fragment is open.
+            onView(withId(R.id.dictionary_card_view)).perform(scrollTo(), click());
+            ;
             onView(withId(R.id.dictionary_word_frame_layout)).check(matches(isDisplayed()));
 
             onView(withContentDescription("Navigate up")).perform(click());
 
             // First scroll to the position that needs to be matched and click on it.
             onView(withId(R.id.quiz_card_view))
+                    .perform(scrollTo(), click());
+            // Fragment is open.
+            onView(withId(R.id.quiz_word_frame_layout)).check(matches(isDisplayed()));
+
+
+        } else if (WordUtil.isOnline(context) && isTablet(context)) {
+
+            // First scroll to the position that needs to be matched and click on it.
+            onView(withId(R.id.quiz_card_view))
                     .perform(click());
             // Fragment is open.
             onView(withId(R.id.quiz_word_frame_layout)).check(matches(isDisplayed()));
+
+            onView(withId(R.id.go_home_main))
+                    .perform(click());
+            onView(withId(R.id.words_tablet_linear_layout)).check(matches(isDisplayed()));
+
+            // First scroll to the position that needs to be matched and click on it.
+            onView(withId(R.id.progress_card_view))
+                    .perform(click());
+            // Fragment is open.
+            onView(withId(R.id.progress_word_frame_layout)).check(matches(isDisplayed()));
+
+
         }
     }
 

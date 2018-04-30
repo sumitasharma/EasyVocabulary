@@ -19,7 +19,7 @@ public class ProgressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_progress);
         ProgressFragment progressFragment = new ProgressFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.progress_word_frame_layout, progressFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.progress_word_frame_layout, progressFragment).commit();
     }
 
     @Override

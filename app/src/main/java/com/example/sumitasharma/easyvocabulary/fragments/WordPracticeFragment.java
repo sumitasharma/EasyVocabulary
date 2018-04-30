@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,10 +33,12 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     // If non-null, this is the current filter the user has provided.
     String mCurFilter;
     RecyclerView mWordPracticeRecyclerView;
+    Parcelable mListState;
+    Cursor mData;
     private int mLoaderId;
     private Context mContext = getContext();
     private PracticeWordsAdapter mAdapter = null;
-
+    private LinearLayoutManager mLinearLayoutManager;
 
     public WordPracticeFragment() {
 
@@ -44,13 +47,29 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Timber.i("Inside CreateView WordPracticeFragment");
+
         rootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
         mWordPracticeRecyclerView = rootView.findViewById(R.id.recycler_view_practice_words);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
-        mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
-        initializeLoader(LOADER_ID, getContext());
+        mLinearLayoutManager = new LinearLayoutManager(mContext);
+        // Retrieve list state and list/item positions
+        if (savedInstanceState != null) {
+//            mListState = savedInstanceState.getParcelable("state");
+//            Timber.i("Inside CreateView WordPracticeFragment "+mListState);
+            mData = (Cursor) savedInstanceState.getSerializable("state");
+        } else {
+            mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
+            initializeLoader(LOADER_ID, getContext());
+        }
         return rootView;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            Timber.i("Inside oncreate of WordPracticeFragment " + mListState);
+            mListState = savedInstanceState.getParcelable("state");
+        }
     }
 
     private void initializeLoader(int loaderId, Context context) {
@@ -65,6 +84,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
             loaderManager.restartLoader(mLoaderId, null, callback);
         }
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -90,11 +110,17 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        if (mAdapter == null) {
-            mAdapter = new PracticeWordsAdapter(mContext, data);
-            Timber.i("Setting PracticeWordsAdapter for recycler view");
+        if (mData != null) {
+            mAdapter = new PracticeWordsAdapter(mContext, mData);
+            Timber.i("Setting PracticeWordsAdapter for recycler view in onloadfinished");
             mWordPracticeRecyclerView.setAdapter(mAdapter);
+        } else {
+            if (mAdapter == null) {
+                mData = data;
+                mAdapter = new PracticeWordsAdapter(mContext, data);
+                Timber.i("Setting PracticeWordsAdapter for recycler view");
+                mWordPracticeRecyclerView.setAdapter(mAdapter);
+            }
         }
 
 
@@ -105,7 +131,30 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     public void onLoaderReset(Loader<Cursor> loader) {
         //If the loader is reset, we need to clear out the
         //current cursor from the adapter.
-        // this.mAdapter.swapCursor(null);
+        //this.mAdapter.swapCursor(null);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save list state
+        //mListState = mLinearLayoutManager.onSaveInstanceState();
+
+    }
+
+//    @Override
+//    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+//        super.onViewStateRestored(savedInstanceState);
+//        // Retrieve list state and list/item positions
+//        if(savedInstanceState != null)
+//            mListState = savedInstanceState.getParcelable("state");
+//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (mListState != null) {
+//            mLinearLayoutManager.onRestoreInstanceState(mListState);
+//        }
+    }
 }

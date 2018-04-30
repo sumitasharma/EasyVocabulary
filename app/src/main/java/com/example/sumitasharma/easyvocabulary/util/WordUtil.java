@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.sumitasharma.easyvocabulary.BuildConfig;
+
 public class WordUtil {
     public static final String QUIZ_WORD = "word";
     public static final String QUIZ_WORD_MEANING = "word_meaning";
@@ -18,8 +20,8 @@ public class WordUtil {
     public final static String PROGRESS_CARD_VIEW_IDENTIFIER = "3";
     public final static String DICTIONARY_CARD_VIEW_IDENTIFIER = "4";
     public final static String WORD_DICTIONARY_URL = "https://od-api.oxforddictionaries.com/api/v1/";
-    public final static String API_KEY = "";
-    public final static String APP_ID = "";
+    public final static String API_KEY = BuildConfig.APIKEY;
+    public final static String APP_ID = BuildConfig.APPID;
     public static final String QUIZ_SORT = "RANDOM() LIMIT 5";
     public static final String QUIZ_WHERE = "wordPracticed = 1";
     public static final String QUIZ_SEARCH_IDENTIFIER = "quiz_search_identifier";
@@ -31,6 +33,8 @@ public class WordUtil {
     public static final String NOTIFICATION = "notification";
     public static final String NOTIFICATION_CHANNEL_NAME = "easyVocabulary";
     public static final String NOTIFICATION_CHANNEL = "1234";
+    public static final String DICTIONARY_SEARCH_WORD = "search_word";
+    public static final String DICTIONARY_SEARCH_MEANING = "search_meaning";
 
 
     /**

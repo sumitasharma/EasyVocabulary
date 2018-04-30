@@ -28,8 +28,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_SEARCH_IDENTIFIER;
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_SEARCH_MEANING_IDENTIFIER;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_MEANING;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_WORD;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_DICTIONARY_URL;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
@@ -50,6 +50,16 @@ public class DictionaryFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Timber.i("Inside onCreate");
+        if (savedInstanceState != null) {
+            wordForSearch = savedInstanceState.getString(DICTIONARY_SEARCH_WORD);
+            meaning = savedInstanceState.getString(DICTIONARY_SEARCH_MEANING);
+            Timber.i("Inside OnCreate:" + wordForSearch + meaning);
+        }
+    }
     @OnClick(R.id.search_button)
     public void searchForMeaning() {
 
@@ -108,14 +118,12 @@ public class DictionaryFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
         ButterKnife.bind(this, rootView);
-
         if (savedInstanceState != null) {
-            wordForSearch = savedInstanceState.getString(QUIZ_SEARCH_IDENTIFIER);
-            meaning = savedInstanceState.getString(QUIZ_SEARCH_MEANING_IDENTIFIER);
-            dictionarySearchMeaning.setText(meaning);
-            dictionarySearchWord.setText(wordForSearch);
-
+            Timber.i("Inside onCreateView DictionaryFragment - " + savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) + savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
+            dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
+            dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
         }
+        //Timber.i("Inside onCreateView");
         return rootView;
     }
 
@@ -128,8 +136,11 @@ public class DictionaryFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(QUIZ_SEARCH_IDENTIFIER, wordForSearch);
-        outState.putString(QUIZ_SEARCH_MEANING_IDENTIFIER, meaning);
+        super.onSaveInstanceState(outState);
+        Timber.i("Inside onSaveInstanceState" + this.wordForSearch + ":" + this.meaning);
+        outState.putString(DICTIONARY_SEARCH_WORD, this.wordForSearch);
+        outState.putString(DICTIONARY_SEARCH_MEANING, this.meaning);
 
     }
+
 }

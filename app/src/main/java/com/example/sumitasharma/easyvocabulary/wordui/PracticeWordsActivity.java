@@ -33,10 +33,11 @@ public class PracticeWordsActivity extends AppCompatActivity {
             sbView.setBackgroundColor(Color.BLUE);
             return;
         }
-
-        WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.practice_word_frame_layout, wordPracticeFragment).commit();
+        if (savedInstanceState == null) {
+            WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().add(R.id.practice_word_frame_layout, wordPracticeFragment).commit();
+        }
     }
 
     @Override

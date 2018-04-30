@@ -51,12 +51,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         rootView = inflater.inflate(R.layout.fragment_progress, container, false);
         mGraphView = rootView.findViewById(R.id.graph);
         initializeLoader(PROGRESS_LOADER, getContext());
-
-//        select
-//        strftime('%D', lastUpdated) as Days,
-//                count(*) as GroupedValues
-//        from words
-//        group by Days;
         return rootView;
     }
 
@@ -81,10 +75,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         String where = "wordPracticed = 1 GROUP BY Days";
         //String[] selectParam = {WordContract.WordsEntry.COLUMN_LAST_UPDATED,WordContract.WordsEntry.COLUMN_LAST_UPDATED};
         CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, select, where, null, null);
-//        String[] select = {"?","?","?"};
-//        String[] selectParam = {WordContract.WordsEntry.COLUMN_WORD, WordContract.WordsEntry.COLUMN_LAST_UPDATED, WordContract.WordsEntry.COLUMN_WORD_PRACTICED};
-//        CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, select, null, selectParam, null);
-        //and get a CursorLoader from my ContentProvider
         return cursorLoader;
 
     }
@@ -99,7 +89,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
             //  wordsGraphCount.add(data.getInt(1));
             Timber.i("day " + data.getString(0) + "count(*)" + data.getInt(1) + "i is:" + i);
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             Date quizDate;
             try {
                 quizDate = format.parse(data.getString(0));
@@ -107,10 +97,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
                 throw new RuntimeException("Parsing failed for Date" + data.getString(0));
             }
             dataPoints[i] = new DataPoint(quizDate, data.getInt(1));
-            //i++;
-            // Timber.i("Inside data moveToNext" + data.getColumnName(0));
-            //           Timber.i("Inside data moveToNext" + data.getString(data.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
-            //         Timber.i("Inside data moveToNext" + data.getString(data.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_PRACTICED)));
             i++;
         }
 
@@ -119,7 +105,21 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         mGraphView.addSeries(series);
         // set date label formatter
         mGraphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        mGraphView.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        mGraphView.getGridLabelRenderer().setNumHorizontalLabels(4);
+        mGraphView.getGridLabelRenderer().setNumVerticalLabels(4);
+
+        // activate horizontal zooming and scrolling
+        mGraphView.getViewport().setScalable(true);
+
+        // activate horizontal scrolling
+        mGraphView.getViewport().setScrollable(true);
+
+        // activate horizontal and vertical zooming and scrolling
+        mGraphView.getViewport().setScalableY(true);
+
+        // activate vertical scrolling
+        mGraphView.getViewport().setScrollableY(true);
+        //  mGraphView.getGridLabelRenderer().setNumHorizontalLabels(10); // only 4 because of the space
 
 //// set manual x bounds to have nice steps
 //        mGraphView.getViewport().setMinX(((Date) dataPoints[0].getX()).getTime());

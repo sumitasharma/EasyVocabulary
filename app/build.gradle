@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes. each {
+        it.buildConfigField 'String','APIKEY',EasyVocabularyApiKey
+        it.buildConfigField 'String','APPID',EasyVocabularyAppId
+    }
     flavorDimensions "vocabulary"
     productFlavors{
         free{
