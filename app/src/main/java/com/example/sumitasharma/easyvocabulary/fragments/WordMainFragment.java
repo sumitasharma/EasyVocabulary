@@ -33,6 +33,12 @@ public class WordMainFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @OnClick(R.id.word_meaning_card_view)
     public void cardClickPractice() {
         mPassCardViewInformation.cardViewInformation(WORD_MEANING_CARD_VIEW_IDENTIFIER);

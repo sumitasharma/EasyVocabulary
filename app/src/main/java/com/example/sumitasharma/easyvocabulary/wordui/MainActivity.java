@@ -36,26 +36,29 @@ import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
 import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
-import java.util.HashMap;
-
 import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_CARD_VIEW_IDENTIFIER;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_MEANING;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_WORD;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_CHANNEL;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_CHANNEL_NAME;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.NOTIFICATION_ID;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_CARD_VIEW_IDENTIFIER;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_DICTIONARY;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_PRACTICE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
-public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation {
+public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary {
     public static final String TAG = MainActivity.class.getSimpleName();
-    HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
-    HashMap<String, String> mCorrectAnswers = new HashMap<>();
-    long interval;
-
+    String dictionary_word;
+    String dictionary_meaning;
+    String cardViewNumber;
+    private String state;
+    private String state_dictionary;
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
     private String levelOfWordsForPractice;
@@ -64,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         // Initialize stetho
         Stetho.initialize(Stetho.newInitializerBuilder(this)
@@ -75,12 +77,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
 
-
-        /* Delete the table */
-        //  Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
-        //  getContentResolver().delete(loaderUri,null,null);
         /* Insert the table */
-        //new WordsDbUtil(this).readWordsFromAssets();
         WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
         if (!wordsDbUtil.isDatabasePopulated()) {
             Timber.i("Database is not populated, populating it");
@@ -99,19 +96,34 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         WordMainFragment wordMainFragment = new WordMainFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
+        if (savedInstanceState != null) {
+            state = savedInstanceState.getString(STATE_WORD_PRACTICE);
+            state_dictionary = savedInstanceState.getString(STATE_WORD_DICTIONARY);
+            dictionary_word = savedInstanceState.getString(DICTIONARY_SEARCH_WORD);
+            dictionary_meaning = savedInstanceState.getString(DICTIONARY_SEARCH_MEANING);
+        } else {
+            if (mTwoPane) {
+                if (state == null) {
+                    WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
+                    fragmentManager = getSupportFragmentManager();
+                    // Add the fragment to its container using a FragmentManager and a Transaction
+                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                } else if (state_dictionary == null) {
+                    DictionaryFragment dictionaryFragment = new DictionaryFragment();
+                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
+//            EditText dictionarySearchWord = (EditText)findViewById(R.id.dictionary_search_word_edit_text);
+//                TextView dictionarySearchMeaning = (TextView)findViewById(R.id.dictionary_word_meaning_text);
+//                //      dictionarySearchWord.setText(dictionary_word);
+//                dictionarySearchMeaning.setText(dictionary_meaning);
+                }
+            }
 
+            //Schedule job to populate Database in the background
+            scheduleDbPopulatorJob(this);
 
-        if (mTwoPane) {
-            WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-            fragmentManager = getSupportFragmentManager();
-            // Add the fragment to its container using a FragmentManager and a Transaction
-            fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+            //Schedule Notification via alarm manager
+            scheduleNotificationAlarm(this);
         }
-        //Schedule job to populate Database in the background
-        scheduleDbPopulatorJob(this);
-
-        //Schedule Notification via alarm manager
-        scheduleNotificationAlarm(this);
 
     }
 
@@ -133,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         //Set job scheduling based on user preference
         ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorJobService.class);
         JobInfo jobInfo = new JobInfo.Builder(1234, serviceComponent)
-                .setMinimumLatency(1 * 60 * 60 * 1000) // wait at least
+                .setMinimumLatency(60 * 60 * 1000) // wait at least
                 .setOverrideDeadline(24 * 60 * 60 * 1000) // maximum delay
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .build();
@@ -147,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         switch (frequencyOfWordsForPractice) {
             case "Daily":
-                scheduleNotification(getNotification(numberOfWordsForPractice), 60 * 1000);
+                scheduleNotification(getNotification(numberOfWordsForPractice), 24 * 60 * 60 * 1000);
                 break;
             case "Weekly":
                 scheduleNotification(getNotification(numberOfWordsForPractice), 7 * 24 * 60 * 60 * 1000);
@@ -253,9 +265,12 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         if (mTwoPane) { // Handle Tablet devices
             FragmentManager fragmentManager = getSupportFragmentManager();
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
+            this.cardViewNumber = cardViewNumber;
             switch (cardViewNumber) {
                 case WORD_MEANING_CARD_VIEW_IDENTIFIER:
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                    if (state == null)
+                        fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                    state_dictionary = null;
                     break;
                 case QUIZ_CARD_VIEW_IDENTIFIER:
                     Intent intent = new Intent();
@@ -267,10 +282,15 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     ProgressFragment progressFragment = new ProgressFragment();
                     Timber.i("Entering Progress Fragment");
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
+                    state = null;
+                    state_dictionary = null;
                     break;
                 case DICTIONARY_CARD_VIEW_IDENTIFIER:
-                    DictionaryFragment dictionaryFragment = new DictionaryFragment();
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
+                    if (state_dictionary == null) {
+                        DictionaryFragment dictionaryFragment = new DictionaryFragment();
+                        fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
+                    }
+                    state = null;
                     break;
                 default:
                     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
@@ -300,4 +320,29 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         }
     }
 
+    @Override
+    public void passTheSavedState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(STATE_WORD_PRACTICE, state);
+        outState.putString(STATE_WORD_DICTIONARY, state_dictionary);
+        outState.putString(DICTIONARY_SEARCH_WORD, dictionary_word);
+        outState.putString(DICTIONARY_SEARCH_MEANING, dictionary_meaning);
+
+
+    }
+
+
+    @Override
+    public void passTheSavedStateDictionary(String stateDictionary, String word, String meaning) {
+        this.state_dictionary = stateDictionary;
+        this.dictionary_word = word;
+        this.dictionary_meaning = meaning;
+
+    }
 }

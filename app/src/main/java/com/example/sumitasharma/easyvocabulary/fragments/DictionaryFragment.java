@@ -30,6 +30,7 @@ import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_MEANING;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_WORD;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_PRACTICE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_DICTIONARY_URL;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
@@ -37,6 +38,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 public class DictionaryFragment extends Fragment {
 
     private static final String TAG = DictionaryFragment.class.getSimpleName();
+    public PassTheStateDictionary mPassTheSateDictionary;
     Context mContext;
     View rootView;
     @BindView(R.id.dictionary_search_word_edit_text)
@@ -53,12 +55,13 @@ public class DictionaryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         // Timber.i("Inside onCreate");
-        if (savedInstanceState != null) {
-            wordForSearch = savedInstanceState.getString(DICTIONARY_SEARCH_WORD);
-            meaning = savedInstanceState.getString(DICTIONARY_SEARCH_MEANING);
-            Timber.i("Inside OnCreate:" + wordForSearch + meaning);
-        }
+//        if (savedInstanceState != null) {
+//            wordForSearch = savedInstanceState.getString(DICTIONARY_SEARCH_WORD);
+//            meaning = savedInstanceState.getString(DICTIONARY_SEARCH_MEANING);
+//            Timber.i("Inside OnCreate:" + wordForSearch + meaning);
+//        }
     }
     @OnClick(R.id.search_button)
     public void searchForMeaning() {
@@ -122,8 +125,8 @@ public class DictionaryFragment extends Fragment {
             Timber.i("Inside onCreateView DictionaryFragment - " + savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) + savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
             dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
             dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
+
         }
-        //Timber.i("Inside onCreateView");
         return rootView;
     }
 
@@ -140,7 +143,25 @@ public class DictionaryFragment extends Fragment {
         Timber.i("Inside onSaveInstanceState" + this.wordForSearch + ":" + this.meaning);
         outState.putString(DICTIONARY_SEARCH_WORD, this.wordForSearch);
         outState.putString(DICTIONARY_SEARCH_MEANING, this.meaning);
+        outState.putString(STATE_WORD_PRACTICE, "state_dictionary");
+        mPassTheSateDictionary.passTheSavedStateDictionary("state_dictionary", wordForSearch, meaning);
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mPassTheSateDictionary = (PassTheStateDictionary) context;
+    }
+
+    public interface PassTheStateDictionary {
+        void passTheSavedStateDictionary(String stateDictionary, String word, String meaning);
     }
 
 }

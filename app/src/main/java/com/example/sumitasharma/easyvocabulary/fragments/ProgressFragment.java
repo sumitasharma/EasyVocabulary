@@ -119,17 +119,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
         // activate vertical scrolling
         mGraphView.getViewport().setScrollableY(true);
-        //  mGraphView.getGridLabelRenderer().setNumHorizontalLabels(10); // only 4 because of the space
-
-//// set manual x bounds to have nice steps
-//        mGraphView.getViewport().setMinX(((Date) dataPoints[0].getX()).getTime());
-//        mGraphView.getViewport().setMaxX(d3.getTime());
-//        mGraphView.getViewport().setXAxisBoundsManual(true);
-//
-//// as we use dates as labels, the human rounding to nice readable numbers
-//// is not necessary
-//        mGraphView.getGridLabelRenderer().setHumanRounding(false);
-
 
     }
 

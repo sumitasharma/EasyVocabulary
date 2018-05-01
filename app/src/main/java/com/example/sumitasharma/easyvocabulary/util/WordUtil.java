@@ -22,7 +22,7 @@ public class WordUtil {
     public final static String WORD_DICTIONARY_URL = "https://od-api.oxforddictionaries.com/api/v1/";
     public final static String API_KEY = BuildConfig.APIKEY;
     public final static String APP_ID = BuildConfig.APPID;
-    public static final String QUIZ_SORT = "RANDOM() LIMIT 5";
+    public static final String QUIZ_SORT = "RANDOM() LIMIT 4";
     public static final String QUIZ_WHERE = "wordPracticed = 1";
     public static final String QUIZ_SEARCH_IDENTIFIER = "quiz_search_identifier";
     public static final String QUIZ_SEARCH_MEANING_IDENTIFIER = "quiz_search_meaning_identifier";
@@ -35,6 +35,8 @@ public class WordUtil {
     public static final String NOTIFICATION_CHANNEL = "1234";
     public static final String DICTIONARY_SEARCH_WORD = "search_word";
     public static final String DICTIONARY_SEARCH_MEANING = "search_meaning";
+    public static final String STATE_WORD_PRACTICE = "state";
+    public static final String STATE_WORD_DICTIONARY = "state_dictionary";
 
 
     /**

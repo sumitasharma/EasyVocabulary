@@ -17,7 +17,7 @@ import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
-public class PracticeWordsActivity extends AppCompatActivity {
+public class PracticeWordsActivity extends AppCompatActivity implements WordPracticeFragment.PassTheState {
 
     private Context mContext;
 
@@ -83,4 +83,8 @@ public class PracticeWordsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void passTheSavedState(String state) {
+
+    }
 }

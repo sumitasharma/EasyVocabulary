@@ -18,7 +18,9 @@ import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import butterknife.BindView;
 import timber.log.Timber;
 
-public class DictionaryActivity extends AppCompatActivity {
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_DICTIONARY;
+
+public class DictionaryActivity extends AppCompatActivity implements DictionaryFragment.PassTheStateDictionary {
     @BindView(R.id.dictionary_search_word_edit_text)
     EditText dictionarySearchWord;
     @BindView(R.id.dictionary_word_meaning_text)
@@ -32,9 +34,7 @@ public class DictionaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Timber.i("Inside onCreate DictionaryActivity");
         setContentView(R.layout.activity_dictionary);
-//        if(savedInstanceState!=null){
-//            mContent = getSupportFragmentManager().getFragment(savedInstanceState,"DictionaryFragment");
-//        }
+
         if (savedInstanceState == null) {
             DictionaryFragment dictionaryFragment = new DictionaryFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -46,13 +46,11 @@ public class DictionaryActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
-        // Log.i(TAG, "Inside onCreateOptionsMenu");
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //    Log.i(TAG, "Inside onOptionsItemSelected");
         int id = item.getItemId();
 
         switch (id) {
@@ -85,28 +83,14 @@ public class DictionaryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    protected void onRestoreInstanceState(Bundle inState) {
-//        instantiateFragments(inState);
-//    }
-//
-//    private void instantiateFragments(Bundle inState) {
-//        android.app.FragmentManager manager = getFragmentManager();
-//        android.app.FragmentTransaction transaction = manager.beginTransaction();
-//
-//        if (inState != null) {
-//            mDictionaryFragment = (DictionaryFragment) manager.getFragment(inState, DictionaryFragment);
-//        } else {
-//            mDictionaryFragment = new DictionaryFragment();
-//            transaction.add(R.id.dictionary_word_frame_layout, mDictionaryFragment, DictionaryFragment.TAG);
-//            transaction.commit();
-//        }
-//    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_WORD_DICTIONARY, "state_dictionary");
+    }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        android.app.FragmentManager manager = getFragmentManager();
-//        manager.putFragment(outState, DictionaryFragment.TAG, mDictionaryFragment);
-//    }
+    @Override
+    public void passTheSavedStateDictionary(String stateDictionary, String word, String meaning) {
+
+    }
 }
