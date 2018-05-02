@@ -20,10 +20,9 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     private final static String TAG = PracticeWordsAdapter.class.getSimpleName();
     private final Context mContext;
-    private final Cursor mWordsCursor;
+    private Cursor mWordsCursor;
 
     public PracticeWordsAdapter(Context context, Cursor words) {
-        //Timber.i( "Inside RecipeStepsAdapter Constructor");
         Timber.i("Inside PracticeWordsAdapter Constructor");
         this.mContext = context;
         this.mWordsCursor = words;
@@ -31,7 +30,7 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     @Override
     public RecyclerViewHolderWords onCreateViewHolder(ViewGroup parent, int viewType) {
-        Timber.i("Inside oncreateviewholder practicewordadapter");
+        Timber.i("Inside onCreateViewHolder PracticeWordsAdapter");
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.word_practice_view_holder, parent, false);
         return new RecyclerViewHolderWords(view);
@@ -49,11 +48,10 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             holder.mWordPractice.setText(wordPractice);
             holder.mWordMeaning.setText(wordMeaning);
         }
+
         // Update the rows seen by user as practiced.
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         ContentValues values = new ContentValues();
-
-
         Timber.i("Updating Practiced Word" + mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
         values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
         String[] selectArgs = {mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))};
@@ -64,11 +62,14 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
 
     @Override
     public int getItemCount() {
-        //Timber.i( "getItemCount Called. Size is:" + mStep.size());
         Timber.i("getItemCount Called. Size is:" + mWordsCursor.getCount());
         return mWordsCursor.getCount();
     }
 
+    public void swapCursor(Cursor cursor) {
+        mWordsCursor = cursor;
+        notifyDataSetChanged();
+    }
 
     class RecyclerViewHolderWords extends RecyclerView.ViewHolder {
         private final TextView mWordPractice;

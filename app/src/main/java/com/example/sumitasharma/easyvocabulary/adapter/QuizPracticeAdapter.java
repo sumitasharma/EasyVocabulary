@@ -44,7 +44,7 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
         Timber.i("meaning :" + meaning);
         holder.mWordQuizMeaning.setText(meaning);
 
-        //        // Getting the words and meaning in a string array
+        // Getting the words and meaning in a string array
         String[] mWordsOptions = null;
 
         mCursor.moveToFirst();
@@ -74,7 +74,7 @@ public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapte
 
     @Override
     public int getItemCount() {
-        //   return mWords.length;
+        //return mWords.length;
         return 0;
     }
 

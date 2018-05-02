@@ -89,16 +89,18 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
             //  wordsGraphCount.add(data.getInt(1));
             Timber.i("day " + data.getString(0) + "count(*)" + data.getInt(1) + "i is:" + i);
-            DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat format = new SimpleDateFormat("y-M-d");
             Date quizDate;
             try {
                 quizDate = format.parse(data.getString(0));
             } catch (ParseException e) {
                 throw new RuntimeException("Parsing failed for Date" + data.getString(0));
             }
-            dataPoints[i] = new DataPoint(quizDate, data.getInt(1));
+            dataPoints[i] = new DataPoint(quizDate.getTime(), data.getInt(1));
             i++;
         }
+
+        int size = dataPoints.length;
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints);
 
@@ -106,19 +108,28 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         // set date label formatter
         mGraphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
         mGraphView.getGridLabelRenderer().setNumHorizontalLabels(4);
-        mGraphView.getGridLabelRenderer().setNumVerticalLabels(4);
+        // mGraphView.getGridLabelRenderer().setNumVerticalLabels(4);
 
-        // activate horizontal zooming and scrolling
-        mGraphView.getViewport().setScalable(true);
+        // set manual x bounds to have nice steps
+        mGraphView.getViewport().setMinX(dataPoints[0].getX());
+        mGraphView.getViewport().setMaxX(dataPoints[size - 1].getX());
+        mGraphView.getViewport().setXAxisBoundsManual(true);
 
-        // activate horizontal scrolling
-        mGraphView.getViewport().setScrollable(true);
+// as we use dates as labels, the human rounding to nice readable numbers
+// is not necessary
+        mGraphView.getGridLabelRenderer().setHumanRounding(false);
 
-        // activate horizontal and vertical zooming and scrolling
-        mGraphView.getViewport().setScalableY(true);
-
-        // activate vertical scrolling
-        mGraphView.getViewport().setScrollableY(true);
+//        // activate horizontal zooming and scrolling
+//        mGraphView.getViewport().setScalable(true);
+//
+//        // activate horizontal scrolling
+//        mGraphView.getViewport().setScrollable(true);
+//
+//        // activate horizontal and vertical zooming and scrolling
+//        mGraphView.getViewport().setScalableY(true);
+//
+//        // activate vertical scrolling
+//        mGraphView.getViewport().setScrollableY(true);
 
     }
 
