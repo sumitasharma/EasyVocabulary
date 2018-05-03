@@ -19,7 +19,8 @@
             android:layout_gravity="center"
             android:hint="@string/enter_word_search"
             android:inputType="text"
-            android:paddingTop="50dp" />
+            android:paddingTop="30dp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/search_button"
@@ -35,7 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="50dp" />
+            android:padding="50dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

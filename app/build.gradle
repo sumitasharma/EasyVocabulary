@@ -83,6 +83,8 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:1.0.1'
 
+    //For Graphs
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 
 }

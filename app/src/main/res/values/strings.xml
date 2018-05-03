@@ -44,6 +44,8 @@
     <string name="goto_quiz">Quiz</string>
     <string name="goto_dictionary">Dictionary</string>
     <string name="goto_progress">Check Your Progress</string>
+    <string name="graph_label_description">Words Learnt Per Day</string>
+    <string name="graph_y_label">Words Learnt</string>
 
 
 </resources>

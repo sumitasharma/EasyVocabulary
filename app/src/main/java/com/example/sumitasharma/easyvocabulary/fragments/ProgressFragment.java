@@ -15,16 +15,17 @@ import android.view.ViewGroup;
 
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import timber.log.Timber;
 
@@ -49,7 +50,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_progress, container, false);
-        mGraphView = rootView.findViewById(R.id.graph);
+        // mGraphView = rootView.findViewById(R.id.graph);
         initializeLoader(PROGRESS_LOADER, getContext());
         return rootView;
     }
@@ -81,58 +82,54 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Timber.i("cursor data :" + data.getCount());
-        //int i = 1;
-        DataPoint[] dataPoints = new DataPoint[data.getCount()];
+
+        if (data.getCount() == 0)
+            return;
+        BarChart chart = rootView.findViewById(R.id.bar_chart);
+        ArrayList<BarEntry> BarEntry = new ArrayList<>();
         int i = 0;
         while (data.moveToNext()) {
-
-            //  wordsGraphCount.add(data.getInt(1));
-            Timber.i("day " + data.getString(0) + "count(*)" + data.getInt(1) + "i is:" + i);
-            DateFormat format = new SimpleDateFormat("y-M-d");
-            Date quizDate;
-            try {
-                quizDate = format.parse(data.getString(0));
-            } catch (ParseException e) {
-                throw new RuntimeException("Parsing failed for Date" + data.getString(0));
-            }
-            dataPoints[i] = new DataPoint(quizDate.getTime(), data.getInt(1));
+            BarEntry.add(new BarEntry(i, data.getInt(1)));
             i++;
         }
+        BarDataSet dataSet = new BarDataSet(BarEntry, getResources().getString(R.string.graph_y_label));
+        String[] labels = new String[data.getCount()];
+        int labelIndex = 0;
+        data.moveToFirst();
+        do {
+//            DateFormat format = new SimpleDateFormat("y-M-d");
+//            Date quizDate;
+//            try {
+//                quizDate = format.parse(data.getString(0));
+//            } catch (ParseException e) {
+//                throw new RuntimeException("Parsing failed for Date" + data.getString(0));
+//            }
+            labels[labelIndex] = data.getString(0);
+            labelIndex++;
+        } while (data.moveToNext());
 
-        int size = dataPoints.length;
+        final String[] chartLabel = labels;
 
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints);
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
-        mGraphView.addSeries(series);
-        // set date label formatter
-        mGraphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        mGraphView.getGridLabelRenderer().setNumHorizontalLabels(4);
-        // mGraphView.getGridLabelRenderer().setNumVerticalLabels(4);
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return chartLabel[(int) value];
+            }
+        };
 
-        // set manual x bounds to have nice steps
-        mGraphView.getViewport().setMinX(dataPoints[0].getX());
-        mGraphView.getViewport().setMaxX(dataPoints[size - 1].getX());
-        mGraphView.getViewport().setXAxisBoundsManual(true);
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-// as we use dates as labels, the human rounding to nice readable numbers
-// is not necessary
-        mGraphView.getGridLabelRenderer().setHumanRounding(false);
-
-//        // activate horizontal zooming and scrolling
-//        mGraphView.getViewport().setScalable(true);
-//
-//        // activate horizontal scrolling
-//        mGraphView.getViewport().setScrollable(true);
-//
-//        // activate horizontal and vertical zooming and scrolling
-//        mGraphView.getViewport().setScalableY(true);
-//
-//        // activate vertical scrolling
-//        mGraphView.getViewport().setScrollableY(true);
-
+        BarData graphData = new BarData(dataSet);
+        Description description = new Description();
+        description.setText(getResources().getString(R.string.graph_label_description));
+        chart.setDescription(description);
+        chart.setData(graphData);
+        chart.invalidate();
     }
-
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
