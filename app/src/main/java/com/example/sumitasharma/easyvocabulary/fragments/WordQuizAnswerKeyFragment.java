@@ -20,8 +20,6 @@ import timber.log.Timber;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSWERS;
 
 public class WordQuizAnswerKeyFragment extends Fragment {
-    View mRootView;
-    HashMap<String, String> mCorrectAnswers = new HashMap<>();
     @BindView(R.id.quiz_answer_word1)
     TextView word1;
     @BindView(R.id.quiz_answer_word2)
@@ -38,7 +36,8 @@ public class WordQuizAnswerKeyFragment extends Fragment {
     TextView meaning3;
     @BindView(R.id.quiz_answer_meaning4)
     TextView meaning4;
-
+    private View mRootView;
+    private HashMap<String, String> mCorrectAnswers = new HashMap<>();
 
     @Nullable
     @Override

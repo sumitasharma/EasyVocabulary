@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/books"
@@ -23,5 +23,5 @@
 
     <include layout="@layout/fourth_card" />
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
 

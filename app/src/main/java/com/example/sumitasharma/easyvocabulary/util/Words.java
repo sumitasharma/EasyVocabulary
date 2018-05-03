@@ -4,12 +4,12 @@ package com.example.sumitasharma.easyvocabulary.util;
 public class Words {
 
 
-    String wordId;
-    String word;
-    String wordMeaning;
-    String wordLevel;
-    String lastUpdated;
-    Boolean wordPracticed;
+    private String wordId;
+    private String word;
+    private String wordMeaning;
+    private String wordLevel;
+    private String lastUpdated;
+    private Boolean wordPracticed;
 
     public String getWordId() {
         return wordId;

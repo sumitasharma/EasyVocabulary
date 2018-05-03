@@ -26,12 +26,11 @@ import timber.log.Timber;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_PRACTICE;
 
 public class WordPracticeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = WordPracticeFragment.class.getSimpleName();
     private final static int LOADER_ID = 101;
     private final LoaderManager.LoaderCallbacks<Cursor> callback = WordPracticeFragment.this;
-    View rootView;
-    RecyclerView mWordPracticeRecyclerView;
-    Cursor mData;
+    private View rootView;
+    private RecyclerView mWordPracticeRecyclerView;
+    // --Commented out by Inspection (5/3/2018 4:18 PM):private Cursor mData;
     private int mLoaderId;
     private Context mContext = getContext();
     private PracticeWordsAdapter mAdapter = null;
@@ -84,12 +83,12 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         int numberOfWordsForPractice;
-        String frequencyOfWordsForPractice;
+        //String frequencyOfWordsForPractice;
         String levelOfWordsForPractice;
         Timber.i("Inside oncreateloader WordPracticeFragment");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "4"));
-        frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
+        //frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
         levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
         //Setup the uri that will get the data I need from my ContentProvider
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
@@ -106,7 +105,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        mData = data;
+        //mData = data;
         mAdapter = new PracticeWordsAdapter(mContext, data);
         Timber.i("Setting PracticeWordsAdapter for recycler view");
         mWordPracticeRecyclerView.setAdapter(mAdapter);
@@ -122,13 +121,8 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(STATE_WORD_PRACTICE, "original");
-        mPassTheSate.passTheSavedState("original");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        outState.putString(STATE_WORD_PRACTICE, getResources().getString(R.string.word_practice_state));
+        mPassTheSate.passTheSavedState(getResources().getString(R.string.word_practice_state));
     }
 
     @Override

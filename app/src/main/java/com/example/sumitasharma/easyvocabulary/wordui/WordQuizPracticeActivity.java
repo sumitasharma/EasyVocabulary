@@ -25,15 +25,15 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_AN
 
 public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
 
-    HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
-    boolean mLastViewPager;
+    private final HashMap<String, String> mWordAndMeaning = new HashMap<>();
+    private final HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
+    private boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
     private String word;
     private String meaning;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-    private HashMap<Long, Boolean> mUserAnswer = new HashMap<Long, Boolean>();
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -47,7 +47,7 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         Timber.i("Inside oncreate WordQuizPractice activity");
         getSupportLoaderManager().initLoader(QUIZ_LOADER, null, this);
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = findViewById(R.id.pager);
     }
 
     @Override

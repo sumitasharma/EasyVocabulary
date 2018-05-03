@@ -18,9 +18,9 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_AN
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_TOTAL;
 
 public class WordQuizSummaryActivity extends AppCompatActivity implements WordQuizSummaryFragment.CorrectAnswers {
-    HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
-    HashMap<String, String> mCorrectAnswers = new HashMap<>();
-    int mTotal = 0;
+    private HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
+    private HashMap<String, String> mCorrectAnswers = new HashMap<>();
+    private int mTotal = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

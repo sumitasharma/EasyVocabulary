@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class WordQuizFragment extends Fragment implements
 
     private static final String TAG = WordQuizFragment.class.getSimpleName();
     private final static int LOADER_ID = 102;
-
+    private final List<Integer> mIndex = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
     @BindView(R.id.radio)
     RadioGroup radioButtonGroup;
     @BindView(R.id.radio_quiz_word1)
@@ -60,11 +61,10 @@ public class WordQuizFragment extends Fragment implements
     Button submitButton;
     @BindView(R.id.word_quiz_swipe_text)
     TextView swipeText;
-    int mLoaderId;
-    List<Integer> mIndex = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-    PassUserChoice mPassUserChoice;
-    SubmitAnswers mSubmitAnswers;
-    boolean mLastViewPager = false;
+    private int mLoaderId;
+    private PassUserChoice mPassUserChoice;
+    private SubmitAnswers mSubmitAnswers;
+    private boolean mLastViewPager = false;
     private Context mContext = getContext();
     private Cursor mCursor;
     private long mWordId;
@@ -119,7 +119,7 @@ public class WordQuizFragment extends Fragment implements
         setHasOptionsMenu(true);
     }
 
-    public WordQuizPracticeActivity getActivityCast() {
+    private WordQuizPracticeActivity getActivityCast() {
         return (WordQuizPracticeActivity) getActivity();
     }
 
@@ -164,7 +164,7 @@ public class WordQuizFragment extends Fragment implements
     }
 
 
-    public void selectRadioButton() {
+    private void selectRadioButton() {
 
         int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
 
@@ -176,7 +176,7 @@ public class WordQuizFragment extends Fragment implements
                 int index = radioButtonGroup.indexOfChild(radioButton);
                 RadioButton radio = (RadioButton) radioButtonGroup.getChildAt(index);
                 String selectedWord = radio.getText().toString();
-                if (selectedWord == mWord) {
+                if (Objects.equals(selectedWord, mWord)) {
                     Timber.i("User chose the correct word " + selectedWord + mWord);
                     mPassUserChoice.callback(mWordId, true);
                 } else {

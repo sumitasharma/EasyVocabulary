@@ -23,15 +23,15 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSW
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_ANSWERS;
 
 public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
-    HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
-    boolean mLastViewPager;
+    private final HashMap<String, String> mWordAndMeaning = new HashMap<>();
+    private final Context mContext;
+    private final HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
     @BindView(R.id.pager)
     ViewPager mPager;
-    Context mContext;
+    private boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
     private MyPagerAdapter mPagerAdapter;
-    private HashMap<Long, Boolean> mUserAnswer = new HashMap<Long, Boolean>();
 
 
     public WordQuizPracticeLoader(Context context) {

@@ -44,7 +44,6 @@ public class EasyVocabularyWidget extends AppWidgetProvider {
                 null,
                 null,
                 sort_order);
-        Timber.i("Inside query of content provider in widget" + retCursor.getCount());
         if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
 
             Timber.i("word in widget : " + retCursor.getString(0));
@@ -52,9 +51,7 @@ public class EasyVocabularyWidget extends AppWidgetProvider {
             final int N = appWidgetIds.length;
 
             // Perform this loop procedure for each App Widget that belongs to this provider
-            for (int i = 0; i < N; i++) {
-                int appWidgetId = appWidgetIds[i];
-
+            for (int appWidgetId : appWidgetIds) {
                 // Create an Intent to launch ExampleActivity
                 Intent intent = new Intent(context, MainActivity.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);

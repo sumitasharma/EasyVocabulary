@@ -19,18 +19,15 @@ import timber.log.Timber;
 import static android.content.Context.ALARM_SERVICE;
 
 public class NotificationHelper {
-    public static int ALARM_TYPE_RTC = 100;
-    public static int ALARM_TYPE_ELAPSED = 101;
+    public static final int ALARM_TYPE_RTC = 100;
+    public static final int ALARM_TYPE_ELAPSED = 101;
     private static AlarmManager alarmManagerRTC;
     private static PendingIntent alarmIntentRTC;
     private static AlarmManager alarmManagerElapsed;
     private static PendingIntent alarmIntentElapsed;
 
-    /**
-     * This is the real time /wall clock time
-     *
-     * @param context
-     */
+    // This is the real time wall clock time
+
     public static void scheduledNotification(Context context, String frequency) {
         //get calendar instance to be able to select what time notification should be scheduled
         Calendar calendar = Calendar.getInstance();
@@ -76,11 +73,10 @@ public class NotificationHelper {
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, alarmIntentRTC);
     }
 
-    /***
-     * This is another way to schedule notifications using the elapsed time.
-     * Its based on the relative time since device was booted up.
-     * @param context
-     */
+
+    // This is another way to schedule notifications using the elapsed time.
+    // Its based on the relative time since device was booted up.
+
     public static void scheduledNotification(Context context) {
         //Setting intent to class where notification will be handled
         Intent intent = new Intent(context, WordNotificationBootReceiver.class);

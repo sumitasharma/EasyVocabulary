@@ -14,6 +14,10 @@ import android.widget.TextView;
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import timber.log.Timber;
 
 public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdapter.RecyclerViewHolderWords> {
@@ -54,6 +58,9 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
         ContentValues values = new ContentValues();
         Timber.i("Updating Practiced Word" + mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD)));
         values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, true);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(new Date());
+        values.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
         String[] selectArgs = {mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))};
         mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", selectArgs);
 

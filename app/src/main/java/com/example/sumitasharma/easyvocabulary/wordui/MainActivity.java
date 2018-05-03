@@ -298,23 +298,32 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
             }
         } else {  // Handle mobile devices
-            if (cardViewNumber.equals(WORD_MEANING_CARD_VIEW_IDENTIFIER)) {
-                Intent intent = new Intent();
-                intent.setClass(this, PracticeWordsActivity.class);
-                startActivity(intent);
-            } else if (cardViewNumber.equals(QUIZ_CARD_VIEW_IDENTIFIER)) {
-                Intent intent = new Intent();
-                intent.setClass(this, WordQuizPracticeActivity.class);
-                Timber.i("Inside WordQuizPractice selected");
-                startActivity(intent);
-            } else if (cardViewNumber.equals(PROGRESS_CARD_VIEW_IDENTIFIER)) {
-                Intent intent = new Intent();
-                intent.setClass(this, ProgressActivity.class);
-                startActivity(intent);
-            } else if (cardViewNumber.equals(DICTIONARY_CARD_VIEW_IDENTIFIER)) {
-                Intent intent = new Intent();
-                intent.setClass(this, DictionaryActivity.class);
-                startActivity(intent);
+            switch (cardViewNumber) {
+                case WORD_MEANING_CARD_VIEW_IDENTIFIER: {
+                    Intent intent = new Intent();
+                    intent.setClass(this, PracticeWordsActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case QUIZ_CARD_VIEW_IDENTIFIER: {
+                    Intent intent = new Intent();
+                    intent.setClass(this, WordQuizPracticeActivity.class);
+                    Timber.i("Inside WordQuizPractice selected");
+                    startActivity(intent);
+                    break;
+                }
+                case PROGRESS_CARD_VIEW_IDENTIFIER: {
+                    Intent intent = new Intent();
+                    intent.setClass(this, ProgressActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case DICTIONARY_CARD_VIEW_IDENTIFIER: {
+                    Intent intent = new Intent();
+                    intent.setClass(this, DictionaryActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
 
         }

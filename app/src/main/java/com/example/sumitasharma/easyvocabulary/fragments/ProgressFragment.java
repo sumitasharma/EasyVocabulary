@@ -97,13 +97,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         int labelIndex = 0;
         data.moveToFirst();
         do {
-//            DateFormat format = new SimpleDateFormat("y-M-d");
-//            Date quizDate;
-//            try {
-//                quizDate = format.parse(data.getString(0));
-//            } catch (ParseException e) {
-//                throw new RuntimeException("Parsing failed for Date" + data.getString(0));
-//            }
             labels[labelIndex] = data.getString(0);
             labelIndex++;
         } while (data.moveToNext());

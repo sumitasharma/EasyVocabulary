@@ -19,8 +19,8 @@ import timber.log.Timber;
 
 public class QuizPracticeAdapter extends RecyclerView.Adapter<QuizPracticeAdapter.RecyclerViewHolderQuizPractice> {
     private final Context mContext;
-    String meaning = null;
-    private Cursor mCursor;
+    private final Cursor mCursor;
+    private String meaning = null;
 
 
     public QuizPracticeAdapter(Context context, Cursor cursor) {

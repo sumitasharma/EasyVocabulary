@@ -20,7 +20,7 @@ public class EasyVocabularyWiFiTest {
 
 
     @Rule
-    public ActivityTestRule<MainActivity> mEasyVocabularyMainActivityTestRule
+    public final ActivityTestRule<MainActivity> mEasyVocabularyMainActivityTestRule
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test

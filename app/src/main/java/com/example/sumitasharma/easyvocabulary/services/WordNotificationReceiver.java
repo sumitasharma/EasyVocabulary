@@ -33,9 +33,9 @@ public class WordNotificationReceiver extends BroadcastReceiver {
         NotificationHelper.getNotificationManager(context).notify(NotificationHelper.ALARM_TYPE_RTC, repeatedNotification);
     }
 
-    public NotificationCompat.Builder buildLocalNotification(Context context, PendingIntent pendingIntent) {
+    private NotificationCompat.Builder buildLocalNotification(Context context, PendingIntent pendingIntent) {
         NotificationCompat.Builder builder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                new NotificationCompat.Builder(context)
                         .setContentIntent(pendingIntent)
                         .setSmallIcon(android.R.drawable.arrow_up_float)
                         .setContentTitle("Morning Notification")

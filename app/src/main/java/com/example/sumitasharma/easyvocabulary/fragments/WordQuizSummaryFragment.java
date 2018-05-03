@@ -20,11 +20,11 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_TOTAL;
 
 
 public class WordQuizSummaryFragment extends Fragment {
-    View rootView;
     @BindView(R.id.user_quiz_summary_text_view)
     TextView mUserTotalSummary;
-    String mTotal;
-    CorrectAnswers mCorrectAnswers;
+    private View rootView;
+    private String mTotal;
+    private CorrectAnswers mCorrectAnswers;
 
     @OnClick(R.id.correct_answers)
     public void correctAnswers() {

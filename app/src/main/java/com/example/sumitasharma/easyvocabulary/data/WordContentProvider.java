@@ -176,7 +176,7 @@ public class WordContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        int count = 0;
+        int count;
         final SQLiteDatabase db = mWordDbHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         switch (match) {

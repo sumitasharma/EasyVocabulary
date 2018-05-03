@@ -7,6 +7,8 @@ import android.support.v4.content.CursorLoader;
 
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 
+import java.util.Arrays;
+
 import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.QUIZ_SORT;
@@ -16,7 +18,7 @@ public class WordQuizLoader extends CursorLoader {
 
     private WordQuizLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortBy) {
         super(context, uri, projection, selection, selectionArgs, sortBy);
-        Timber.i("Inside WordQuizLoader Second Constructor" + Query.PROJECTION + QUIZ_WHERE + QUIZ_SORT);
+        Timber.i("Inside WordQuizLoader Second Constructor" + Arrays.toString(Query.PROJECTION) + QUIZ_WHERE + QUIZ_SORT);
 
     }
 

@@ -24,9 +24,9 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING
 
 public class WordMainFragment extends Fragment {
     private static final String TAG = WordMainFragment.class.getSimpleName();
-    View rootView;
     @BindView(R.id.adView)
     AdView adView;
+    private View rootView;
     private PassCardViewInformation mPassCardViewInformation;
 
     public WordMainFragment() {

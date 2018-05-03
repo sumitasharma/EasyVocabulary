@@ -15,7 +15,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSW
 
 public class WordQuizAnswerActivity extends AppCompatActivity {
 
-    HashMap<String, String> mCorrectAnswers = new HashMap<>();
+    private HashMap<String, String> mCorrectAnswers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

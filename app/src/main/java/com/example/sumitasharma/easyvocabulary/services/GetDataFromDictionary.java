@@ -28,10 +28,10 @@ import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.LAST_SAVED_POSITION;
 
-public class GetDataFromDictionary {
-    private Context mContext;
-    private JobService mJobService;
-    private JobParameters mJobParameters;
+class GetDataFromDictionary {
+    private final Context mContext;
+    private final JobService mJobService;
+    private final JobParameters mJobParameters;
     private HashMap<String, String> words = new HashMap<>();
 
     public GetDataFromDictionary(WordDbPopulatorJobService wordDbPopulatorService, Context context, JobParameters jobParameters) {
@@ -41,19 +41,19 @@ public class GetDataFromDictionary {
     }
 
 
-    public void populateDatabase(final HashMap<String, String> words, final Context context) {
+    private void populateDatabase(final HashMap<String, String> words, final Context context) {
         Timber.i("Inside populateDatabase");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
-        /**
-         * Calling JSON
-         */
+
+        // Calling JSON
+
         for (final String word : words.keySet()) {
             Call<Example> call = api.getMyJSON(word);
-            /**
-             * Enqueue Callback will be call when get response...
-             */
+
+            // Enqueue Callback will be call when get response...
+
             call.enqueue(new Callback<Example>() {
                 @Override
                 public void onResponse(Call<Example> call, Response<Example> response) {

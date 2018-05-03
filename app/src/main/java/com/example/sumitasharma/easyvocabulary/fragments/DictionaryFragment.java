@@ -38,13 +38,13 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 public class DictionaryFragment extends Fragment {
 
     private static final String TAG = DictionaryFragment.class.getSimpleName();
-    public PassTheStateDictionary mPassTheSateDictionary;
     Context mContext;
-    View rootView;
     @BindView(R.id.dictionary_search_word_edit_text)
     EditText dictionarySearchWord;
     @BindView(R.id.dictionary_word_meaning_text)
     TextView dictionarySearchMeaning;
+    private PassTheStateDictionary mPassTheSateDictionary;
+    private View rootView;
     private String wordForSearch;
     private String meaning;
 
@@ -82,14 +82,13 @@ public class DictionaryFragment extends Fragment {
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
-        /**
-         * Calling JSON
-         */
+        // Calling JSON
+
         Call<Example> call = api.getMyJSON(wordForSearch);
 
-        /**
-         * Enqueue Callback will be call when get response...
-         */
+
+        // Enqueue Callback will be call when get response...
+
         call.enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
@@ -148,11 +147,6 @@ public class DictionaryFragment extends Fragment {
 
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onAttach(Context context) {

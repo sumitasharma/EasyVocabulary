@@ -23,7 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class EasyVocabularyMainActivityBasicTest {
     @Rule
-    public ActivityTestRule<MainActivity> mEasyVocabularyMainActivityTestRule
+    public final ActivityTestRule<MainActivity> mEasyVocabularyMainActivityTestRule
             = new ActivityTestRule<>(MainActivity.class);
 
     /**

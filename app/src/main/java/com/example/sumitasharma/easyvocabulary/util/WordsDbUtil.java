@@ -25,7 +25,7 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class WordsDbUtil {
-    private Context mContext;
+    private final Context mContext;
 
     public WordsDbUtil(Context context) {
         this.mContext = context;
@@ -37,14 +37,13 @@ public class WordsDbUtil {
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
-        /**
-         * Calling JSON
-         */
+        // Calling JSON
+
         for (final String word : words.keySet()) {
             Call<Example> call = api.getMyJSON(word);
-            /**
-             * Enqueue Callback will be call when get response...
-             */
+
+            // Enqueue Callback will be call when get response...
+
             call.enqueue(new Callback<Example>() {
                 @Override
                 public void onResponse(Call<Example> call, Response<Example> response) {
@@ -94,7 +93,7 @@ public class WordsDbUtil {
         return false;
     }
 
-    public HashMap<String, String> readWordsFromAssets() {
+    private HashMap<String, String> readWordsFromAssets() {
         Timber.i("dataFrom Dictionary");
         HashMap<String, String> words = new HashMap<>();
 
