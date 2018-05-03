@@ -46,6 +46,7 @@
     <string name="goto_progress">Check Your Progress</string>
     <string name="graph_label_description">Words Learnt Per Day</string>
     <string name="graph_y_label">Words Learnt</string>
+    <string name="main_collapsing_toolbar_title">Welcome</string>
 
 
 </resources>
