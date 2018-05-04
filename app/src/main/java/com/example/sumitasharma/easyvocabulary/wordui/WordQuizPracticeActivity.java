@@ -124,7 +124,6 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
 
         @Override
         public int getCount() {
-            //  Timber.i("Inside getCount():" + mCursor.getCount());
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }

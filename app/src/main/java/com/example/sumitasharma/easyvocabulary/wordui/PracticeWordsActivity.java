@@ -35,13 +35,11 @@ public class PracticeWordsActivity extends AppCompatActivity implements WordPrac
         }
         if (savedInstanceState == null) {
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-            // FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
             transaction.replace(R.id.practice_word_frame_layout, wordPracticeFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-            // fragmentManager.beginTransaction().add(R.id.practice_word_frame_layout, wordPracticeFragment).commit();
         }
     }
 
@@ -55,7 +53,6 @@ public class PracticeWordsActivity extends AppCompatActivity implements WordPrac
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //    Log.i(TAG, "Inside onOptionsItemSelected");
         int id = item.getItemId();
 
         switch (id) {

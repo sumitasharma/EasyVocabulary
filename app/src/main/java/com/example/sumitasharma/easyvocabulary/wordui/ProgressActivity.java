@@ -23,21 +23,17 @@ public class ProgressActivity extends AppCompatActivity {
         transaction.replace(R.id.progress_word_frame_layout, progressFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        // FragmentManager fragmentManager = getSupportFragmentManager();
-        // fragmentManager.beginTransaction().replace(R.id.progress_word_frame_layout, progressFragment).commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
-        // Log.i(TAG, "Inside onCreateOptionsMenu");
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //    Log.i(TAG, "Inside onOptionsItemSelected");
         int id = item.getItemId();
 
         switch (id) {

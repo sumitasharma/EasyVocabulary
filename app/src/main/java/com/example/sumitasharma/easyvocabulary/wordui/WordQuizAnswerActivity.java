@@ -32,7 +32,5 @@ public class WordQuizAnswerActivity extends AppCompatActivity {
         transaction.replace(R.id.quiz_correct_answers, wordQuizAnswerKeyFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        // FragmentManager fragmentManager = getSupportFragmentManager();
-        // fragmentManager.beginTransaction().add(R.id.quiz_correct_answers, wordQuizAnswerKeyFragment).commit();
     }
 }

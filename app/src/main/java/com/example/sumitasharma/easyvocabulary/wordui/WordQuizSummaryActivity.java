@@ -2,7 +2,7 @@ package com.example.sumitasharma.easyvocabulary.wordui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.sumitasharma.easyvocabulary.R;
@@ -40,8 +40,11 @@ public class WordQuizSummaryActivity extends AppCompatActivity implements WordQu
 
         WordQuizSummaryFragment wordQuizSummaryFragment = new WordQuizSummaryFragment();
         wordQuizSummaryFragment.setArguments(argsForWordQuizSummaryFragment);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.quiz_answer_summary, wordQuizSummaryFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+        transaction.replace(R.id.quiz_answer_summary, wordQuizSummaryFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

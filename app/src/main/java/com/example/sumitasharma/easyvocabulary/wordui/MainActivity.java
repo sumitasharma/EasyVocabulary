@@ -110,22 +110,19 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             if (mTwoPane) {
                 if (state == null) {
                     WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-                    // fragmentManager = getSupportFragmentManager();
                     // Add the fragment to its container using a FragmentManager and a Transaction
                     FragmentTransaction transactionPractice = getSupportFragmentManager().beginTransaction();
                     transactionPractice.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
-                    transactionPractice.replace(R.id.word_main_fragment, wordMainFragment);
+                    transactionPractice.replace(R.id.word_main_choice_fragment, wordPracticeFragment);
                     transactionPractice.addToBackStack(null);
                     transactionPractice.commit();
-                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
                 } else if (state_dictionary == null) {
                     DictionaryFragment dictionaryFragment = new DictionaryFragment();
                     FragmentTransaction transactionDictionary = getSupportFragmentManager().beginTransaction();
                     transactionDictionary.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
-                    transactionDictionary.replace(R.id.word_main_fragment, wordMainFragment);
+                    transactionDictionary.replace(R.id.word_main_choice_fragment, wordMainFragment);
                     transactionDictionary.addToBackStack(null);
                     transactionDictionary.commit();
-                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
                 }
             }
 
@@ -137,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         }
 
     }
-
 
     private void setupSharedPreference() {
         Log.i(TAG, "Inside setupSharedPreference");
@@ -274,7 +270,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     public void cardViewInformation(String cardViewNumber) {
         if (mTwoPane) { // Handle Tablet devices
-            //FragmentManager fragmentManager = getSupportFragmentManager();
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
             this.cardViewNumber = cardViewNumber;
             switch (cardViewNumber) {
@@ -285,8 +280,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                         transactionPractice.replace(R.id.word_main_choice_fragment, wordPracticeFragment);
                         transactionPractice.addToBackStack(null);
                         transactionPractice.commit();
-                        //     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
-
                     }
                     state_dictionary = null;
                     break;
@@ -304,7 +297,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                     transactionProgress.replace(R.id.word_main_choice_fragment, progressFragment);
                     transactionProgress.addToBackStack(null);
                     transactionProgress.commit();
-                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
                     state = null;
                     state_dictionary = null;
                     break;
@@ -316,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                         transactionDictionary.replace(R.id.word_main_choice_fragment, dictionaryFragment);
                         transactionDictionary.addToBackStack(null);
                         transactionDictionary.commit();
-                        //     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
                     }
                     state = null;
                     break;

@@ -37,13 +37,11 @@ public class DictionaryActivity extends AppCompatActivity implements DictionaryF
 
         if (savedInstanceState == null) {
             DictionaryFragment dictionaryFragment = new DictionaryFragment();
-            //FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
             transaction.replace(R.id.dictionary_word_frame_layout, dictionaryFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-            // fragmentManager.beginTransaction().add(R.id.dictionary_word_frame_layout, dictionaryFragment).commit();
         }
     }
 
