@@ -16,7 +16,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -94,8 +94,13 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         mTwoPane = findViewById(R.id.words_tablet_linear_layout) != null;
 
         WordMainFragment wordMainFragment = new WordMainFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.activity_from_left, R.anim.activity_exit_right);
+        transaction.replace(R.id.word_main_fragment, wordMainFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        //  FragmentManager fragmentManager = getSupportFragmentManager();
+        //  fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
         if (savedInstanceState != null) {
             state = savedInstanceState.getString(STATE_WORD_PRACTICE);
             state_dictionary = savedInstanceState.getString(STATE_WORD_DICTIONARY);
@@ -105,16 +110,22 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             if (mTwoPane) {
                 if (state == null) {
                     WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-                    fragmentManager = getSupportFragmentManager();
+                    // fragmentManager = getSupportFragmentManager();
                     // Add the fragment to its container using a FragmentManager and a Transaction
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                    FragmentTransaction transactionPractice = getSupportFragmentManager().beginTransaction();
+                    transactionPractice.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                    transactionPractice.replace(R.id.word_main_fragment, wordMainFragment);
+                    transactionPractice.addToBackStack(null);
+                    transactionPractice.commit();
+                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
                 } else if (state_dictionary == null) {
                     DictionaryFragment dictionaryFragment = new DictionaryFragment();
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
-//            EditText dictionarySearchWord = (EditText)findViewById(R.id.dictionary_search_word_edit_text);
-//                TextView dictionarySearchMeaning = (TextView)findViewById(R.id.dictionary_word_meaning_text);
-//                //      dictionarySearchWord.setText(dictionary_word);
-//                dictionarySearchMeaning.setText(dictionary_meaning);
+                    FragmentTransaction transactionDictionary = getSupportFragmentManager().beginTransaction();
+                    transactionDictionary.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                    transactionDictionary.replace(R.id.word_main_fragment, wordMainFragment);
+                    transactionDictionary.addToBackStack(null);
+                    transactionDictionary.commit();
+                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
                 }
             }
 
@@ -263,13 +274,20 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     public void cardViewInformation(String cardViewNumber) {
         if (mTwoPane) { // Handle Tablet devices
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
             this.cardViewNumber = cardViewNumber;
             switch (cardViewNumber) {
                 case WORD_MEANING_CARD_VIEW_IDENTIFIER:
-                    if (state == null)
-                        fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                    if (state == null) {
+                        FragmentTransaction transactionPractice = getSupportFragmentManager().beginTransaction();
+                        transactionPractice.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                        transactionPractice.replace(R.id.word_main_choice_fragment, wordPracticeFragment);
+                        transactionPractice.addToBackStack(null);
+                        transactionPractice.commit();
+                        //     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+
+                    }
                     state_dictionary = null;
                     break;
                 case QUIZ_CARD_VIEW_IDENTIFIER:
@@ -281,19 +299,34 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 case PROGRESS_CARD_VIEW_IDENTIFIER:
                     ProgressFragment progressFragment = new ProgressFragment();
                     Timber.i("Entering Progress Fragment");
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
+                    FragmentTransaction transactionProgress = getSupportFragmentManager().beginTransaction();
+                    transactionProgress.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                    transactionProgress.replace(R.id.word_main_choice_fragment, progressFragment);
+                    transactionProgress.addToBackStack(null);
+                    transactionProgress.commit();
+                    // fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, progressFragment).commit();
                     state = null;
                     state_dictionary = null;
                     break;
                 case DICTIONARY_CARD_VIEW_IDENTIFIER:
                     if (state_dictionary == null) {
                         DictionaryFragment dictionaryFragment = new DictionaryFragment();
-                        fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
+                        FragmentTransaction transactionDictionary = getSupportFragmentManager().beginTransaction();
+                        transactionDictionary.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                        transactionDictionary.replace(R.id.word_main_choice_fragment, dictionaryFragment);
+                        transactionDictionary.addToBackStack(null);
+                        transactionDictionary.commit();
+                        //     fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, dictionaryFragment).commit();
                     }
                     state = null;
                     break;
                 default:
-                    fragmentManager.beginTransaction().replace(R.id.word_main_choice_fragment, wordPracticeFragment).commit();
+                    FragmentTransaction transactionPractice = getSupportFragmentManager().beginTransaction();
+                    transactionPractice.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+                    transactionPractice.replace(R.id.word_main_choice_fragment, wordPracticeFragment);
+                    transactionPractice.addToBackStack(null);
+                    transactionPractice.commit();
+                    state_dictionary = null;
                     break;
 
             }
@@ -337,11 +370,15 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putString(STATE_WORD_PRACTICE, state);
-        outState.putString(STATE_WORD_DICTIONARY, state_dictionary);
-        outState.putString(DICTIONARY_SEARCH_WORD, dictionary_word);
-        outState.putString(DICTIONARY_SEARCH_MEANING, dictionary_meaning);
+        if (state == null) {
+            outState.putString(STATE_WORD_PRACTICE, null);
+            outState.putString(STATE_WORD_DICTIONARY, state_dictionary);
+            outState.putString(DICTIONARY_SEARCH_WORD, dictionary_word);
+            outState.putString(DICTIONARY_SEARCH_MEANING, dictionary_meaning);
+        } else if (state_dictionary == null) {
+            outState.putString(STATE_WORD_PRACTICE, state);
+            outState.putString(STATE_WORD_DICTIONARY, null);
+        }
 
 
     }

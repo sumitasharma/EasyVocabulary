@@ -4,7 +4,7 @@ package com.example.sumitasharma.easyvocabulary.wordui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,8 +37,13 @@ public class DictionaryActivity extends AppCompatActivity implements DictionaryF
 
         if (savedInstanceState == null) {
             DictionaryFragment dictionaryFragment = new DictionaryFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.dictionary_word_frame_layout, dictionaryFragment).commit();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+            transaction.replace(R.id.dictionary_word_frame_layout, dictionaryFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            // fragmentManager.beginTransaction().add(R.id.dictionary_word_frame_layout, dictionaryFragment).commit();
         }
     }
 

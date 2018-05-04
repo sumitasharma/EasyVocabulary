@@ -2,7 +2,7 @@ package com.example.sumitasharma.easyvocabulary.wordui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,8 +18,13 @@ public class ProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
         ProgressFragment progressFragment = new ProgressFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.progress_word_frame_layout, progressFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+        transaction.replace(R.id.progress_word_frame_layout, progressFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        // FragmentManager fragmentManager = getSupportFragmentManager();
+        // fragmentManager.beginTransaction().replace(R.id.progress_word_frame_layout, progressFragment).commit();
     }
 
     @Override

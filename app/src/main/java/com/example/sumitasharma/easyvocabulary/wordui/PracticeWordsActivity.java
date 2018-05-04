@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,8 +35,13 @@ public class PracticeWordsActivity extends AppCompatActivity implements WordPrac
         }
         if (savedInstanceState == null) {
             WordPracticeFragment wordPracticeFragment = new WordPracticeFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.practice_word_frame_layout, wordPracticeFragment).commit();
+            // FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.activity_from_right, R.anim.activity_exit_left);
+            transaction.replace(R.id.practice_word_frame_layout, wordPracticeFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            // fragmentManager.beginTransaction().add(R.id.practice_word_frame_layout, wordPracticeFragment).commit();
         }
     }
 
