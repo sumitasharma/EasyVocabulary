@@ -4,6 +4,9 @@
     android:id="@+id/practice_word_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/books"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over"
     tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
 
     <FrameLayout

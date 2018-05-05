@@ -5,12 +5,18 @@
     style="@style/Theme.Bacon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/library"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over"
     tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
 
     <FrameLayout
         android:id="@+id/quiz_word_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/library"
+        android:backgroundTint="#90FFFFFF"
+        android:backgroundTintMode="src_over">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"

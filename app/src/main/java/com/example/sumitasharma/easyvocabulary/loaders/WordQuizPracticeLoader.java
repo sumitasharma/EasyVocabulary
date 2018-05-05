@@ -1,7 +1,6 @@
 package com.example.sumitasharma.easyvocabulary.loaders;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,17 +11,13 @@ import android.support.v4.view.ViewPager;
 
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.fragments.WordQuizFragment;
-import com.example.sumitasharma.easyvocabulary.wordui.WordQuizSummaryActivity;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
 import timber.log.Timber;
 
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSWERS;
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_ANSWERS;
-
-public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
+public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cursor> {
     private final HashMap<String, String> mWordAndMeaning = new HashMap<>();
     private final Context mContext;
     private final HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
@@ -57,29 +52,29 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
         mCursor = null;
         mPagerAdapter.notifyDataSetChanged();
     }
-
-    @Override
-    public void callback(long wordId, Boolean answer) {
-        if (mUserAnswer.containsKey(wordId)) {
-            mUserAnswer.remove(wordId);
-            Timber.i("answer :" + answer);
-            mUserAnswer.put(wordId, answer);
-        } else {
-            mUserAnswer.put(wordId, answer);
-            Timber.i("answer :" + answer);
-        }
-    }
-
-    @Override
-    public void submitAnswer(boolean submitAnswer) {
-        Intent intent = new Intent();
-        Bundle b = new Bundle();
-        b.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
-        b.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
-        intent.putExtras(b);
-        intent.setClass(mContext, WordQuizSummaryActivity.class);
-        mContext.startActivity(intent);
-    }
+//
+//    @Override
+//    public void callback(long wordId, Boolean answer) {
+//        if (mUserAnswer.containsKey(wordId)) {
+//            mUserAnswer.remove(wordId);
+//            Timber.i("answer :" + answer);
+//            mUserAnswer.put(wordId, answer);
+//        } else {
+//            mUserAnswer.put(wordId, answer);
+//            Timber.i("answer :" + answer);
+//        }
+//    }
+//
+//    @Override
+//    public void submitAnswer(boolean submitAnswer) {
+//        Intent intent = new Intent();
+//        Bundle b = new Bundle();
+//        b.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
+//        b.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
+//        intent.putExtras(b);
+//        intent.setClass(mContext, WordQuizSummaryActivity.class);
+//        mContext.startActivity(intent);
+//    }
 
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -108,7 +103,6 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
 
         @Override
         public int getCount() {
-            //  Timber.i("Inside getCount():" + mCursor.getCount());
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }

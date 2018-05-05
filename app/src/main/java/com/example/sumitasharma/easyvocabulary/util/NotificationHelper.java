@@ -37,8 +37,8 @@ public class NotificationHelper {
             case "Daily":
                 Timber.i("Inside scheduledNotification Daily");
                 //Setting time of the day (8am here) when notification will be sent every day
-                calendar.set(Calendar.HOUR_OF_DAY, 20);
-                calendar.set(Calendar.MINUTE, 39);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 10);
                 break;
             case "Weekly":
                 Timber.i("Inside scheduledNotification Weekly");
@@ -51,10 +51,6 @@ public class NotificationHelper {
                 calendar.set(Calendar.DAY_OF_MONTH, 1);
                 break;
         }
-
-
-//                Integer.getInteger(hour, 8),
-//                Integer.getInteger(min, 0));
 
         //Setting intent to class where Alarm broadcast message will be handled
         Intent intent = new Intent(context, WordNotificationBootReceiver.class);

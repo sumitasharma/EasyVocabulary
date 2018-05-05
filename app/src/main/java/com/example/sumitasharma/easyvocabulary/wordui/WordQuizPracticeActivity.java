@@ -25,8 +25,9 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_AN
 
 public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
 
-    private final HashMap<String, String> mWordAndMeaning = new HashMap<>();
-    private final HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
+    private HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
+    ;
+    private HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
     private boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
@@ -34,6 +35,7 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
     private String meaning;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
+
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -45,6 +47,10 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         setContentView(R.layout.activity_word_quiz_practice);
         //  Instantiate a ViewPager and a PagerAdapter.
         Timber.i("Inside oncreate WordQuizPractice activity");
+        if (savedInstanceState != null) {
+            this.mUserAnswer = (HashMap<Long, Boolean>) savedInstanceState.getSerializable(USER_QUIZ_ANSWERS);
+            this.mWordAndMeaning = (HashMap<String, String>) savedInstanceState.getSerializable(CORRECT_ANSWERS);
+        }
         getSupportLoaderManager().initLoader(QUIZ_LOADER, null, this);
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.pager);
@@ -64,6 +70,7 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
 
     }
 
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursor = null;
@@ -72,14 +79,25 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
 
     @Override
     public void callback(long wordId, Boolean answer) {
-        if (mUserAnswer.containsKey(wordId)) {
-            mUserAnswer.remove(wordId);
-            Timber.i("answer :" + answer);
-            mUserAnswer.put(wordId, answer);
+        if (mUserAnswer != null) {
+            if (mUserAnswer.containsKey(wordId)) {
+                mUserAnswer.remove(wordId);
+                Timber.i("answer :" + answer);
+                mUserAnswer.put(wordId, answer);
+            }
         } else {
+            mUserAnswer = new HashMap<>();
             mUserAnswer.put(wordId, answer);
-            Timber.i("answer :" + answer);
+            Timber.i("answer :" + wordId + answer);
         }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
+        outState.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
     }
 
     @Override
@@ -92,7 +110,6 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         intent.setClass(this, WordQuizSummaryActivity.class);
         startActivity(intent);
     }
-
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
@@ -118,6 +135,9 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
             word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
             meaning = mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING);
             meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1).toLowerCase();
+            if (mWordAndMeaning == null) {
+                mWordAndMeaning = new HashMap<>();
+            }
             mWordAndMeaning.put(meaning, word);
             return WordQuizFragment.newInstance(mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING), mCursor.getString(WordQuizLoader.Query.COLUMN_WORD), mCursor.getLong(WordQuizLoader.Query.COLUMN_ID), mLastViewPager);
         }
@@ -128,4 +148,10 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         }
     }
 
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+//        outState.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
+//        outState.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
+//    }
 }

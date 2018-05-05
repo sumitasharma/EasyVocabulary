@@ -56,13 +56,8 @@ public class DictionaryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        // Timber.i("Inside onCreate");
-//        if (savedInstanceState != null) {
-//            wordForSearch = savedInstanceState.getString(DICTIONARY_SEARCH_WORD);
-//            meaning = savedInstanceState.getString(DICTIONARY_SEARCH_MEANING);
-//            Timber.i("Inside OnCreate:" + wordForSearch + meaning);
-//        }
     }
+
     @OnClick(R.id.search_button)
     public void searchForMeaning() {
 

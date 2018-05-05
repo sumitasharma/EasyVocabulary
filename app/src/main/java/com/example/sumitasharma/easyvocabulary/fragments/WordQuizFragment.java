@@ -166,8 +166,6 @@ public class WordQuizFragment extends Fragment implements
 
     private void selectRadioButton() {
 
-        int radioButtonId = radioButtonGroup.getCheckedRadioButtonId();
-
         radioButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -186,6 +184,7 @@ public class WordQuizFragment extends Fragment implements
             }
 
         });
+        mPassUserChoice.callback(mWordId, false);
     }
 
 

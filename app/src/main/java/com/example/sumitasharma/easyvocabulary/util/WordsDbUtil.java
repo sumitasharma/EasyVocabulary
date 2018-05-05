@@ -167,7 +167,6 @@ public class WordsDbUtil {
             }
         }
         return words;
-        //  populateDatabase(words, mContext);
     }
 
 }

@@ -15,13 +15,15 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.CORRECT_ANSW
 
 public class WordQuizAnswerActivity extends AppCompatActivity {
 
-    private HashMap<String, String> mCorrectAnswers = new HashMap<>();
+    HashMap<String, String> mCorrectAnswers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_quiz_answer);
         Timber.i("WordQuizAnswerActivity called");
+        HashMap<String, String> mCorrectAnswers;
+
         mCorrectAnswers = (HashMap<String, String>) getIntent().getSerializableExtra(CORRECT_ANSWERS);
         Bundle argsForWordQuizSummaryFragment = new Bundle();
         argsForWordQuizSummaryFragment.putSerializable(CORRECT_ANSWERS, mCorrectAnswers);
@@ -32,5 +34,7 @@ public class WordQuizAnswerActivity extends AppCompatActivity {
         transaction.replace(R.id.quiz_correct_answers, wordQuizAnswerKeyFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
+
 }

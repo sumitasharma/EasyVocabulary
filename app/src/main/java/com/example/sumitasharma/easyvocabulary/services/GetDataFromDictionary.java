@@ -157,6 +157,7 @@ class GetDataFromDictionary {
                     bufferedReader.close();
                 } catch (IOException e) {
                     //log the exception
+                    Timber.i("Error");
                 }
             }
         }
@@ -186,6 +187,7 @@ class GetDataFromDictionary {
                     bufferedReader.close();
                 } catch (IOException e) {
                     //log the exception
+                    Timber.i("Error");
                 }
             }
         }

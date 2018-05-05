@@ -71,16 +71,6 @@ public class WordContentProvider extends ContentProvider {
                         null,
                         sortOrder);
                 Timber.i("Inside query of content provider" + retCursor.getCount());
-//                if (retCursor.moveToFirst() && retCursor.getCount() >= 1) {
-//                    do {
-//                        Timber.i("Inside ContentProvider 1st value" + retCursor.getInt(0));
-//                        Timber.i("Inside ContentProvider 2nd value" + retCursor.getInt(1));
-//
-//
-//                    } while (retCursor.moveToNext());
-//                }
-
-
                 break;
             case WORD_WITH_ID:
                 retCursor = db.query(WordContract.WordsEntry.TABLE_NAME,

@@ -104,8 +104,6 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        //mData = data;
         mAdapter = new PracticeWordsAdapter(mContext, data);
         Timber.i("Setting PracticeWordsAdapter for recycler view");
         mWordPracticeRecyclerView.setAdapter(mAdapter);

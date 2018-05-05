@@ -23,7 +23,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.jjoe64.graphview.GraphView;
 
 import java.util.ArrayList;
 
@@ -33,11 +32,9 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_LOA
 
 
 public class ProgressFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = ProgressFragment.class.getSimpleName();
+
     private final LoaderManager.LoaderCallbacks<Cursor> callback = ProgressFragment.this;
     View rootView;
-    ArrayList<Integer> wordsGraphCount = new ArrayList<>();
-    GraphView mGraphView;
     private int mLoaderId;
     private Context mContext = getContext();
 
@@ -50,7 +47,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_progress, container, false);
-        // mGraphView = rootView.findViewById(R.id.graph);
         initializeLoader(PROGRESS_LOADER, getContext());
         return rootView;
     }

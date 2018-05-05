@@ -38,10 +38,9 @@ public class WordQuizSummaryFragment extends Fragment {
         Timber.i("Inside WordQuizSummaryFragment");
         ButterKnife.bind(this, rootView);
         if (getArguments() != null) {
-            Timber.i("mTotal" + mTotal);
             mTotal = getArguments().getString(USER_TOTAL);
+            Timber.i("mTotal" + mTotal);
         }
-        Timber.i("Total " + mTotal);
         mUserTotalSummary.setText(mTotal);
         return rootView;
 
@@ -55,7 +54,5 @@ public class WordQuizSummaryFragment extends Fragment {
 
     public interface CorrectAnswers {
         void callCorrectAnswerActivity();
-
-        ;
     }
 }
