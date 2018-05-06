@@ -18,7 +18,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
@@ -54,12 +54,17 @@
             android:id="@+id/word_phone_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
 
             <FrameLayout
                 android:id="@+id/word_main_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fitsSystemWindows="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
         </LinearLayout>
