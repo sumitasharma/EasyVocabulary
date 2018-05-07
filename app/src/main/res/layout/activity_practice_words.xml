@@ -12,7 +12,7 @@
     <FrameLayout
         android:id="@+id/practice_word_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 
 </android.support.design.widget.CoordinatorLayout>

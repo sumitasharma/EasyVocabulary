@@ -18,26 +18,22 @@
             android:id="@+id/radio_quiz_word1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="word1" />
+            android:checked="true" />
 
         <RadioButton
             android:id="@+id/radio_quiz_word2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word2" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/radio_quiz_word3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word3" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/radio_quiz_word4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="word4" />
+            android:layout_height="wrap_content" />
 
     </RadioGroup>
 

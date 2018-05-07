@@ -101,6 +101,7 @@ public class WordQuizFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if (getArguments().containsKey(QUIZ_WORD_ID)) {
             mWordId = getArguments().getLong(QUIZ_WORD_ID);
         }
@@ -184,9 +185,10 @@ public class WordQuizFragment extends Fragment implements
             }
 
         });
-        mPassUserChoice.callback(mWordId, false);
+        if (radioButtonGroup.getCheckedRadioButtonId() == -1) {
+            mPassUserChoice.callback(mWordId, false);
+        }
     }
-
 
     private void bindViews() {
         if (mRootView == null) {
@@ -194,10 +196,9 @@ public class WordQuizFragment extends Fragment implements
         }
         mWordMeaning = mWordMeaning.substring(0, 1).toUpperCase() + mWordMeaning.substring(1).toLowerCase();
         quizWordMeaning.setText(mWordMeaning);
-        Timber.i("quizwordmeaning" + mWordMeaning);
+        Timber.i("Quiz Word Meaning" + mWordMeaning);
 
     }
-
 
     private void bindViewsRadioGroup() {
         if (mRootView == null) {

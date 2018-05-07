@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -76,9 +75,8 @@ public class EasyVocabularyMainActivityBasicTest {
                 onView(withId(R.id.practice_word_frame_layout)).check(matches(isDisplayed()));
             } catch (Exception e) {
                 getInstrumentation().waitForIdleSync();
-//                  Thread.sleep(500);
                 onView(withId(R.id.word_meaning_card_view))
-                        .perform(scrollTo(), click());
+                        .perform(click());
                 Thread.sleep(500);
                 // Fragment is open.
                 onView(withId(R.id.practice_word_frame_layout)).check(matches(isDisplayed()));
@@ -165,8 +163,6 @@ public class EasyVocabularyMainActivityBasicTest {
             getInstrumentation().waitForIdleSync();
             // Fragment is open.
             onView(withId(R.id.quiz_word_frame_layout)).check(matches(isDisplayed()));
-
-
 
         }
     }

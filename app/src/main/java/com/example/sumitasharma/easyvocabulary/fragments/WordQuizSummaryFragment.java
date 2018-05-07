@@ -40,6 +40,8 @@ public class WordQuizSummaryFragment extends Fragment {
         if (getArguments() != null) {
             mTotal = getArguments().getString(USER_TOTAL);
             Timber.i("mTotal" + mTotal);
+        } else if (savedInstanceState != null) {
+            mTotal = savedInstanceState.getString(USER_TOTAL);
         }
         mUserTotalSummary.setText(mTotal);
         return rootView;
@@ -50,6 +52,12 @@ public class WordQuizSummaryFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mCorrectAnswers = (CorrectAnswers) context;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(USER_TOTAL, this.mTotal);
     }
 
     public interface CorrectAnswers {

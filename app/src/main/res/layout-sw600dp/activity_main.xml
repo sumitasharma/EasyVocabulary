@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/words_coordinate_layout"
+    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,6 +10,7 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/theme_accent"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -18,10 +20,11 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:collapsedTitleGravity="center"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Collapsed"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="4dp"
-            app:expandedTitleMarginStart="148dp"
-            app:expandedTitleTextAppearance="@color/black"
+            app:expandedTitleMarginStart="2dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/main_collapsing_toolbar_title">
 
@@ -70,7 +73,7 @@
                 android:id="@+id/words_tablet_divider"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark" />
+                android:background="@color/theme_primary" />
 
             <FrameLayout
                 android:id="@+id/word_main_choice_fragment"

@@ -3,6 +3,7 @@ package com.example.sumitasharma.easyvocabulary.wordui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -26,7 +27,6 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_QUIZ_AN
 public class WordQuizPracticeActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, WordQuizFragment.PassUserChoice, WordQuizFragment.SubmitAnswers {
 
     private HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
-    ;
     private HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
     private boolean mLastViewPager;
     private Cursor mCursor;
@@ -79,14 +79,11 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
 
     @Override
     public void callback(long wordId, Boolean answer) {
-        if (mUserAnswer != null) {
             if (mUserAnswer.containsKey(wordId)) {
                 mUserAnswer.remove(wordId);
                 Timber.i("answer :" + answer);
                 mUserAnswer.put(wordId, answer);
-            }
-        } else {
-            mUserAnswer = new HashMap<>();
+            } else {
             mUserAnswer.put(wordId, answer);
             Timber.i("answer :" + wordId + answer);
         }
@@ -109,6 +106,12 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         intent.putExtras(b);
         intent.setClass(this, WordQuizSummaryActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putSerializable(USER_QUIZ_ANSWERS, this.mUserAnswer);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -147,11 +150,4 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
             return (mCursor != null) ? mCursor.getCount() : 0;
         }
     }
-
-//    @Override
-//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-//        super.onSaveInstanceState(outState, outPersistentState);
-//        outState.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
-//        outState.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
-//    }
 }

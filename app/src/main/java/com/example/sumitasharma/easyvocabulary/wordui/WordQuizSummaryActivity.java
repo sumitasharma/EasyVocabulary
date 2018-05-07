@@ -36,16 +36,15 @@ public class WordQuizSummaryActivity extends AppCompatActivity implements WordQu
             mUserAnswer = (HashMap<Long, Boolean>) savedInstanceState.getSerializable(USER_QUIZ_ANSWERS);
             mCorrectAnswers = (HashMap<String, String>) savedInstanceState.getSerializable(CORRECT_ANSWERS);
         }
-        if (mUserAnswer == null) {
-            mTotal = 0;
-        } else {
+        if (mUserAnswer != null) {
             for (Map.Entry<Long, Boolean> entry : mUserAnswer.entrySet()) {
                 if (entry.getValue()) {
                     mTotal++;
                     Timber.i("Value of boolean " + String.valueOf(entry.getValue()) + mTotal);
                 }
             }
-        }
+        } else
+            Timber.i("??");
         Timber.i("Inside WordQuizSummaryActivity");
         Bundle argsForWordQuizSummaryFragment = new Bundle();
         argsForWordQuizSummaryFragment.putString(USER_TOTAL, String.valueOf(mTotal));

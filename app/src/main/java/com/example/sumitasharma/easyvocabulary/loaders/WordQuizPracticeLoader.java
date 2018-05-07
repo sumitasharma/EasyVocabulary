@@ -52,29 +52,6 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
         mCursor = null;
         mPagerAdapter.notifyDataSetChanged();
     }
-//
-//    @Override
-//    public void callback(long wordId, Boolean answer) {
-//        if (mUserAnswer.containsKey(wordId)) {
-//            mUserAnswer.remove(wordId);
-//            Timber.i("answer :" + answer);
-//            mUserAnswer.put(wordId, answer);
-//        } else {
-//            mUserAnswer.put(wordId, answer);
-//            Timber.i("answer :" + answer);
-//        }
-//    }
-//
-//    @Override
-//    public void submitAnswer(boolean submitAnswer) {
-//        Intent intent = new Intent();
-//        Bundle b = new Bundle();
-//        b.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
-//        b.putSerializable(CORRECT_ANSWERS, mWordAndMeaning);
-//        intent.putExtras(b);
-//        intent.setClass(mContext, WordQuizSummaryActivity.class);
-//        mContext.startActivity(intent);
-//    }
 
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

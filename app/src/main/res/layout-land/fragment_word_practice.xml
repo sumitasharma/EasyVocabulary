@@ -2,9 +2,6 @@
     android:id="@+id/myCoordinatorLayoutWordPractice"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/books"
-    android:backgroundTint="#90FFFFFF"
-    android:backgroundTintMode="src_over"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout

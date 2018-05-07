@@ -12,8 +12,9 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/theme_accent"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
@@ -22,7 +23,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginStart="80dp"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:title="@string/main_collapsing_toolbar_title">
 
@@ -55,8 +56,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/word_phone_linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
 

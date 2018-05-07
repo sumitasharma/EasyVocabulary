@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -27,10 +28,14 @@ public class EasyVocabularyWiFiTest {
     public void testWhenInternetIsAvailable() throws Exception {
         Context context = mEasyVocabularyMainActivityTestRule.getActivity().getBaseContext();
         if (!WordUtil.isOnline(context)) {
+            getInstrumentation().waitForIdleSync();
+            Thread.sleep(500);
             Assert.assertEquals(false, WordUtil.isOnline(context));
             onView(withText(R.string.internet_connectivity))
                     .check(matches(isDisplayed()));
         } else {
+            getInstrumentation().waitForIdleSync();
+            Thread.sleep(500);
             onView(withId(R.id.word_main_fragment)).check(matches(isDisplayed()));
         }
 
