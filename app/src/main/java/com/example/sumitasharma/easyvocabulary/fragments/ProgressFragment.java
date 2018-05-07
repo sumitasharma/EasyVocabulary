@@ -71,8 +71,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
         String[] select = {"strftime('%Y-%m-%d', lastUpdated) as Days", "count(*) as GroupedValues"};
         String where = "wordPracticed = 1 GROUP BY Days";
         //String[] selectParam = {WordContract.WordsEntry.COLUMN_LAST_UPDATED,WordContract.WordsEntry.COLUMN_LAST_UPDATED};
-        CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, select, where, null, null);
-        return cursorLoader;
+        return new CursorLoader(mContext, loaderUri, select, where, null, null);
 
     }
 

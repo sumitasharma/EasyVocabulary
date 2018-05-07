@@ -35,8 +35,6 @@ class WordDbHelper extends SQLiteOpenHelper {
     public boolean isDbPopulated() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from words limit 5" ,null);
-        if (res.getCount() > 0)
-            return true;
-        else return false;
+        return res.getCount() > 0;
     }
 }

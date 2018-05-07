@@ -34,13 +34,11 @@ public class WordNotificationReceiver extends BroadcastReceiver {
     }
 
     private NotificationCompat.Builder buildLocalNotification(Context context, PendingIntent pendingIntent) {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context)
-                        .setContentIntent(pendingIntent)
-                        .setSmallIcon(android.R.drawable.arrow_up_float)
-                        .setContentTitle("Morning Notification")
-                        .setAutoCancel(true);
 
-        return builder;
+        return new NotificationCompat.Builder(context)
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(android.R.drawable.arrow_up_float)
+                .setContentTitle("Morning Notification")
+                .setAutoCancel(true);
     }
 }

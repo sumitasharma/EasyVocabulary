@@ -87,10 +87,7 @@ public class WordsDbUtil {
 
     public boolean isDatabasePopulated() {
         Cursor cursor = mContext.getContentResolver().query(WordContract.WordsEntry.CONTENT_URI, null, null, null, null);
-        if (cursor.getCount() > 0) {
-            return true;
-        }
-        return false;
+        return cursor.getCount() > 0;
     }
 
     private HashMap<String, String> readWordsFromAssets() {

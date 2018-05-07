@@ -31,6 +31,7 @@
                 android:id="@+id/main.backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:contentDescription="@string/easy_vocabulary"
                 android:fitsSystemWindows="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/library"

@@ -96,9 +96,8 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
         String where = WordContract.WordsEntry.COLUMN_WORD_LEVEL + "=? and " + WordContract.WordsEntry.COLUMN_WORD_PRACTICED + "!= 1";
         String sortOrder = "RANDOM() LIMIT ?";
-        CursorLoader cursorLoader = new CursorLoader(mContext, loaderUri, null, where, level, sortOrder);
         //and get a CursorLoader from my ContentProvider
-        return cursorLoader;
+        return new CursorLoader(mContext, loaderUri, null, where, level, sortOrder);
 
     }
 
