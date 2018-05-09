@@ -23,9 +23,9 @@
             android:text="@string/word_meaning" />
 
         <ImageView
-            android:id="@+id/word_main_fragment_image_practice"
             android:layout_width="120dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/word_meaning"
             android:scaleType="centerCrop"
             android:src="@drawable/wordpractice" />
 

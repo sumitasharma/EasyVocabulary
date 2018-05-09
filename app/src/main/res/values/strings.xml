@@ -1,26 +1,18 @@
 <resources>
     <string name="app_name">EasyVocabulary</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="number_of_words">Number of words to learn</string>
-    <string name="number_of_words_summary">Select the number of words you would like to receive</string>
     <string name="number_of_words_key">numberOfWordsKey</string>
     <string name="frequency_of_words">Frequency of reminders to practice</string>
-    <string name="frequency_of_words_summary">Select the frequency of notification to practice new words</string>
     <string name="frequency_of_words_key">frequencyOfWords</string>
     <string name="level_of_words_for_practice">Level of words for practice</string>
-    <string name="level_of_words_for_practice_summary">Select the level of words for practice </string>
     <string name="level_of_words_for_practice_key">levelOfWords</string>
     <string name="word_preference_settings">User Settings</string>
     <string name="daily">Daily</string>
-    <string name="monthly">Monthly</string>
-    <string name="weekly">Weekly</string>
     <string name="easy">Easy</string>
     <string name="error_dictionary">Kindly check the typed word or Your API Key might not be set.</string>
     <string name="search_button">Search</string>
     <string name="enter_word_search">Enter a word here to search</string>
     <string name="submit_quiz_answers">Submit Answers</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="easy_vocabulary">Easy Vocabulary</string>
     <string name="easy_vocabulary_widget">(Learn more Words like this)</string>
     <string name="word_meaning">Word Practice</string>
@@ -28,16 +20,12 @@
     <string name="progress_report">Track Progress</string>
     <string name="dictionary">Dictionary</string>
     <string name="swipe">Swipe left for next question</string>
-    <string name="swipe_prev">Swipe right for prev question</string>
     <string name="you_got_answers">Your Score</string>
     <string name="out_of_answers">out of 4</string>
     <string name="correct_answers">Check For Answers</string>
-    <string name="new_words">Scroll down to unviel new words...</string>
     <string name="internet_connectivity">Kindly check your Internet Connection</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="last_saved_position">last_saved_position</string>
     <string name="notification_text">Time for learning some new words !!!</string>
-    <string name="api_key">API Key is not set. Kindly check...</string>
     <string name="widget_message">No data to show. Check your API or Internet Connectivity</string>
     <string name="main_menu">Main Menu</string>
     <string name="goto_practice">Word Practice</string>
@@ -48,6 +36,8 @@
     <string name="graph_y_label">Words Learnt</string>
     <string name="main_collapsing_toolbar_title">Easy Vocabulary</string>
     <string name="word_practice_state">word_practice_state</string>
+    <string name="correct_words">Correct word and its meaning</string>
+    <string name="scroll_down">Scroll Down</string>
 
 
 </resources>

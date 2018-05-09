@@ -17,7 +17,6 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -28,7 +27,6 @@
             app:title="@string/main_collapsing_toolbar_title">
 
             <ImageView
-                android:id="@+id/main.backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:contentDescription="@string/easy_vocabulary"
@@ -39,7 +37,6 @@
                 app:layout_collapseParallaxMultiplier="0.7" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/main.toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -55,7 +52,6 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/word_phone_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"

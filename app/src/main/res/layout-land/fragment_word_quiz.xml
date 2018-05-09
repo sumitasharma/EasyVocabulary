@@ -14,10 +14,10 @@
             android:id="@+id/go_home_main"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/main_menu"
             android:src="@drawable/home_icon" />
 
         <TextView
-            android:id="@+id/word_quiz_title"
             style="@style/EasyVocabularyTitleAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +29,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="end"
+            android:contentDescription="@string/scroll_down"
             android:src="@drawable/scroll_down" />
 
         <android.support.v7.widget.CardView

@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="theme_primary">#4DB6AC</color>
     <color name="theme_primary_dark">#009688</color>
     <color name="theme_accent">#FF80AB</color>
-    <color name="ltgray">#ffe0e0e0</color>
     <color name="black">#000000</color>
-    <color name="grey">#263238</color>
-    <color name="teal">#E0F2F1</color>
-    <color name="orange">#FFF3E0</color>
-    <color name="darker_orange">#FFE0B2</color>
-    <color name="text_color_title">#303F9F</color>
-    <color name="text_color_progress">#8fff</color>
 </resources>

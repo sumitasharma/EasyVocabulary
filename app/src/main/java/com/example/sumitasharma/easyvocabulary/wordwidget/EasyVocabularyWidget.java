@@ -70,6 +70,7 @@ public class EasyVocabularyWidget extends AppWidgetProvider {
                 appWidgetManager.updateAppWidget(appWidgetId, views);
             }
         }
+        retCursor.close();
     }
 }
 

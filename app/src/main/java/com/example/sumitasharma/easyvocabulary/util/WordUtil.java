@@ -47,6 +47,6 @@ public class WordUtil {
     public static boolean isOnline(Context context) {
         ConnectivityManager ConnectionManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = ConnectionManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected() == true;
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

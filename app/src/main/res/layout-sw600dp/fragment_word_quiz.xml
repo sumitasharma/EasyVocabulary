@@ -15,10 +15,10 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
+            android:contentDescription="@string/main_menu"
             android:src="@drawable/home_icon" />
 
         <TextView
-            android:id="@+id/word_quiz_title"
             style="@style/EasyVocabularyTitleAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -22,9 +22,10 @@
             android:text="@string/progress_report" />
 
         <ImageView
-            android:id="@+id/word_main_fragment_image_task_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/progress_report"
+            android:paddingEnd="0dp"
             android:paddingStart="190dp"
             android:scaleType="fitXY"
             android:src="@drawable/progress" />

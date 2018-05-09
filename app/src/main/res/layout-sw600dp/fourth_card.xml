@@ -19,13 +19,14 @@
             style="@style/MainMenuCardViewAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
             android:text="@string/dictionary" />
 
         <ImageView
-            android:id="@+id/word_main_fragment_image_dictionary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/dictionary"
+            android:paddingEnd="0dp"
             android:paddingStart="300dp"
             android:scaleType="fitXY"
             android:src="@drawable/dictionary" />

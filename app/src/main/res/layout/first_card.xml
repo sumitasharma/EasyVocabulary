@@ -23,9 +23,10 @@
             android:text="@string/word_meaning" />
 
         <ImageView
-            android:id="@+id/word_main_fragment_image_practice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/word_meaning"
+            android:paddingEnd="0dp"
             android:paddingStart="190dp"
             android:scaleType="fitXY"
             android:src="@drawable/wordpractice" />

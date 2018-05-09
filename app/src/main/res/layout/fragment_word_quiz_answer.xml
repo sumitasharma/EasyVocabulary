@@ -18,6 +18,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
+            android:contentDescription="@string/correct_words"
             android:src="@drawable/home_icon" />
 
         <include layout="@layout/first_word_and_meaning" />

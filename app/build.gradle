@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'easyvocab1234'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'easyvocab1234'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.sumitasharma.easyvocabulary"
@@ -15,20 +23,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
-    buildTypes. each {
-        it.buildConfigField 'String','APIKEY',EasyVocabularyApiKey
-        it.buildConfigField 'String','APPID',EasyVocabularyAppId
+    buildTypes.each {
+        it.buildConfigField 'String', 'APIKEY', EasyVocabularyApiKey
+        it.buildConfigField 'String', 'APPID', EasyVocabularyAppId
     }
     flavorDimensions "vocabulary"
-    productFlavors{
-        free{
+    productFlavors {
+        free {
             //applicationId "com.example.sumitasharma.easyvocabulary.free"
             dimension "vocabulary"
             buildConfigField "boolean", "PAID_VERSION", "false"
         }
-        paid{
+        paid {
             //applicationId "com.example.sumitasharma.easyvocabulary.paid"
             dimension "vocabulary"
             buildConfigField "boolean", "PAID_VERSION", "true"
@@ -45,10 +54,8 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.google.firebase:firebase-messaging:11.0.4'
     implementation 'com.android.support:support-compat:26.1.0'
-
     //freeCompile dependecy on google play services
     compile 'com.google.android.gms:play-services-ads:11.0.4'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -74,19 +81,14 @@ dependencies {
     compile 'com.jjoe64:graphview:4.2.1'
     // Stetho core
     compile 'com.facebook.stetho:stetho:1.5.0'
-
     //Optional network helper
     compile 'com.facebook.stetho:stetho-okhttp:1.5.0'
-
     //Running Unit Tests
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:1.0.1'
-
     //For Graphs
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
-
 }
 
 
