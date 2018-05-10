@@ -1,6 +1,5 @@
 # EasyVocabulary
 A vocabulary builder app. This app is simple and easy. You can learn new words everyday, take a quiz to see how much have you learnt and see the progress report of number of words learnt per day. You can also use it as a general dictionary to search for any word.
-Use
 ## Libraries
 ButterKnife, Timber, ExoPlayer, Retrofit, MPAndroidChart, Espresso, Stetho, Glide etc.
 ## Project Overview
