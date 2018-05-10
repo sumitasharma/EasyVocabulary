@@ -17,4 +17,4 @@ Clone the GitHub repository.
 $ git clone https://github.com/sumitasharma/EasyVocabulary.git
 ```
 ## Application Preview
-![Easy Vocabulary App Phone View](EasyVocabularyPhone.gif) | ![Easy Vocabulary App Tablet View](EasyVocabularyTablet.gif)
+![Easy Vocabulary App Phone View](EasyVocabularyPhone.png) | ![Easy Vocabulary App Tablet View](EasyVocabularyTablet.png)
