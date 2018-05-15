@@ -166,16 +166,13 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         switch (frequencyOfWordsForPractice) {
             case "Daily":
-
-                /* Setting it to 5 Minutes for Project Submission. After which it will be converted to Daily */
-
-                scheduleNotification(getNotification(numberOfWordsForPractice), 5 * 60 * 1000);
+                scheduleNotification(getNotification(numberOfWordsForPractice), 24 * 60 * 60 * 1000);
                 break;
             case "Weekly":
                 scheduleNotification(getNotification(numberOfWordsForPractice), 7 * 24 * 60 * 60 * 1000);
                 break;
             case "Monthly":
-                scheduleNotification(getNotification(numberOfWordsForPractice), 7 * 24 * 60 * 60 * 1000);
+                scheduleNotification(getNotification(numberOfWordsForPractice), 30 * 7 * 24 * 60 * 60 * 1000);
                 break;
             default:
                 scheduleNotification(getNotification(numberOfWordsForPractice), 24 * 60 * 60 * 1000);

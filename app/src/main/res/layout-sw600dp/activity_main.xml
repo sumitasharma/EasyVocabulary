@@ -33,7 +33,7 @@
                 android:layout_height="600dp"
                 android:contentDescription="@string/easy_vocabulary"
                 android:fitsSystemWindows="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/library"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.5" />

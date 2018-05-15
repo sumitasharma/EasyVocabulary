@@ -63,7 +63,7 @@
     </style>
 
     <style name="TextAppearance.MyApp.Title.Expanded" parent="android:TextAppearance">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/holo_blue_light</item>
         <item name="android:textSize">100sp</item>
     </style>
 
