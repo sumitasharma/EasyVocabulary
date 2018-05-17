@@ -39,11 +39,6 @@
         android:textSize="12sp"
         android:textStyle="bold|italic" />
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/theme_primary" />
-
     <TextView
         android:id="@+id/wordwidget_text"
         android:layout_width="match_parent"
