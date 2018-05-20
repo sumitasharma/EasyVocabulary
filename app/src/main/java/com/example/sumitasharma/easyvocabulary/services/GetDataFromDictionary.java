@@ -34,7 +34,7 @@ class GetDataFromDictionary {
     private final JobParameters mJobParameters;
     private HashMap<String, String> words = new HashMap<>();
 
-    public GetDataFromDictionary(WordDbPopulatorJobService wordDbPopulatorService, Context context, JobParameters jobParameters) {
+    GetDataFromDictionary(WordDbPopulatorJobService wordDbPopulatorService, Context context, JobParameters jobParameters) {
         mContext = context;
         mJobParameters = jobParameters;
         mJobService = wordDbPopulatorService;
