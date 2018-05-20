@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notification_text) + " Your " + notification + " words are ready.")
-                .setSmallIcon(R.drawable.easyvocabularyapp)
+                .setSmallIcon(R.drawable.notification)
                 .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                 .setSound(null)
                 .setChannelId(NOTIFICATION_CHANNEL)
