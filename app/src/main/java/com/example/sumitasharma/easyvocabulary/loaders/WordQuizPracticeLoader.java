@@ -23,7 +23,6 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
     private final HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
     @BindView(R.id.pager)
     ViewPager mPager;
-    private boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
     private MyPagerAdapter mPagerAdapter;
@@ -66,6 +65,7 @@ public class WordQuizPracticeLoader implements LoaderManager.LoaderCallbacks<Cur
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
             Timber.i("Inside MyPagerAdapter WordQuizPracticeActivity");
+            boolean mLastViewPager;
             if (position >= 2) {
                 Timber.i("last page");
                 mLastViewPager = true;

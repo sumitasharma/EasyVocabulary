@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     private String state_dictionary;
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
-    private String levelOfWordsForPractice;
     private boolean mTwoPane = false;
 
     @Override
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         numberOfWordsForPractice = Integer.parseInt(sharedPreferences.getString(getResources().getString(R.string.number_of_words_key), "4"));
         frequencyOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.frequency_of_words_key), "Daily"));
-        levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
+        String levelOfWordsForPractice = (sharedPreferences.getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"));
         Log.i(TAG, "Inside setupSharedPreference after getDefaultSharedPreferences");
         Log.i(TAG, "Inside setupSharedPreference" + numberOfWordsForPractice + frequencyOfWordsForPractice + levelOfWordsForPractice);
 

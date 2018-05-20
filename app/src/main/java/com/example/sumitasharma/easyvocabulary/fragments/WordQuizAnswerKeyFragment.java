@@ -39,13 +39,12 @@ public class WordQuizAnswerKeyFragment extends Fragment {
     TextView meaning3;
     @BindView(R.id.quiz_answer_meaning4)
     TextView meaning4;
-    private View mRootView;
     private HashMap<String, String> mCorrectAnswers = new HashMap<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_word_quiz_answer, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_word_quiz_answer, container, false);
         Timber.i("Inside WordQuizAnswerKeyFragment");
         ButterKnife.bind(this, mRootView);
         if (getArguments() != null) {

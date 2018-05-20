@@ -61,7 +61,6 @@ public class WordQuizFragment extends Fragment implements
     Button submitButton;
     @BindView(R.id.word_quiz_swipe_text)
     TextView swipeText;
-    private int mLoaderId;
     private PassUserChoice mPassUserChoice;
     private SubmitAnswers mSubmitAnswers;
     private boolean mLastViewPager = false;
@@ -152,7 +151,7 @@ public class WordQuizFragment extends Fragment implements
 
     private void initializeLoader(int loaderId, Context context) {
         Timber.i("Inside initializeLoader");
-        this.mLoaderId = loaderId;
+        int mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivityCast().getSupportLoaderManager();
         Loader<Object> wordQuizLoader = loaderManager.getLoader(mLoaderId);

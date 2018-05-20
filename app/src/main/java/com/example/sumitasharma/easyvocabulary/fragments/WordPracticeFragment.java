@@ -28,13 +28,9 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_P
 public class WordPracticeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private final static int LOADER_ID = 101;
     private final LoaderManager.LoaderCallbacks<Cursor> callback = WordPracticeFragment.this;
-    private View rootView;
     private RecyclerView mWordPracticeRecyclerView;
-    // --Commented out by Inspection (5/3/2018 4:18 PM):private Cursor mData;
-    private int mLoaderId;
     private Context mContext = getContext();
     private PracticeWordsAdapter mAdapter = null;
-    private LinearLayoutManager mLinearLayoutManager;
     private PassTheState mPassTheSate;
 
     public WordPracticeFragment() {
@@ -45,9 +41,9 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.i("Inside WordPracticeFragment onCreateView");
-        rootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
         mWordPracticeRecyclerView = rootView.findViewById(R.id.recycler_view_practice_words);
-        mLinearLayoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
         if (savedInstanceState != null) {
             Timber.i("onCreate Fragment called");
@@ -66,7 +62,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
     private void initializeLoader(int loaderId, Context context) {
         Timber.i("Inside initializeLoader");
-        this.mLoaderId = loaderId;
+        int mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivity().getSupportLoaderManager();
         Loader<String> wordPracticeLoader = loaderManager.getLoader(mLoaderId);

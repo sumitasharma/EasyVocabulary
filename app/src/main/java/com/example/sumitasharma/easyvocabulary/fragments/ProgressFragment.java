@@ -35,7 +35,6 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
     private final LoaderManager.LoaderCallbacks<Cursor> callback = ProgressFragment.this;
     View rootView;
-    private int mLoaderId;
     private Context mContext = getContext();
 
     public ProgressFragment() {
@@ -53,7 +52,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
     private void initializeLoader(int loaderId, Context context) {
         Timber.i("Inside initializeLoader");
-        this.mLoaderId = loaderId;
+        int mLoaderId = loaderId;
         this.mContext = context;
         LoaderManager loaderManager = getActivity().getSupportLoaderManager();
         Loader<String> progressLoader = loaderManager.getLoader(mLoaderId);

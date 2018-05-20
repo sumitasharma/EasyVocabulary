@@ -22,7 +22,6 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.USER_TOTAL;
 public class WordQuizSummaryFragment extends Fragment {
     @BindView(R.id.user_quiz_summary_text_view)
     TextView mUserTotalSummary;
-    private View rootView;
     private String mTotal;
     private CorrectAnswers mCorrectAnswers;
 
@@ -34,7 +33,7 @@ public class WordQuizSummaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_word_quiz_summary, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_word_quiz_summary, container, false);
         Timber.i("Inside WordQuizSummaryFragment");
         ButterKnife.bind(this, rootView);
         if (getArguments() != null) {

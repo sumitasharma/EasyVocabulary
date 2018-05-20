@@ -28,11 +28,8 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
 
     private HashMap<String, String> mWordAndMeaning = new HashMap<String, String>();
     private HashMap<Long, Boolean> mUserAnswer = new HashMap<>();
-    private boolean mLastViewPager;
     private Cursor mCursor;
     private long mStartId;
-    private String word;
-    private String meaning;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
 
@@ -126,6 +123,7 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
             Timber.i("Inside MyPagerAdapter WordQuizPracticeActivity");
+            boolean mLastViewPager;
             if (position >= 3) {
                 Timber.i("last page");
                 mLastViewPager = true;
@@ -134,9 +132,9 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
                 mLastViewPager = false;
             }
             mCursor.moveToPosition(position);
-            word = mCursor.getString(WordQuizLoader.Query.COLUMN_WORD);
+            String word = mCursor.getString(WordQuizLoader.Query.COLUMN_WORD);
             word = word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
-            meaning = mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING);
+            String meaning = mCursor.getString(WordQuizLoader.Query.COLUMN_MEANING);
             meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1).toLowerCase();
             if (mWordAndMeaning == null) {
                 mWordAndMeaning = new HashMap<>();

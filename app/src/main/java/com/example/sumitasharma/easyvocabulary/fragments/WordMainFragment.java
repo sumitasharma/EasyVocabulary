@@ -26,7 +26,6 @@ public class WordMainFragment extends Fragment {
     private static final String TAG = WordMainFragment.class.getSimpleName();
     @BindView(R.id.adView)
     AdView adView;
-    private View rootView;
     private PassCardViewInformation mPassCardViewInformation;
 
     public WordMainFragment() {
@@ -83,7 +82,7 @@ public class WordMainFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_word_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_word_main, container, false);
         ButterKnife.bind(this, rootView);
         if (!BuildConfig.PAID_VERSION) {// this is the flag configured in build.gradle
             adView.setVisibility(View.VISIBLE);
