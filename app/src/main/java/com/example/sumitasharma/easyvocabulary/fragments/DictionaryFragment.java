@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class DictionaryFragment extends Fragment {
     EditText dictionarySearchWord;
     @BindView(R.id.dictionary_word_meaning_text)
     TextView dictionarySearchMeaning;
+    @BindView(R.id.dictionary_card_view)
+    CardView mCardView;
     private PassTheStateDictionary mPassTheSateDictionary;
     private View rootView;
     private String wordForSearch;
@@ -96,8 +99,10 @@ public class DictionaryFragment extends Fragment {
 
                     }
                     meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1);
+                    mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(meaning);
                 } else {
+                    mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(R.string.error_dictionary);
                 }
 

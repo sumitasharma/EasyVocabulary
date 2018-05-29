@@ -33,9 +33,10 @@
             style="@style/MainViewCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             card_view:cardCornerRadius="@dimen/card_corner_radius"
             card_view:cardElevation="@dimen/card_elevation"
-            card_view:cardUseCompatPadding="true">>
+            card_view:cardUseCompatPadding="true">
 
             <TextView
                 android:id="@+id/dictionary_word_meaning_text"
