@@ -47,9 +47,9 @@ public class DictionaryFragment extends Fragment {
     @BindView(R.id.dictionary_card_view)
     CardView mCardView;
     private PassTheStateDictionary mPassTheSateDictionary;
-    private View rootView;
-    private String wordForSearch;
-    private String meaning;
+    private View mRootView;
+    private String mWordForSearch;
+    private String mMeaning;
 
     public DictionaryFragment() {
 
@@ -65,7 +65,7 @@ public class DictionaryFragment extends Fragment {
     public void searchForMeaning() {
 
         if (!isOnline(getContext())) {
-            Snackbar snackbar = Snackbar.make(rootView.findViewById(R.id.dictionary_coordinator_layout), R.string.internet_connectivity,
+            Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.internet_connectivity,
                     Snackbar.LENGTH_LONG);
             snackbar.show();
             View sbView = snackbar.getView();
@@ -75,14 +75,14 @@ public class DictionaryFragment extends Fragment {
 
         InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(dictionarySearchWord.getWindowToken(), 0);
-        wordForSearch = String.valueOf(dictionarySearchWord.getText());
+        mWordForSearch = String.valueOf(dictionarySearchWord.getText());
         Timber.i("Before Calling CallbackTask");
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
 
         // Calling JSON
 
-        Call<Example> call = api.getMyJSON(wordForSearch);
+        Call<Example> call = api.getMyJSON(mWordForSearch);
 
 
         // Enqueue Callback will be call when get response...
@@ -94,13 +94,13 @@ public class DictionaryFragment extends Fragment {
                     Example example = response.body();
                     List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
                     for (String definition : definitions) {
-                        meaning = definition;
-                        Timber.i("Inside onResponse successful " + meaning);
+                        mMeaning = definition;
+                        Timber.i("Inside onResponse successful " + mMeaning);
 
                     }
-                    meaning = meaning.substring(0, 1).toUpperCase() + meaning.substring(1);
+                    mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
-                    dictionarySearchMeaning.setText(meaning);
+                    dictionarySearchMeaning.setText(mMeaning);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(R.string.error_dictionary);
@@ -118,32 +118,32 @@ public class DictionaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
-        ButterKnife.bind(this, rootView);
+        mRootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
+        ButterKnife.bind(this, mRootView);
         if (savedInstanceState != null) {
             Timber.i("Inside onCreateView DictionaryFragment - " + savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) + savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
             dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
             dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
 
         }
-        return rootView;
+        return mRootView;
     }
 
 
     private String dictionaryEntries() {
         final String language = "en";
-        final String word_id = wordForSearch.toLowerCase(); //word id is case sensitive and lowercase is required
+        final String word_id = mWordForSearch.toLowerCase(); //word id is case sensitive and lowercase is required
         return WORD_DICTIONARY_URL + "entries/" + language + "/" + word_id;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Timber.i("Inside onSaveInstanceState" + this.wordForSearch + ":" + this.meaning);
-        outState.putString(DICTIONARY_SEARCH_WORD, this.wordForSearch);
-        outState.putString(DICTIONARY_SEARCH_MEANING, this.meaning);
+        Timber.i("Inside onSaveInstanceState" + this.mWordForSearch + ":" + this.mMeaning);
+        outState.putString(DICTIONARY_SEARCH_WORD, this.mWordForSearch);
+        outState.putString(DICTIONARY_SEARCH_MEANING, this.mMeaning);
         outState.putString(STATE_WORD_PRACTICE, "state_dictionary");
-        mPassTheSateDictionary.passTheSavedStateDictionary("state_dictionary", wordForSearch, meaning);
+        mPassTheSateDictionary.passTheSavedStateDictionary("state_dictionary", mWordForSearch, mMeaning);
 
     }
 
