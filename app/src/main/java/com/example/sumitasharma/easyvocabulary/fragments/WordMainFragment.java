@@ -82,15 +82,15 @@ public class WordMainFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_word_main, container, false);
-        ButterKnife.bind(this, rootView);
+        View mRootView = inflater.inflate(R.layout.fragment_word_main, container, false);
+        ButterKnife.bind(this, mRootView);
         if (!BuildConfig.PAID_VERSION) {// this is the flag configured in build.gradle
             adView.setVisibility(View.VISIBLE);
-            AdsDisplay.displayAds(rootView, getContext());
+            AdsDisplay.displayAds(mRootView, getContext());
         } else {
             adView.setVisibility(View.INVISIBLE);
         }
-        return rootView;
+        return mRootView;
     }
 
 

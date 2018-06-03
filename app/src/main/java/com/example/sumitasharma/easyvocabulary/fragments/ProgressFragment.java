@@ -34,7 +34,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.PROGRESS_LOA
 public class ProgressFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final LoaderManager.LoaderCallbacks<Cursor> callback = ProgressFragment.this;
-    View rootView;
+    View mRootView;
     private Context mContext = getContext();
 
     public ProgressFragment() {
@@ -45,9 +45,9 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_progress, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_progress, container, false);
         initializeLoader(PROGRESS_LOADER, getContext());
-        return rootView;
+        return mRootView;
     }
 
     private void initializeLoader(int loaderId, Context context) {
@@ -79,7 +79,7 @@ public class ProgressFragment extends Fragment implements LoaderManager.LoaderCa
 
         if (data.getCount() == 0)
             return;
-        BarChart chart = rootView.findViewById(R.id.bar_chart);
+        BarChart chart = mRootView.findViewById(R.id.bar_chart);
         ArrayList<BarEntry> BarEntry = new ArrayList<>();
         int i = 0;
         while (data.moveToNext()) {

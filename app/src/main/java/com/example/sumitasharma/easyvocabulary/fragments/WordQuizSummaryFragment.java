@@ -33,9 +33,9 @@ public class WordQuizSummaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_word_quiz_summary, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_word_quiz_summary, container, false);
         Timber.i("Inside WordQuizSummaryFragment");
-        ButterKnife.bind(this, rootView);
+        ButterKnife.bind(this, mRootView);
         if (getArguments() != null) {
             mTotal = getArguments().getString(USER_TOTAL);
             Timber.i("mTotal" + mTotal);
@@ -43,7 +43,7 @@ public class WordQuizSummaryFragment extends Fragment {
             mTotal = savedInstanceState.getString(USER_TOTAL);
         }
         mUserTotalSummary.setText(mTotal);
-        return rootView;
+        return mRootView;
 
     }
 

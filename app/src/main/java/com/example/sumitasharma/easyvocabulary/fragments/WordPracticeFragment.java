@@ -41,8 +41,8 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.i("Inside WordPracticeFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
-        mWordPracticeRecyclerView = rootView.findViewById(R.id.recycler_view_practice_words);
+        View mRootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
+        mWordPracticeRecyclerView = mRootView.findViewById(R.id.recycler_view_practice_words);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
         if (savedInstanceState != null) {
@@ -50,7 +50,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
             mWordPracticeRecyclerView.setAdapter(mAdapter);
         } else
             initializeLoader(LOADER_ID, getContext());
-        return rootView;
+        return mRootView;
     }
 
     @Override
