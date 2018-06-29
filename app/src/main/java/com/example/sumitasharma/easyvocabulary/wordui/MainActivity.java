@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -30,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.sumitasharma.easyvocabulary.R;
+import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
@@ -38,6 +40,7 @@ import com.example.sumitasharma.easyvocabulary.loaders.LoadingDataFromCloud;
 import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
 import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
+import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -58,7 +61,6 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
 public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary, LoaderManager.LoaderCallbacks {
     public static final String TAG = MainActivity.class.getSimpleName();
-    private final int mLoaderId = 101;
     private final LoaderManager.LoaderCallbacks<String> callback = MainActivity.this;
     String dictionary_word;
     String dictionary_meaning;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
     private boolean mTwoPane = false;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +85,17 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
 
-        //  if (!WordsDbUtil.isDatabasePopulated()) {
+        if (!isDatabasePopulated()) {
         android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
-        Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(mLoaderId);
+            int mLoaderId = 101;
+            Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(mLoaderId);
         if (easyVocabularyDataLoader == null) {
             loaderManager.initLoader(mLoaderId, null, callback);
         } else {
             loaderManager.restartLoader(mLoaderId, null, callback);
         }
-        // }
-
+        }
+        cursor.close();
 
         setupSharedPreference();
 
@@ -108,8 +112,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         transaction.replace(R.id.word_main_fragment, wordMainFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        //  FragmentManager fragmentManager = getSupportFragmentManager();
-        //  fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
         if (savedInstanceState != null) {
             state = savedInstanceState.getString(STATE_WORD_PRACTICE);
             state_dictionary = savedInstanceState.getString(STATE_WORD_DICTIONARY);
@@ -421,9 +423,10 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
-//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
-//
     }
+    public boolean isDatabasePopulated() {
+        cursor = getContentResolver().query(WordContract.WordsEntry.CONTENT_URI, null, null, null, null);
+        return cursor.getCount() > 0;
+    }
+
 }
