@@ -111,6 +111,12 @@ public class WordQuizPracticeActivity extends FragmentActivity implements Loader
         outState.putSerializable(USER_QUIZ_ANSWERS, this.mUserAnswer);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WordQuizPracticeActivity.this, MainActivity.class));
+    }
+
     private class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
 

@@ -15,9 +15,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -30,10 +34,10 @@ import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
+import com.example.sumitasharma.easyvocabulary.loaders.LoadingDataFromCloud;
 import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
 import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
-import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -52,8 +56,10 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_P
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
-public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary {
+public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary, LoaderManager.LoaderCallbacks {
     public static final String TAG = MainActivity.class.getSimpleName();
+    private final int mLoaderId = 101;
+    private final LoaderManager.LoaderCallbacks<String> callback = MainActivity.this;
     String dictionary_word;
     String dictionary_meaning;
     String cardViewNumber;
@@ -76,12 +82,16 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
 
-        /* Insert the table */
-        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
-        if (!wordsDbUtil.isDatabasePopulated()) {
-            Timber.i("Database is not populated, populating it");
-            wordsDbUtil.populateDatabase();
+        //  if (!WordsDbUtil.isDatabasePopulated()) {
+        android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
+        Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(mLoaderId);
+        if (easyVocabularyDataLoader == null) {
+            loaderManager.initLoader(mLoaderId, null, callback);
+        } else {
+            loaderManager.restartLoader(mLoaderId, null, callback);
         }
+        // }
+
 
         setupSharedPreference();
 
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             }
 
             //Schedule job to populate Database in the background
-            scheduleDbPopulatorJob(this);
+            //     scheduleDbPopulatorJob(this);
 
             //Schedule Notification via alarm manager
             scheduleNotificationAlarm(this);
@@ -380,5 +390,40 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         this.dictionary_word = word;
         this.dictionary_meaning = meaning;
 
+    }
+
+    @NonNull
+    @Override
+    public Loader onCreateLoader(int id, @Nullable Bundle args) {
+        return new LoadingDataFromCloud(this);
+    }
+
+
+    @Override
+    public void onLoadFinished(@NonNull Loader loader, Object data) {
+        if (!isOnline(this)) {
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.word_main_fragment), R.string.internet_connectivity,
+                    Snackbar.LENGTH_SHORT);
+            snackbar.show();
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(Color.BLUE);
+            // Toast.makeText(mContext, "Kindly check your Internet Connectivity", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader loader) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//
     }
 }

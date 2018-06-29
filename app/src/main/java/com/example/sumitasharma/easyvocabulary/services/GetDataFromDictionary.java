@@ -2,37 +2,28 @@ package com.example.sumitasharma.easyvocabulary.services;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 
-import com.example.sumitasharma.easyvocabulary.data.WordContract;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.ApiService;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.Example;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.RetroClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.LAST_SAVED_POSITION;
 
-class GetDataFromDictionary {
+
+public class GetDataFromDictionary {
     private final Context mContext;
-    private final JobService mJobService;
-    private final JobParameters mJobParameters;
+    private JobService mJobService;
+    private JobParameters mJobParameters;
     private HashMap<String, String> words = new HashMap<>();
+
+//    private FirebaseDatabase mFirebaseDatabase;
+//    private DatabaseReference mDatabaseReference;
 
     GetDataFromDictionary(WordDbPopulatorJobService wordDbPopulatorService, Context context, JobParameters jobParameters) {
         mContext = context;
@@ -40,64 +31,150 @@ class GetDataFromDictionary {
         mJobService = wordDbPopulatorService;
     }
 
+    public GetDataFromDictionary(Context context) {
+        this.mContext = context;
+    }
+
 
     private void populateDatabase(final HashMap<String, String> words, final Context context) {
         Timber.i("Inside populateDatabase");
+
+
+        //   for (final String word : words.keySet()) {
+
+        // Get a reference to our posts
+//            mFirebaseDatabase = FirebaseDatabase.getInstance();
+//            mDatabaseReference = mFirebaseDatabase.getReference().child("dictionary");
+
+//            Query mQuery = mDatabaseReference.child("word").equalTo(word);
+//
+//            mQuery.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    WordsAndMeaning wordsAndMeaning = dataSnapshot.getValue(WordsAndMeaning.class);
+
+//
+//            db.collection("dictionary")
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                    Timber.i(document.getId() + " => " + document.getData());
+//                                }
+//                            } else {
+//                                Timber.i("Error getting documents.", task.getException());
+//                            }
+//                        }
+//                    });
+//                    // Create new empty ContentValues object
+//                    ContentValues contentValues = new ContentValues();
+//
+//                    // Put the task description and selected mPriority into the ContentValues
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD, wordsAndMeaning.getWord());
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, wordsAndMeaning.getWordMeaning());
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+//                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                    String date = dateFormat.format(new Date());
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
+//                    // Insert the content values via a ContentResolver
+//                    // Timber.i("meaning :" + meaning);
+//                    mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
+
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//
+//                }
+//            });
+//            mQuery.addChildEventListener(new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                    WordsAndMeaning wordsAndMeaning = dataSnapshot.getValue(WordsAndMeaning.class);
+//                    // Create new empty ContentValues object
+//                    ContentValues contentValues = new ContentValues();
+//
+//                    // Put the task description and selected mPriority into the ContentValues
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD, wordsAndMeaning.getWord());
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING,wordsAndMeaning.getWordMeaning() );
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+//                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                    String date = dateFormat.format(new Date());
+//                    contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
+//                    // Insert the content values via a ContentResolver
+//                   // Timber.i("meaning :" + meaning);
+//                    mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
+//                }
+//
+//                @Override
+//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
         //Creating an object of our api interface
-        ApiService api = RetroClient.getApiService();
+//        ApiService api = RetroClient.getApiService();
+//
+//
+//        // Calling JSON
+//
+//        for (final String word : words.keySet()) {
+//            Call<Example> call = api.getMyJSON(word);
+//
+//            // Enqueue Callback will be call when get response...
+//
+//            call.enqueue(new Callback<Example>() {
+//                @Override
+//                public void onResponse(Call<Example> call, Response<Example> response) {
+//                    if (response.isSuccessful()) {
+//                        Example example = response.body();
+//                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
+//                        String meaning = null;
+//                        if (definitions != null) {
+//                            for (String definition : definitions) {
+//                                meaning = definition;
+//                            }
+//
 
 
-        // Calling JSON
-
-        for (final String word : words.keySet()) {
-            Call<Example> call = api.getMyJSON(word);
-
-            // Enqueue Callback will be call when get response...
-
-            call.enqueue(new Callback<Example>() {
-                @Override
-                public void onResponse(Call<Example> call, Response<Example> response) {
-                    if (response.isSuccessful()) {
-                        Example example = response.body();
-                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-                        String meaning = null;
-                        if (definitions != null) {
-                            for (String definition : definitions) {
-                                meaning = definition;
-                            }
-
-
-                            // Create new empty ContentValues object
-                            ContentValues contentValues = new ContentValues();
-
-                            // Put the task description and selected mPriority into the ContentValues
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                            String date = dateFormat.format(new Date());
-                            contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
-                            // Insert the content values via a ContentResolver
-                            Timber.i("meaning :" + meaning);
-                            mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
-                        } else {
-                            Timber.i("Error while fetching the data from API for word " + example.getResults());
-                        }
-                    } else {
-                        Timber.i("Error while fetching the data from API");
-                    }
-                    mJobService.jobFinished(mJobParameters, true);
-                }
-
-                @Override
-                public void onFailure(Call<Example> call, Throwable t) {
-                    Timber.i("Error");
-                }
-            });
-
+//                        } else {
+//                            Timber.i("Error while fetching the data from API for word " + example.getResults());
+//                        }
+//                    } else {
+//                        Timber.i("Error while fetching the data from API");
+//                    }
+//                    mJobService.jobFinished(mJobParameters, true);
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Example> call, Throwable t) {
+//                    Timber.i("Error");
+//                }
+//            });
+//
+//        }
         }
-    }
+    //   }
 
     public void dataFromDictionary() {
         int last_saved_position;

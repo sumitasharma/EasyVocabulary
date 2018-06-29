@@ -89,4 +89,10 @@ public class PracticeWordsActivity extends AppCompatActivity implements WordPrac
     public void passTheSavedState(String state) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(PracticeWordsActivity.this, MainActivity.class));
+    }
 }

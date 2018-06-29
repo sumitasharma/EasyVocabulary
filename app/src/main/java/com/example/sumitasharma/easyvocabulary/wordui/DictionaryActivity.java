@@ -96,4 +96,10 @@ public class DictionaryActivity extends AppCompatActivity implements DictionaryF
     public void passTheSavedStateDictionary(String stateDictionary, String word, String meaning) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(DictionaryActivity.this, MainActivity.class));
+    }
 }

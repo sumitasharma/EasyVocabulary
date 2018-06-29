@@ -1,5 +1,6 @@
 package com.example.sumitasharma.easyvocabulary.wordui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,12 @@ public class WordQuizAnswerActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WordQuizAnswerActivity.this, MainActivity.class));
     }
 
 }
