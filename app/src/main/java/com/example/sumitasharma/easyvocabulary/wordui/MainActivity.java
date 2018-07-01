@@ -40,7 +40,6 @@ import com.example.sumitasharma.easyvocabulary.loaders.LoadingDataFromCloud;
 import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
 import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
-import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -65,12 +64,12 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
     String dictionary_word;
     String dictionary_meaning;
     String cardViewNumber;
+    Cursor cursor;
     private String state;
     private String state_dictionary;
     private int numberOfWordsForPractice;
     private String frequencyOfWordsForPractice;
     private boolean mTwoPane = false;
-    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

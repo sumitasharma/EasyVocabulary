@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.TimingLogger;
 
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
@@ -23,7 +24,9 @@ import timber.log.Timber;
 
 public class LoadingDataFromCloud extends AsyncTaskLoader {
 
+    final TimingLogger mTimingsLogger = new TimingLogger("LoadingDataFromCloud", "loadInBackground");
     Context mContext;
+
 
     public LoadingDataFromCloud(Context context) {
         super(context);
@@ -48,6 +51,9 @@ public class LoadingDataFromCloud extends AsyncTaskLoader {
                 .build();
         db.setFirestoreSettings(settings);
 
+
+        mTimingsLogger.addSplit("Total Time for All documents");
+
         db.collection("dictionary")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -69,7 +75,7 @@ public class LoadingDataFromCloud extends AsyncTaskLoader {
                                 contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
                                 // Insert the content values via a ContentResolver
                                 mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
-
+                                mTimingsLogger.addSplit("Single Document");
 
                             }
                         } else {
@@ -77,6 +83,7 @@ public class LoadingDataFromCloud extends AsyncTaskLoader {
                         }
                     }
                 });
+        mTimingsLogger.dumpToLog();
         return null;
     }
 }

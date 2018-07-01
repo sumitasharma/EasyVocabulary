@@ -113,8 +113,10 @@ public class WordContentProvider extends ContentProvider {
         Uri returnUri; // URI to be returned
         switch (match) {
             case WORDS:
+
                 // Inserting values into tasks table
                 long id = db.insert(WordContract.WordsEntry.TABLE_NAME, null, values);
+
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(WordContract.WordsEntry.CONTENT_URI, id);
                     Log.i(TAG, "inserted " + values.toString());

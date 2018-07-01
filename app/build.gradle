@@ -91,7 +91,8 @@ dependencies {
     //For Graphs
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //For Firebase
-    compile 'com.google.firebase:firebase-firestore:17.0.1'
+    compile 'com.google.firebase:firebase-firestore:17.0.2'
+
 //    compile 'com.google.firebase:firebase-messaging:16.0.4'
 //    compile 'com.google.firebase:firebase-database:16.0.1'
     compile 'com.google.firebase:firebase-auth:16.0.1'
