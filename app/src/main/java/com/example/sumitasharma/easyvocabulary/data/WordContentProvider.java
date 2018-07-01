@@ -184,4 +184,33 @@ public class WordContentProvider extends ContentProvider {
         //getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
+
+    @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        //mOpenHelper is object of helper class.
+        final SQLiteDatabase db = mWordDbHelper.getWritableDatabase();
+
+
+        db.beginTransaction();
+        int rowsInserted = 0;
+        try {
+            for (ContentValues value : values) {
+
+                long _id = db.insert(WordContract.WordsEntry.TABLE_NAME, null, value);
+                if (_id != -1) {
+                    rowsInserted++;
+                }
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+
+        if (rowsInserted > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsInserted;
+
+
+    }
 }
