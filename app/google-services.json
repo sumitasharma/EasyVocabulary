@@ -17,10 +17,6 @@
         {
           "client_id": "58225050326-us2p5tshv8pu0ch9voao2o2v9t1oupop.apps.googleusercontent.com",
           "client_type": 3
-        },
-        {
-          "client_id": "58225050326-us2p5tshv8pu0ch9voao2o2v9t1oupop.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -56,10 +52,6 @@
             "package_name": "com.example.sumitasharma.loadingrealtimedatabase",
             "certificate_hash": "f0fe6d08ce90c949c8c5ccd05d4e26103470f8be"
           }
-        },
-        {
-          "client_id": "58225050326-us2p5tshv8pu0ch9voao2o2v9t1oupop.apps.googleusercontent.com",
-          "client_type": 3
         },
         {
           "client_id": "58225050326-us2p5tshv8pu0ch9voao2o2v9t1oupop.apps.googleusercontent.com",

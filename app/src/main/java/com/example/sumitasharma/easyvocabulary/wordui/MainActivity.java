@@ -40,6 +40,7 @@ import com.example.sumitasharma.easyvocabulary.loaders.LoadingDataFromCloud;
 import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
 import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
+import com.example.sumitasharma.easyvocabulary.util.WordUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -60,6 +61,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
 public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary, LoaderManager.LoaderCallbacks {
     public static final String TAG = MainActivity.class.getSimpleName();
+    final int EASY_VOCAB_CLOUD_LOADER = WordUtil.FIREBASE_DICTIONARY_LOADER;
     private final LoaderManager.LoaderCallbacks<String> callback = MainActivity.this;
     String dictionary_word;
     String dictionary_meaning;
@@ -82,17 +84,28 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .build());
 
         Log.i(TAG, "Inside onCreate");
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("firstTime", false)) {
+            // run your one time code here
+            Timber.i("Executing LoaderManager methods for the first time");
+            android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
+            Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(EASY_VOCAB_CLOUD_LOADER);
+            if (easyVocabularyDataLoader == null) {
+                loaderManager.initLoader(EASY_VOCAB_CLOUD_LOADER, null, callback);
+            } else {
+                loaderManager.restartLoader(EASY_VOCAB_CLOUD_LOADER, null, callback);
+            }
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
+
         setContentView(R.layout.activity_main);
 
         if (!isDatabasePopulated()) {
-        android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
-            int mLoaderId = 101;
-            Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(mLoaderId);
-        if (easyVocabularyDataLoader == null) {
-            loaderManager.initLoader(mLoaderId, null, callback);
-        } else {
-            loaderManager.restartLoader(mLoaderId, null, callback);
-        }
+            //Show a spinner
+            Timber.i("DB is not yet populated, please wait ...");
         }
         cursor.close();
 
