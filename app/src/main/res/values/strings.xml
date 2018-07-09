@@ -38,6 +38,7 @@
     <string name="word_practice_state">word_practice_state</string>
     <string name="correct_words">Correct word and its meaning</string>
     <string name="scroll_down">Scroll Down</string>
+    <string name="meaning_not_available">Word Meaning is not available. Sorry !!!</string>
 
 
 </resources>

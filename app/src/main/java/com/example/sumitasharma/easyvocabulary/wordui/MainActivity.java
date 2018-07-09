@@ -175,12 +175,15 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         //Set job scheduling based on user preference
         ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorJobService.class);
         JobInfo jobInfo = new JobInfo.Builder(1234, serviceComponent)
-                .setMinimumLatency(60 * 60 * 1000) // wait at least
-                .setOverrideDeadline(24 * 60 * 60 * 1000) // maximum delay
+                .setMinimumLatency(60 * 1000) // wait at least
+                .setOverrideDeadline(5 * 60 * 1000) // maximum delay
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .build();
         JobScheduler jobService = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        jobService.schedule(jobInfo);
+        if (jobService != null) {
+            Timber.i("Scheduling job scheduler");
+            jobService.schedule(jobInfo);
+        }
     }
 
     private void scheduleNotificationAlarm(Context context) {
@@ -211,7 +214,9 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
     }
 
     private Notification getNotification(int notification) {
@@ -406,39 +411,13 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
     }
 
-    @NonNull
-    @Override
-    public Loader onCreateLoader(int id, @Nullable Bundle args) {
-        return new LoadingDataFromCloud(this);
-    }
 
-
-    @Override
-    public void onLoadFinished(@NonNull Loader loader, Object data) {
-        if (!isOnline(this)) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.word_main_fragment), R.string.internet_connectivity,
-                    Snackbar.LENGTH_SHORT);
-            snackbar.show();
-            View sbView = snackbar.getView();
-            sbView.setBackgroundColor(Color.BLUE);
-            // Toast.makeText(mContext, "Kindly check your Internet Connectivity", Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader loader) {
-
-    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
     }
-    public boolean isDatabasePopulated() {
-        cursor = getContentResolver().query(WordContract.WordsEntry.CONTENT_URI, null, null, null, null);
-        return cursor.getCount() > 0;
-    }
 
 }
+

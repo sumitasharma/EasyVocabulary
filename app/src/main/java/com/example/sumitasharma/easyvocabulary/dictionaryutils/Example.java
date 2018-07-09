@@ -8,27 +8,38 @@ import java.util.List;
 
 public class Example {
 
-    @SerializedName("metadata")
+    @SerializedName("word")
     @Expose
-    private Metadata metadata;
-    @SerializedName("results")
+    private String word;
+    @SerializedName("score")
     @Expose
-    private List<Result> results = null;
+    private Integer score;
+    @SerializedName("defs")
+    @Expose
+    private List<String> defs = null;
 
-    public Metadata getMetadata() {
-        return metadata;
+    public String getWord() {
+        return word;
     }
 
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
+    public void setWord(String word) {
+        this.word = word;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public List<String> getDefs() {
+        return defs;
+    }
+
+    public void setDefs(List<String> defs) {
+        this.defs = defs;
     }
 
 }

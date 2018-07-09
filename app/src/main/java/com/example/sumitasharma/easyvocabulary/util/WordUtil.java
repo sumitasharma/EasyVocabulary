@@ -19,7 +19,7 @@ public class WordUtil {
     public final static String QUIZ_CARD_VIEW_IDENTIFIER = "2";
     public final static String PROGRESS_CARD_VIEW_IDENTIFIER = "3";
     public final static String DICTIONARY_CARD_VIEW_IDENTIFIER = "4";
-    public final static String WORD_DICTIONARY_URL = "https://od-api.oxforddictionaries.com/api/v1/";
+    // public final static String WORD_DICTIONARY_URL = "https://od-api.oxforddictionaries.com/api/v1/";
     public final static String API_KEY = BuildConfig.APIKEY;
     public final static String APP_ID = BuildConfig.APPID;
     public static final String QUIZ_SORT = "RANDOM() LIMIT 4";
@@ -28,7 +28,7 @@ public class WordUtil {
     public static final String QUIZ_SEARCH_MEANING_IDENTIFIER = "quiz_search_meaning_identifier";
     public static final int QUIZ_LOADER = 101;
     public static final int PROGRESS_LOADER = 102;
-    public static final int FIREBASE_DICTIONARY_LOADER = 103;
+    public final static String WORD_DICTIONARY_URL = "http://api.datamuse.com/";
     public static final String LAST_SAVED_POSITION = "last_saved_position";
     public static final String NOTIFICATION_ID = "notification-id";
     public static final String NOTIFICATION = "notification";
