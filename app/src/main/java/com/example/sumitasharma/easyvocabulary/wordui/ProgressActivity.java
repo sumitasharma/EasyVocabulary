@@ -65,4 +65,10 @@ public class ProgressActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ProgressActivity.this, MainActivity.class));
+    }
 }
