@@ -386,4 +386,10 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         this.dictionary_meaning = meaning;
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }
