@@ -122,6 +122,7 @@ public class DictionaryFragment extends Fragment {
         ButterKnife.bind(this, mRootView);
         if (savedInstanceState != null) {
             Timber.i("Inside onCreateView DictionaryFragment - " + savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) + savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
+            mCardView.setVisibility(View.VISIBLE);
             dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
             dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
 
