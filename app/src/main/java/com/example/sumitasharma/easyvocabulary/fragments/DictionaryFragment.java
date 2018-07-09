@@ -82,22 +82,36 @@ public class DictionaryFragment extends Fragment {
 
         // Calling JSON
 
-        Call<Example> call = api.getMyJSON(mWordForSearch);
+        Call<List<Example>> call = api.getMyJSON(mWordForSearch);
 
 
         // Enqueue Callback will be call when get response...
 
-        call.enqueue(new Callback<Example>() {
+        call.enqueue(new Callback<List<Example>>() {
             @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
+            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
                 if (response.isSuccessful()) {
-                    Example example = response.body();
-                    List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-                    for (String definition : definitions) {
-                        mMeaning = definition;
-                        Timber.i("Inside onResponse successful " + mMeaning);
-
+                    List<Example> exampleList = response.body();
+                    Example example = exampleList.get(0);
+                    List<String> meanings = example.getDefs();
+                    if (meanings != null) {
+                        String meaning = meanings.get(0);
+                        mMeaning = meaning.split("\t", 2)[1];
+                    } else {
+                        Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
+                                Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                        View sbView = snackbar.getView();
+                        sbView.setBackgroundColor(Color.BLUE);
+                        return;
                     }
+//                    List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
+//                    for (String definition : definitions) {
+//                        mMeaning = definition;
+//                        Timber.i("Inside onResponse successful " + mMeaning);
+//
+//                    }
+
                     mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(mMeaning);
@@ -109,7 +123,7 @@ public class DictionaryFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Example> call, Throwable t) {
+            public void onFailure(Call<List<Example>> call, Throwable t) {
                 dictionarySearchMeaning.setText(R.string.error_dictionary);
             }
         });

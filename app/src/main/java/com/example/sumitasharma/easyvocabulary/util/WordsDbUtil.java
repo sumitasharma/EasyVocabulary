@@ -40,21 +40,25 @@ public class WordsDbUtil {
         // Calling JSON
 
         for (final String word : words.keySet()) {
-            Call<Example> call = api.getMyJSON(word);
+            Call<List<Example>> call = api.getMyJSON(word);
 
             // Enqueue Callback will be call when get response...
 
-            call.enqueue(new Callback<Example>() {
+            call.enqueue(new Callback<List<Example>>() {
                 @Override
-                public void onResponse(Call<Example> call, Response<Example> response) {
+                public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
                     if (response.isSuccessful()) {
-                        Example example = response.body();
-                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-                        String meaning = null;
-                        for (String definition : definitions) {
-                            meaning = definition;
+                        List<Example> exampleList = response.body();
+                        Example example = exampleList.get(0);
+                        List<String> meanings = example.getDefs();
+                        String meaning;
+                        try {
+                            meaning = meanings.get(0);
+                            meaning = meaning.split("\t", 2)[1];
+                        } catch (Exception e) {
+                            Timber.i("Unable to find word in dictionary" + word);
+                            return;
                         }
-
 
                         // Create new empty ContentValues object
                         ContentValues contentValues = new ContentValues();
@@ -77,7 +81,7 @@ public class WordsDbUtil {
                 }
 
                 @Override
-                public void onFailure(Call<Example> call, Throwable t) {
+                public void onFailure(Call<List<Example>> call, Throwable t) {
                     Timber.i("Error");
                 }
             });

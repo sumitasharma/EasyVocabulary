@@ -151,12 +151,15 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         //Set job scheduling based on user preference
         ComponentName serviceComponent = new ComponentName(context, WordDbPopulatorJobService.class);
         JobInfo jobInfo = new JobInfo.Builder(1234, serviceComponent)
-                .setMinimumLatency(60 * 60 * 1000) // wait at least
-                .setOverrideDeadline(24 * 60 * 60 * 1000) // maximum delay
+                .setMinimumLatency(60 * 1000) // wait at least
+                .setOverrideDeadline(5 * 60 * 1000) // maximum delay
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .build();
         JobScheduler jobService = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        jobService.schedule(jobInfo);
+        if (jobService != null) {
+            Timber.i("Scheduling job scheduler");
+            jobService.schedule(jobInfo);
+        }
     }
 
     private void scheduleNotificationAlarm(Context context) {
@@ -187,7 +190,9 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        }
     }
 
     private Notification getNotification(int notification) {

@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.dictionaryutils.ApiService;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,32 +43,107 @@ class GetDataFromDictionary {
     }
 
 
+//    private void populateDatabase(final HashMap<String, String> words, final Context context) {
+//        Timber.i("Inside populateDatabase");
+//        //Creating an object of our api interface
+//        ApiService api = RetroClient.getApiService();
+//
+//
+//        // Calling JSON
+//
+//        for (final String word : words.keySet()) {
+//            Call<Example> call = api.getMyJSON(word);
+//
+//            // Enqueue Callback will be call when get response...
+//
+//            call.enqueue(new Callback<Example>() {
+//                @Override
+//                public void onResponse(Call<Example> call, Response<Example> response) {
+//                    if (response.isSuccessful()) {
+//                        Example example = response.body();
+//                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
+//                        String meaning = null;
+//                        if (definitions != null) {
+//                            for (String definition : definitions) {
+//                                meaning = definition;
+//                            }
+//
+//
+//                            // Create new empty ContentValues object
+//                            ContentValues contentValues = new ContentValues();
+//
+//                            // Put the task description and selected mPriority into the ContentValues
+//                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD, word);
+//                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
+//                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
+//                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+//                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                            String date = dateFormat.format(new Date());
+//                            contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
+//                            // Insert the content values via a ContentResolver
+//                            Timber.i("meaning :" + meaning);
+//                            mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
+//                        } else {
+//                            Timber.i("Error while fetching the data from API for word " + example.getResults());
+//                        }
+//                    } else {
+//                        Timber.i("Error while fetching the data from API");
+//                    }
+//                    mJobService.jobFinished(mJobParameters, true);
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Example> call, Throwable t) {
+//                    Timber.i("Error");
+//                }
+//            });
+//
+//        }
+//    }
+
+
     private void populateDatabase(final HashMap<String, String> words, final Context context) {
-        Timber.i("Inside populateDatabase");
+
         //Creating an object of our api interface
         ApiService api = RetroClient.getApiService();
+        Log.i("GetDataFromDictionary", "Inside populateDatabase");
 
 
         // Calling JSON
 
         for (final String word : words.keySet()) {
-            Call<Example> call = api.getMyJSON(word);
+            Call<List<Example>> call = api.getMyJSON(word);
+            Log.i("GetDataFromDictionary", "called api");
+
 
             // Enqueue Callback will be call when get response...
 
-            call.enqueue(new Callback<Example>() {
+            call.enqueue(new Callback<List<Example>>() {
                 @Override
-                public void onResponse(Call<Example> call, Response<Example> response) {
-                    if (response.isSuccessful()) {
-                        Example example = response.body();
-                        List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-                        String meaning = null;
-                        if (definitions != null) {
-                            for (String definition : definitions) {
-                                meaning = definition;
+                public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
+                    String meaning;
+                    try {
+                        if (response.isSuccessful()) {
+                            Log.i("GetDataFromDictionary", "Got response" + response.body());
+
+                            List<Example> exampleList = response.body();
+                            Example example = exampleList.get(0);
+                            List<String> meanings = example.getDefs();
+
+                            if (meanings != null) {
+                                meaning = meanings.get(0);
+                                meaning = meaning.split("\t", 2)[1];
+                            } else {
+                                return;
                             }
+                            //   mMeaningTextView = findViewById(R.id.word_meaning);
+                            // Create a new user with a first and last name
+                            Map<String, String> dictionary = new HashMap<>();
+                            dictionary.put("word", word);
+                            dictionary.put("wordMeaning", meaning);
+                            dictionary.put("wordLevel", words.get(word));
 
-
+                            // Add a new document with a generated ID
                             // Create new empty ContentValues object
                             ContentValues contentValues = new ContentValues();
 
@@ -81,23 +158,27 @@ class GetDataFromDictionary {
                             // Insert the content values via a ContentResolver
                             Timber.i("meaning :" + meaning);
                             mContext.getContentResolver().insert(WordContract.WordsEntry.CONTENT_URI, contentValues);
+
+
                         } else {
-                            Timber.i("Error while fetching the data from API for word " + example.getResults());
+                            Log.w("", "Response not successful" + response);
                         }
-                    } else {
-                        Timber.i("Error while fetching the data from API");
+                        // mJobService.jobFinished(mJobParameters, true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    mJobService.jobFinished(mJobParameters, true);
                 }
 
                 @Override
-                public void onFailure(Call<Example> call, Throwable t) {
-                    Timber.i("Error");
+                public void onFailure(Call<List<Example>> call, Throwable t) {
+                    Log.w("GetDataFromDictionary", "Error getting response" + t);
                 }
             });
 
         }
+
     }
+
 
     public void dataFromDictionary() {
         int last_saved_position;
