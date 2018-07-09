@@ -76,4 +76,10 @@ public class WordQuizSummaryActivity extends AppCompatActivity implements WordQu
         outState.putSerializable(USER_QUIZ_ANSWERS, mUserAnswer);
         outState.putSerializable(CORRECT_ANSWERS, mCorrectAnswers);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WordQuizSummaryActivity.this, MainActivity.class));
+    }
 }
