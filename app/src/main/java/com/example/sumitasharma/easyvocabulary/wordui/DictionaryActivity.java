@@ -102,5 +102,4 @@ public class DictionaryActivity extends AppCompatActivity implements DictionaryF
         super.onBackPressed();
         startActivity(new Intent(DictionaryActivity.this, MainActivity.class));
     }
-
 }

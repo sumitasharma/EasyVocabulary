@@ -2,43 +2,36 @@ package com.example.sumitasharma.easyvocabulary.services;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import com.example.sumitasharma.easyvocabulary.data.WordContract;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.ApiService;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.Example;
-import com.example.sumitasharma.easyvocabulary.dictionaryutils.RetroClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.LAST_SAVED_POSITION;
 
-class GetDataFromDictionary {
+
+public class GetDataFromDictionary {
     private final Context mContext;
-    private final JobService mJobService;
-    private final JobParameters mJobParameters;
+    private JobService mJobService;
+    private JobParameters mJobParameters;
     private HashMap<String, String> words = new HashMap<>();
+
 
     GetDataFromDictionary(WordDbPopulatorJobService wordDbPopulatorService, Context context, JobParameters jobParameters) {
         mContext = context;
         mJobParameters = jobParameters;
         mJobService = wordDbPopulatorService;
+    }
+
+    public GetDataFromDictionary(Context context) {
+        this.mContext = context;
     }
 
 
@@ -109,10 +102,11 @@ class GetDataFromDictionary {
                 }
             });
 
+
         }
 
-    }
 
+    }
 
     public void dataFromDictionary() {
         int last_saved_position;

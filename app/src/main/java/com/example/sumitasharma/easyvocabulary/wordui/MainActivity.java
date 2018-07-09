@@ -11,13 +11,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -26,14 +31,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.sumitasharma.easyvocabulary.R;
+import com.example.sumitasharma.easyvocabulary.data.WordContract;
 import com.example.sumitasharma.easyvocabulary.fragments.DictionaryFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.ProgressFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordMainFragment;
 import com.example.sumitasharma.easyvocabulary.fragments.WordPracticeFragment;
+import com.example.sumitasharma.easyvocabulary.loaders.LoadingDataFromCloud;
 import com.example.sumitasharma.easyvocabulary.services.NotificationPublisher;
 import com.example.sumitasharma.easyvocabulary.services.WordDbPopulatorJobService;
 import com.example.sumitasharma.easyvocabulary.util.NotificationHelper;
-import com.example.sumitasharma.easyvocabulary.util.WordsDbUtil;
+import com.example.sumitasharma.easyvocabulary.util.WordUtil;
 import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
@@ -52,11 +59,14 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_P
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
-public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary {
+public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary, LoaderManager.LoaderCallbacks {
     public static final String TAG = MainActivity.class.getSimpleName();
+    final int EASY_VOCAB_CLOUD_LOADER = WordUtil.FIREBASE_DICTIONARY_LOADER;
+    private final LoaderManager.LoaderCallbacks<String> callback = MainActivity.this;
     String dictionary_word;
     String dictionary_meaning;
     String cardViewNumber;
+    Cursor cursor;
     private String state;
     private String state_dictionary;
     private int numberOfWordsForPractice;
@@ -74,14 +84,30 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .build());
 
         Log.i(TAG, "Inside onCreate");
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("firstTime", false)) {
+            // run your one time code here
+            Timber.i("Executing LoaderManager methods for the first time");
+            android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
+            Loader<String> easyVocabularyDataLoader = loaderManager.getLoader(EASY_VOCAB_CLOUD_LOADER);
+            if (easyVocabularyDataLoader == null) {
+                loaderManager.initLoader(EASY_VOCAB_CLOUD_LOADER, null, callback);
+            } else {
+                loaderManager.restartLoader(EASY_VOCAB_CLOUD_LOADER, null, callback);
+            }
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
+
         setContentView(R.layout.activity_main);
 
-        /* Insert the table */
-        WordsDbUtil wordsDbUtil = new WordsDbUtil(this);
-        if (!wordsDbUtil.isDatabasePopulated()) {
-            Timber.i("Database is not populated, populating it");
-            wordsDbUtil.populateDatabase();
+        if (!isDatabasePopulated()) {
+            //Show a spinner
+            Timber.i("DB is not yet populated, please wait ...");
         }
+        cursor.close();
 
         setupSharedPreference();
 
@@ -98,8 +124,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         transaction.replace(R.id.word_main_fragment, wordMainFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        //  FragmentManager fragmentManager = getSupportFragmentManager();
-        //  fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
         if (savedInstanceState != null) {
             state = savedInstanceState.getString(STATE_WORD_PRACTICE);
             state_dictionary = savedInstanceState.getString(STATE_WORD_DICTIONARY);
@@ -126,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
             }
 
             //Schedule job to populate Database in the background
-            scheduleDbPopulatorJob(this);
+            //     scheduleDbPopulatorJob(this);
 
             //Schedule Notification via alarm manager
             scheduleNotificationAlarm(this);
@@ -387,9 +411,13 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
     }
 
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
     }
+
 }
+

@@ -30,10 +30,4 @@ class WordDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WordContract.WordsEntry.TABLE_NAME);
         onCreate(db);
     }
-
-//    public boolean isDbPopulated() {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor res =  db.rawQuery( "select * from words limit 5" ,null);
-//        return res.getCount() > 0;
-//    }
 }
