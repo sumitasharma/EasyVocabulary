@@ -52,7 +52,6 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             holder.mWordPractice.setText(wordPractice);
             holder.mWordMeaning.setText(wordMeaning);
         }
-
         // Update the rows seen by user as practiced.
         Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
         ContentValues values = new ContentValues();

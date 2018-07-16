@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         transaction.replace(R.id.word_main_fragment, wordMainFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        //  FragmentManager fragmentManager = getSupportFragmentManager();
-        //  fragmentManager.beginTransaction().add(R.id.word_main_fragment, wordMainFragment).commit();
         if (savedInstanceState != null) {
             state = savedInstanceState.getString(STATE_WORD_PRACTICE);
             state_dictionary = savedInstanceState.getString(STATE_WORD_DICTIONARY);
@@ -264,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         super.onResume();
         if (!isOnline(this)) {
             Snackbar snackbar = Snackbar.make(findViewById(R.id.words_coordinate_layout), R.string.internet_connectivity,
-                    Snackbar.LENGTH_SHORT);
+                    Snackbar.LENGTH_LONG);
             snackbar.show();
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(Color.BLUE);
