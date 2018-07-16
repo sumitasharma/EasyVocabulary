@@ -71,7 +71,7 @@ public class GetDataFromDictionary {
                             }
 
                             // Add a new document with a generated ID
-                            // Create new empty ContentValues object
+                            // Create new empty ContentValues object.
                             ContentValues contentValues = new ContentValues();
 
                             // Put the task description and selected mPriority into the ContentValues

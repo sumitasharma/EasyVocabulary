@@ -39,6 +39,7 @@
     <string name="correct_words">Correct word and its meaning</string>
     <string name="scroll_down">Scroll Down</string>
     <string name="meaning_not_available">Word Meaning is not available. Sorry !!!</string>
+    <string name="no_more_data">Kindly wait for new words or (Refresh) and load the page back from Main to start again.</string>
 
 
 </resources>

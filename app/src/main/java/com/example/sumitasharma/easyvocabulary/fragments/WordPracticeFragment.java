@@ -1,12 +1,15 @@
 package com.example.sumitasharma.easyvocabulary.fragments;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -16,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.sumitasharma.easyvocabulary.R;
 import com.example.sumitasharma.easyvocabulary.adapter.PracticeWordsAdapter;
@@ -28,6 +32,8 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_P
 public class WordPracticeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private final static int LOADER_ID = 101;
     private final LoaderManager.LoaderCallbacks<Cursor> callback = WordPracticeFragment.this;
+    TextView mWordPractice;
+    View mRootView;
     private RecyclerView mWordPracticeRecyclerView;
     private Context mContext = getContext();
     private PracticeWordsAdapter mAdapter = null;
@@ -41,7 +47,7 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.i("Inside WordPracticeFragment onCreateView");
-        View mRootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_word_practice, container, false);
         mWordPracticeRecyclerView = mRootView.findViewById(R.id.recycler_view_practice_words);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(mContext);
         mWordPracticeRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -99,6 +105,22 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (!data.moveToNext()) {
+            Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.practice_word_fragment_coordinator_layout), R.string.no_more_data,
+                    Snackbar.LENGTH_INDEFINITE).setAction("Refresh", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
+                    ContentValues values = new ContentValues();
+                    values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+                    mContext.getContentResolver().update(loaderUri, values, null, null);
+                }
+            });
+            snackbar.show();
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(Color.BLUE);
+            Timber.i("no more data");
+        }
         mAdapter = new PracticeWordsAdapter(mContext, data);
         Timber.i("Setting PracticeWordsAdapter for recycler view");
         mWordPracticeRecyclerView.setAdapter(mAdapter);

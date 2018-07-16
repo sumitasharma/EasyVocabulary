@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
         super.onResume();
         if (!isOnline(this)) {
             Snackbar snackbar = Snackbar.make(findViewById(R.id.words_coordinate_layout), R.string.internet_connectivity,
-                    Snackbar.LENGTH_SHORT);
+                    Snackbar.LENGTH_LONG);
             snackbar.show();
             View sbView = snackbar.getView();
             sbView.setBackgroundColor(Color.BLUE);
