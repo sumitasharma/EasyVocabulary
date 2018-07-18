@@ -105,12 +105,6 @@ public class DictionaryFragment extends Fragment {
                         sbView.setBackgroundColor(Color.BLUE);
                         return;
                     }
-//                    List<String> definitions = example.getResults().get(0).getLexicalEntries().get(0).getEntries().get(0).getSenses().get(0).getDefinitions();
-//                    for (String definition : definitions) {
-//                        mMeaning = definition;
-//                        Timber.i("Inside onResponse successful " + mMeaning);
-//
-//                    }
 
                     mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
