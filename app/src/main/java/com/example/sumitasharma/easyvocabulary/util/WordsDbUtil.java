@@ -51,13 +51,6 @@ public class WordsDbUtil {
                         List<Example> exampleList = response.body();
                         Example example = exampleList.get(0);
                         String meaning = example.getDefinition();
-//                        try {
-//                            meaning = meanings.get(0);
-//                            meaning = meaning.split("\t", 2)[1];
-//                        } catch (Exception e) {
-//                            Timber.i("Unable to find word in dictionary" + word);
-//                            return;
-//                        }
                         if (meaning.isEmpty()) {
                             Timber.i("Unable to find word in dictionary" + word);
                             return;
@@ -71,6 +64,8 @@ public class WordsDbUtil {
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, example.getType());
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, example.getExample());
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String date = dateFormat.format(new Date());
                         contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
