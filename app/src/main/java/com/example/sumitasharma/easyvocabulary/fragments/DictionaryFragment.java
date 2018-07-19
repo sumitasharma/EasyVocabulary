@@ -102,7 +102,7 @@ public class DictionaryFragment extends Fragment {
                         sbView.setBackgroundColor(Color.BLUE);
                         return;
                     }
-
+                    mMeaning = meaning;
                     mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(mMeaning);
