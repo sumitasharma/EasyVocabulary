@@ -61,19 +61,15 @@ class GetDataFromDictionary {
             call.enqueue(new Callback<List<Example>>() {
                 @Override
                 public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
-                    String meaning;
                     try {
                         if (response.isSuccessful()) {
                             Log.i("GetDataFromDictionary", "Got response" + response.body());
 
                             List<Example> exampleList = response.body();
                             Example example = exampleList.get(0);
-                            List<String> meanings = example.getDefs();
+                            String meaning = example.getDefinition();
 
-                            if (meanings != null) {
-                                meaning = meanings.get(0);
-                                meaning = meaning.split("\t", 2)[1];
-                            } else {
+                            if (meaning.isEmpty()) {
                                 return;
                             }
 

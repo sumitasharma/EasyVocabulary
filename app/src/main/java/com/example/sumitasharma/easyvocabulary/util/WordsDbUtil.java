@@ -50,12 +50,15 @@ public class WordsDbUtil {
                     if (response.isSuccessful()) {
                         List<Example> exampleList = response.body();
                         Example example = exampleList.get(0);
-                        List<String> meanings = example.getDefs();
-                        String meaning;
-                        try {
-                            meaning = meanings.get(0);
-                            meaning = meaning.split("\t", 2)[1];
-                        } catch (Exception e) {
+                        String meaning = example.getDefinition();
+//                        try {
+//                            meaning = meanings.get(0);
+//                            meaning = meaning.split("\t", 2)[1];
+//                        } catch (Exception e) {
+//                            Timber.i("Unable to find word in dictionary" + word);
+//                            return;
+//                        }
+                        if (meaning.isEmpty()) {
                             Timber.i("Unable to find word in dictionary" + word);
                             return;
                         }

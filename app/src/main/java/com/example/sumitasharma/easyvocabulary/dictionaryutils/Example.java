@@ -1,45 +1,42 @@
 package com.example.sumitasharma.easyvocabulary.dictionaryutils;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Example {
 
-    @SerializedName("word")
+    @SerializedName("type")
     @Expose
-    private String word;
-    @SerializedName("score")
+    private String type;
+    @SerializedName("definition")
     @Expose
-    private Integer score;
-    @SerializedName("defs")
+    private String definition;
+    @SerializedName("example")
     @Expose
-    private List<String> defs = null;
+    private String example;
 
-    public String getWord() {
-        return word;
+    public String getType() {
+        return type;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Integer getScore() {
-        return score;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 
-    public List<String> getDefs() {
-        return defs;
+    public String getExample() {
+        return example;
     }
 
-    public void setDefs(List<String> defs) {
-        this.defs = defs;
+    public void setExample(String example) {
+        this.example = example;
     }
 
 }

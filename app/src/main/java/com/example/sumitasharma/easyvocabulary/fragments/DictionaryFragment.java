@@ -93,11 +93,8 @@ public class DictionaryFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Example> exampleList = response.body();
                     Example example = exampleList.get(0);
-                    List<String> meanings = example.getDefs();
-                    if (meanings != null) {
-                        String meaning = meanings.get(0);
-                        mMeaning = meaning.split("\t", 2)[1];
-                    } else {
+                    String meaning = example.getDefinition();
+                    if (meaning.isEmpty()) {
                         Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
                                 Snackbar.LENGTH_SHORT);
                         snackbar.show();
