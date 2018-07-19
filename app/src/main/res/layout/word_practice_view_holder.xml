@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     style="@style/MainViewCardView"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
     card_view:cardElevation="@dimen/card_elevation"
@@ -22,8 +22,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/detail_body_text_size"
+            android:textSize="@dimen/word_practice_title_text"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/word_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/detail_body_text_size"
+            android:textSize="@dimen/detail_body_text_size"
+            android:textStyle="italic|bold" />
+
+        <TextView
+            style="@style/QuizViewCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/definition"
+            android:textStyle="bold|italic" />
+
 
         <TextView
             android:id="@+id/word_practice_meaning"
@@ -31,6 +49,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:paddingBottom="@dimen/card_view_text_size"
+            android:textSize="@dimen/card_view_text_size" />
+
+        <TextView
+            android:id="@+id/word_text_example"
+            style="@style/QuizViewCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/example"
+            android:textStyle="bold|italic"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/word_practice_example"
+            style="@style/MainViewCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/card_view_text_size"
             android:textSize="@dimen/card_view_text_size" />
 
     </LinearLayout>

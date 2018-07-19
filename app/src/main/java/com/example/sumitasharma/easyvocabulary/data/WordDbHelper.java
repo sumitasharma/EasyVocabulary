@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 class WordDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "wordsDb.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 3;
 
     WordDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -22,7 +22,9 @@ class WordDbHelper extends SQLiteOpenHelper {
                 WordContract.WordsEntry.COLUMN_WORD_MEANING + " TEXT NOT NULL, " +
                 WordContract.WordsEntry.COLUMN_WORD_LEVEL + " TEXT NOT NULL, " +
                 WordContract.WordsEntry.COLUMN_LAST_UPDATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-                WordContract.WordsEntry.COLUMN_WORD_PRACTICED + " BOOLEAN);");
+                WordContract.WordsEntry.COLUMN_WORD_PRACTICED + " BOOLEAN, " +
+                WordContract.WordsEntry.COLUMN_WORD_TYPE + " TEXT, " +
+                WordContract.WordsEntry.COLUMN_WORD_EXAMPLE + " TEXT ); ");
     }
 
     @Override
@@ -30,10 +32,4 @@ class WordDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WordContract.WordsEntry.TABLE_NAME);
         onCreate(db);
     }
-
-//    public boolean isDbPopulated() {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor res =  db.rawQuery( "select * from words limit 5" ,null);
-//        return res.getCount() > 0;
-//    }
 }

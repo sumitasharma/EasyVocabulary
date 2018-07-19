@@ -82,6 +82,8 @@ class GetDataFromDictionary {
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
+                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, example.getType());
+                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, example.getExample());
                             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                             String date = dateFormat.format(new Date());
                             contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);

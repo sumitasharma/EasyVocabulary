@@ -26,6 +26,8 @@ public class WordContract {
         public static final String COLUMN_WORD_LEVEL = "wordLevel";
         public static final String COLUMN_LAST_UPDATED = "lastUpdated";
         public static final String COLUMN_WORD_PRACTICED = "wordPracticed";
+        public static final String COLUMN_WORD_TYPE = "wordPartOfSpeechType";
+        public static final String COLUMN_WORD_EXAMPLE = "wordExample";
 
         public static Uri buildWordUri(long word_id) {
             return BASE_CONTENT_URI.buildUpon().appendPath(PATH_WORDS).appendPath(Long.toString(word_id)).build();
