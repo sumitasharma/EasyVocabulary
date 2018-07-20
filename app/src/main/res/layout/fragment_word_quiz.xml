@@ -13,6 +13,7 @@
             android:id="@+id/go_home_main"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/main_menu"
             android:src="@drawable/home_icon" />
 
