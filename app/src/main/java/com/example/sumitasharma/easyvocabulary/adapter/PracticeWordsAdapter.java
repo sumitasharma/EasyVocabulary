@@ -4,6 +4,7 @@ package com.example.sumitasharma.easyvocabulary.adapter;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             wordMeaning = wordMeaning.substring(0, 1).toUpperCase() + wordMeaning.substring(1).toLowerCase();
             wordMeaning = wordMeaning.replaceAll("\\<.*?\\>", "");
             holder.mWordPractice.setText(wordPractice);
+            holder.mWordPractice.setPaintFlags(holder.mWordPractice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             holder.mWordMeaning.setText(wordMeaning);
             if (wordType != null) {
                 wordType = wordType.substring(0, 1).toUpperCase() + wordType.substring(1).toLowerCase();

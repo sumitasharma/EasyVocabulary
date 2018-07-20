@@ -7,8 +7,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_practice_words"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="50dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/detail_body_text_size"
             android:scrollbarStyle="outsideOverlay" />
 
 

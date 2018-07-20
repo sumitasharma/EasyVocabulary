@@ -32,6 +32,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/widget_margin"
             android:contentDescription="@string/correct_words"
             android:src="@drawable/quiz_questions3" />
 
