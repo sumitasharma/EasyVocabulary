@@ -2,6 +2,7 @@ package com.example.sumitasharma.easyvocabulary.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,7 @@ import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_S
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_MEANING;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_TYPE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_WORD;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_WORD;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_PRACTICE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
@@ -53,12 +55,17 @@ public class DictionaryFragment extends Fragment {
     TextView dictionaryExample;
     @BindView(R.id.word_dictionary_text_example)
     TextView dictionaryTextExample;
+    @BindView(R.id.dictionary_text_definition)
+    TextView dictionaryTextDefinition;
+    @BindView(R.id.word_dictionary)
+    TextView dictionaryWord;
     private PassTheStateDictionary mPassTheSateDictionary;
     private View mRootView;
     private String mWordForSearch;
     private String mMeaning;
     private String mType;
     private String mExample;
+    private String mSearchWord;
 
     public DictionaryFragment() {
 
@@ -83,6 +90,7 @@ public class DictionaryFragment extends Fragment {
         }
 
         InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert mgr != null;
         mgr.hideSoftInputFromWindow(dictionarySearchWord.getWindowToken(), 0);
         mWordForSearch = String.valueOf(dictionarySearchWord.getText());
         Timber.i("Before Calling CallbackTask");
@@ -100,8 +108,19 @@ public class DictionaryFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
                 if (response.isSuccessful()) {
+                    Example example = null;
                     List<Example> exampleList = response.body();
-                    Example example = exampleList.get(0);
+                    if (exampleList.size() > 0) {
+                        example = exampleList.get(0);
+                        dictionaryWord.setPaintFlags(dictionaryWord.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    } else {
+                        Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
+                                Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                        View sbView = snackbar.getView();
+                        sbView.setBackgroundColor(Color.BLUE);
+                        return;
+                    }
                     String meaning = example.getDefinition();
                     if (meaning.isEmpty()) {
                         Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
@@ -118,7 +137,10 @@ public class DictionaryFragment extends Fragment {
                     mType = mType.substring(0, 1).toUpperCase() + mType.substring(1);
                     mExample = example.getExample();
                     mExample = mExample.substring(0, 1).toUpperCase() + mExample.substring(1);
+                    mSearchWord = mWordForSearch;
+                    mSearchWord = mSearchWord.substring(0, 1).toUpperCase() + mSearchWord.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
+                    dictionaryWord.setText(mSearchWord);
                     dictionarySearchMeaning.setText(mMeaning);
                     if (!mType.isEmpty())
                         dictionaryType.setText("(" + mType + ")");
@@ -148,9 +170,11 @@ public class DictionaryFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
         ButterKnife.bind(this, mRootView);
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) != null) {
             Timber.i("Inside onCreateView DictionaryFragment - " + savedInstanceState.getString(DICTIONARY_SEARCH_MEANING) + savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
             mCardView.setVisibility(View.VISIBLE);
+            dictionaryWord.setText(savedInstanceState.getString(DICTIONARY_WORD));
+            dictionaryWord.setPaintFlags(dictionaryWord.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
             dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
             dictionaryType.setText("(" + savedInstanceState.getString(DICTIONARY_SEARCH_TYPE) + ")");
@@ -159,7 +183,10 @@ public class DictionaryFragment extends Fragment {
                 dictionaryExample.setText(savedInstanceState.getString(DICTIONARY_SEARCH_EXAMPLE));
             }
 
+        } else {
+            mCardView.setVisibility(View.INVISIBLE);
         }
+
         return mRootView;
     }
 
@@ -172,6 +199,7 @@ public class DictionaryFragment extends Fragment {
         outState.putString(DICTIONARY_SEARCH_MEANING, this.mMeaning);
         outState.putString(DICTIONARY_SEARCH_TYPE, this.mType);
         outState.putString(DICTIONARY_SEARCH_EXAMPLE, this.mExample);
+        outState.putString(DICTIONARY_WORD, this.mSearchWord);
         outState.putString(STATE_WORD_PRACTICE, "state_dictionary");
         mPassTheSateDictionary.passTheSavedStateDictionary("state_dictionary", mWordForSearch, mMeaning);
 

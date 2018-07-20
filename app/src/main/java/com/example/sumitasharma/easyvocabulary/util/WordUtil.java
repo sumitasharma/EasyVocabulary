@@ -38,6 +38,7 @@ public class WordUtil {
     public static final String DICTIONARY_SEARCH_TYPE = "search_type";
     public static final String DICTIONARY_SEARCH_EXAMPLE = "search_example";
     public static final String DICTIONARY_SEARCH_MEANING = "search_meaning";
+    public static final String DICTIONARY_WORD = "dictionary_word";
     public static final String STATE_WORD_PRACTICE = "state";
     public static final String STATE_WORD_DICTIONARY = "state_dictionary";
 

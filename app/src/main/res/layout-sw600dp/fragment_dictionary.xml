@@ -47,6 +47,15 @@
 
 
                 <TextView
+                    android:id="@+id/word_dictionary"
+                    style="@style/MainMenuCardViewAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/word_practice_title_text"
+                    android:textStyle="bold|italic" />
+
+                <TextView
                     android:id="@+id/word_dictionary_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,6 +65,7 @@
                     android:textStyle="italic|bold" />
 
                 <TextView
+                    android:id="@+id/dictionary_text_definition"
                     style="@style/QuizViewCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
