@@ -35,6 +35,8 @@ public class WordUtil {
     public static final String NOTIFICATION_CHANNEL_NAME = "easyVocabulary";
     public static final String NOTIFICATION_CHANNEL = "1234";
     public static final String DICTIONARY_SEARCH_WORD = "search_word";
+    public static final String DICTIONARY_SEARCH_TYPE = "search_type";
+    public static final String DICTIONARY_SEARCH_EXAMPLE = "search_example";
     public static final String DICTIONARY_SEARCH_MEANING = "search_meaning";
     public static final String STATE_WORD_PRACTICE = "state";
     public static final String STATE_WORD_DICTIONARY = "state_dictionary";

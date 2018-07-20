@@ -29,10 +29,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_EXAMPLE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_MEANING;
+import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_TYPE;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.DICTIONARY_SEARCH_WORD;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.STATE_WORD_PRACTICE;
-import static com.example.sumitasharma.easyvocabulary.util.WordUtil.WORD_DICTIONARY_URL;
 import static com.example.sumitasharma.easyvocabulary.util.WordUtil.isOnline;
 
 
@@ -46,10 +47,18 @@ public class DictionaryFragment extends Fragment {
     TextView dictionarySearchMeaning;
     @BindView(R.id.dictionary_card_view)
     CardView mCardView;
+    @BindView(R.id.word_dictionary_type)
+    TextView dictionaryType;
+    @BindView(R.id.word_dictionary_example)
+    TextView dictionaryExample;
+    @BindView(R.id.word_dictionary_text_example)
+    TextView dictionaryTextExample;
     private PassTheStateDictionary mPassTheSateDictionary;
     private View mRootView;
     private String mWordForSearch;
     private String mMeaning;
+    private String mType;
+    private String mExample;
 
     public DictionaryFragment() {
 
@@ -104,8 +113,21 @@ public class DictionaryFragment extends Fragment {
                     }
                     mMeaning = meaning;
                     mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
+                    mType = example.getType();
+                    mType = mType.substring(0, 1).toUpperCase() + mType.substring(1);
+                    mExample = example.getExample();
+                    mExample = mExample.substring(0, 1).toUpperCase() + mExample.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(mMeaning);
+                    if (!mType.isEmpty())
+                        dictionaryType.setText("(" + mType + ")");
+                    if (!mExample.isEmpty()) {
+                        mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
+                        dictionaryTextExample.setVisibility(View.VISIBLE);
+                        dictionaryExample.setText(mExample);
+                    }
+
+
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
                     dictionarySearchMeaning.setText(R.string.error_dictionary);
@@ -130,17 +152,16 @@ public class DictionaryFragment extends Fragment {
             mCardView.setVisibility(View.VISIBLE);
             dictionarySearchMeaning.setText(savedInstanceState.getString(DICTIONARY_SEARCH_MEANING));
             dictionarySearchWord.setText(savedInstanceState.getString(DICTIONARY_SEARCH_WORD));
+            dictionaryType.setText("(" + savedInstanceState.getString(DICTIONARY_SEARCH_TYPE) + ")");
+            if (savedInstanceState.getString(DICTIONARY_SEARCH_EXAMPLE) != null) {
+                dictionaryTextExample.setVisibility(View.VISIBLE);
+                dictionaryExample.setText(savedInstanceState.getString(DICTIONARY_SEARCH_EXAMPLE));
+            }
 
         }
         return mRootView;
     }
 
-
-    private String dictionaryEntries() {
-        final String language = "en";
-        final String word_id = mWordForSearch.toLowerCase(); //word id is case sensitive and lowercase is required
-        return WORD_DICTIONARY_URL + "entries/" + language + "/" + word_id;
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -148,6 +169,8 @@ public class DictionaryFragment extends Fragment {
         Timber.i("Inside onSaveInstanceState" + this.mWordForSearch + ":" + this.mMeaning);
         outState.putString(DICTIONARY_SEARCH_WORD, this.mWordForSearch);
         outState.putString(DICTIONARY_SEARCH_MEANING, this.mMeaning);
+        outState.putString(DICTIONARY_SEARCH_TYPE, this.mType);
+        outState.putString(DICTIONARY_SEARCH_EXAMPLE, this.mExample);
         outState.putString(STATE_WORD_PRACTICE, "state_dictionary");
         mPassTheSateDictionary.passTheSavedStateDictionary("state_dictionary", mWordForSearch, mMeaning);
 
