@@ -135,8 +135,6 @@ public class DictionaryFragment extends Fragment {
                     mMeaning = mMeaning.replaceAll("\\<.*?\\>", "");
                     mType = example.getType();
                     mType = mType.substring(0, 1).toUpperCase() + mType.substring(1);
-                    mExample = example.getExample();
-                    mExample = mExample.substring(0, 1).toUpperCase() + mExample.substring(1);
                     mSearchWord = mWordForSearch;
                     mSearchWord = mSearchWord.substring(0, 1).toUpperCase() + mSearchWord.substring(1);
                     mCardView.setVisibility(View.VISIBLE);
@@ -144,7 +142,9 @@ public class DictionaryFragment extends Fragment {
                     dictionarySearchMeaning.setText(mMeaning);
                     if (!mType.isEmpty())
                         dictionaryType.setText("(" + mType + ")");
-                    if (!mExample.isEmpty()) {
+                    if (example.getExample() != null) {
+                        mExample = example.getExample();
+                        mExample = mExample.substring(0, 1).toUpperCase() + mExample.substring(1);
                         mExample = mExample.replaceAll("\\<.*?\\>", "");
                         dictionaryTextExample.setVisibility(View.VISIBLE);
                         dictionaryExample.setText(mExample);
