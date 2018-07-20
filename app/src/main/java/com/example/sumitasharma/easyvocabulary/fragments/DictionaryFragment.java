@@ -113,6 +113,7 @@ public class DictionaryFragment extends Fragment {
                     }
                     mMeaning = meaning;
                     mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
+                    mMeaning = mMeaning.replaceAll("\\<.*?\\>", "");
                     mType = example.getType();
                     mType = mType.substring(0, 1).toUpperCase() + mType.substring(1);
                     mExample = example.getExample();
@@ -122,7 +123,7 @@ public class DictionaryFragment extends Fragment {
                     if (!mType.isEmpty())
                         dictionaryType.setText("(" + mType + ")");
                     if (!mExample.isEmpty()) {
-                        mMeaning = mMeaning.substring(0, 1).toUpperCase() + mMeaning.substring(1);
+                        mExample = mExample.replaceAll("\\<.*?\\>", "");
                         dictionaryTextExample.setVisibility(View.VISIBLE);
                         dictionaryExample.setText(mExample);
                     }

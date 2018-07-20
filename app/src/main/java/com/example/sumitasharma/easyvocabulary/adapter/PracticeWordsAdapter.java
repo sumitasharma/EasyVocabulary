@@ -20,8 +20,6 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-import static android.text.Html.FROM_HTML_MODE_LEGACY;
-
 public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdapter.RecyclerViewHolderWords> {
 
     private final static String TAG = PracticeWordsAdapter.class.getSimpleName();
@@ -55,6 +53,7 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             wordExample = mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE));
             wordPractice = wordPractice.substring(0, 1).toUpperCase() + wordPractice.substring(1).toLowerCase();
             wordMeaning = wordMeaning.substring(0, 1).toUpperCase() + wordMeaning.substring(1).toLowerCase();
+            wordMeaning = wordMeaning.replaceAll("\\<.*?\\>", "");
             holder.mWordPractice.setText(wordPractice);
             holder.mWordMeaning.setText(wordMeaning);
             if (wordType != null) {
@@ -64,7 +63,8 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
             }
             if (wordExample != null) {
                 holder.mWordTextExample.setVisibility(View.VISIBLE);
-                wordExample = android.text.Html.fromHtml(wordExample, FROM_HTML_MODE_LEGACY).toString();
+                wordExample = wordExample.replaceAll("\\<.*?\\>", "");
+                // wordExample = android.text.Html.fromHtml(wordExample, FROM_HTML_MODE_LEGACY).toString();
                 wordExample = wordExample.substring(0, 1).toUpperCase() + wordExample.substring(1).toLowerCase();
                 holder.mWordExample.setText(wordExample);
             }
