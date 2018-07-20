@@ -38,7 +38,7 @@
     <string name="word_practice_state">word_practice_state</string>
     <string name="correct_words">Correct word and its meaning</string>
     <string name="scroll_down">Scroll Down</string>
-    <string name="meaning_not_available">Word Meaning is not available. Sorry !!!</string>
+    <string name="meaning_not_available">Word Meaning is not available.Sorry !!! Kindly check the typed word or Your API Key might not be set.</string>
     <string name="no_more_data">Kindly wait for new words or (Refresh) and load the page back from Main to start again.</string>
     <string name="example">Example</string>
     <string name="definition">Definition</string>

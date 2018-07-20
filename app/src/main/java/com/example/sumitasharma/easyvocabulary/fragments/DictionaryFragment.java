@@ -152,8 +152,11 @@ public class DictionaryFragment extends Fragment {
 
 
                 } else {
-                    mCardView.setVisibility(View.VISIBLE);
-                    dictionarySearchMeaning.setText(R.string.error_dictionary);
+                    Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
+                            Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    View sbView = snackbar.getView();
+                    sbView.setBackgroundColor(Color.BLUE);
                 }
 
             }
