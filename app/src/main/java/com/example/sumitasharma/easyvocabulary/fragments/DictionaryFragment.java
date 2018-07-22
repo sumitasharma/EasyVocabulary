@@ -122,6 +122,18 @@ public class DictionaryFragment extends Fragment {
                         return;
                     }
                     String meaning = example.getDefinition();
+
+                    String longestDefinition = meaning;
+                    int longestDefinitionIndex = 0;
+                    for (int i = 1; i < exampleList.size(); i++) {
+                        example = exampleList.get(i);
+                        if (example.getDefinition().length() >= longestDefinition.length()) {
+                            longestDefinition = example.getDefinition();
+                            longestDefinitionIndex = i;
+                        }
+                    }
+                    meaning = exampleList.get(longestDefinitionIndex).getDefinition();
+
                     if (meaning.isEmpty()) {
                         Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.dictionary_coordinator_layout), R.string.meaning_not_available,
                                 Snackbar.LENGTH_SHORT);

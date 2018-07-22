@@ -72,7 +72,16 @@ class GetDataFromDictionary {
                             if (meaning.isEmpty()) {
                                 return;
                             }
-
+                            String longestDefinition = meaning;
+                            int longestDefinitionIndex = 0;
+                            for (int i = 1; i < exampleList.size(); i++) {
+                                example = exampleList.get(i);
+                                if (example.getDefinition().length() >= longestDefinition.length()) {
+                                    longestDefinition = example.getDefinition();
+                                    longestDefinitionIndex = i;
+                                }
+                            }
+                            meaning = exampleList.get(longestDefinitionIndex).getDefinition();
                             // Add a new document with a generated ID
                             // Create new empty ContentValues object.
                             ContentValues contentValues = new ContentValues();
