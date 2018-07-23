@@ -81,6 +81,9 @@ class GetDataFromDictionary {
                                     longestDefinitionIndex = i;
                                 }
                             }
+                            if (exampleList.get(longestDefinitionIndex).getType().equals("abbreviation") || exampleList.get(longestDefinitionIndex).getType() == null) {
+                                return;
+                            }
                             meaning = exampleList.get(longestDefinitionIndex).getDefinition();
                             // Add a new document with a generated ID
                             // Create new empty ContentValues object.
@@ -91,8 +94,8 @@ class GetDataFromDictionary {
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                             contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, example.getType());
-                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, example.getExample());
+                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, exampleList.get(longestDefinitionIndex).getType());
+                            contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, exampleList.get(longestDefinitionIndex).getExample());
                             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                             String date = dateFormat.format(new Date());
                             contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);

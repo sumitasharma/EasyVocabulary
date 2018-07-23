@@ -8,6 +8,12 @@ android {
             storeFile file("$rootDir/keystore.jks")
             storePassword 'easyvocab1234'
         }
+        EasyVocabProdConfig {
+            keyAlias 'EasyVocalProdKey'
+            keyPassword 'ksUm1sH@323'
+            storeFile file('C:/Projects/keystores/easyvocabprod.jks')
+            storePassword 'sUm1sH@323'
+        }
     }
     compileSdkVersion 26
     defaultConfig {
@@ -18,11 +24,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
+        signingConfig signingConfigs.EasyVocabProdConfig
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.EasyVocabProdConfig
+        }
+        debug {
             signingConfig signingConfigs.config
         }
     }
@@ -41,7 +51,6 @@ android {
             //applicationId "com.example.sumitasharma.easyvocabulary.paid"
             dimension "vocabulary"
             buildConfigField "boolean", "PAID_VERSION", "true"
-
         }
     }
     buildToolsVersion '26.0.2'

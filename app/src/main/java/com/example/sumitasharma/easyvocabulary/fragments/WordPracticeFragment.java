@@ -112,8 +112,10 @@ public class WordPracticeFragment extends Fragment implements LoaderManager.Load
                 public void onClick(View v) {
                     Uri loaderUri = WordContract.WordsEntry.CONTENT_URI;
                     ContentValues values = new ContentValues();
+                    String where = "wordLevel = ?";
+                    String[] level = {(PreferenceManager.getDefaultSharedPreferences(mContext).getString(getResources().getString(R.string.level_of_words_for_practice_key), "Easy"))};
                     values.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                    mContext.getContentResolver().update(loaderUri, values, null, null);
+                    mContext.getContentResolver().update(loaderUri, values, where, level);
                 }
             });
             snackbar.show();

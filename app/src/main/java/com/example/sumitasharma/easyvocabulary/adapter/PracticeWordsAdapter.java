@@ -79,8 +79,6 @@ public class PracticeWordsAdapter extends RecyclerView.Adapter<PracticeWordsAdap
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(new Date());
         values.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
-        values.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_TYPE));
-        values.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE));
         String[] selectArgs = {mWordsCursor.getString(mWordsCursor.getColumnIndex(WordContract.WordsEntry.COLUMN_WORD))};
         mContext.getContentResolver().update(loaderUri, values, WordContract.WordsEntry.COLUMN_WORD + "= ?", selectArgs);
 

@@ -55,6 +55,19 @@ public class WordsDbUtil {
                             Timber.i("Unable to find word in dictionary" + word);
                             return;
                         }
+                        String longestDefinition = meaning;
+                        int longestDefinitionIndex = 0;
+                        for (int i = 1; i < exampleList.size(); i++) {
+                            example = exampleList.get(i);
+                            if (example.getDefinition().length() >= longestDefinition.length()) {
+                                longestDefinition = example.getDefinition();
+                                longestDefinitionIndex = i;
+                            }
+                        }
+                        if (exampleList.get(longestDefinitionIndex).getType().equals("abbreviation") || exampleList.get(longestDefinitionIndex).getType() == null) {
+                            return;
+                        }
+                        meaning = exampleList.get(longestDefinitionIndex).getDefinition();
 
                         // Create new empty ContentValues object
                         ContentValues contentValues = new ContentValues();
@@ -64,8 +77,8 @@ public class WordsDbUtil {
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_MEANING, meaning);
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_LEVEL, words.get(word));
                         contentValues.put(WordContract.WordsEntry.COLUMN_WORD_PRACTICED, false);
-                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, example.getType());
-                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, example.getExample());
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_TYPE, exampleList.get(longestDefinitionIndex).getType());
+                        contentValues.put(WordContract.WordsEntry.COLUMN_WORD_EXAMPLE, exampleList.get(longestDefinitionIndex).getExample());
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String date = dateFormat.format(new Date());
                         contentValues.put(WordContract.WordsEntry.COLUMN_LAST_UPDATED, date);
