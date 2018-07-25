@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sumitasharma.easyvocabulary">
+    package="com.sumitasharma.app.easyvocabulary">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -38,7 +38,7 @@
 
         <provider
             android:name=".data.WordContentProvider"
-            android:authorities="com.example.sumitasharma.easyvocabulary"
+            android:authorities="com.sumitasharma.app.easyvocabulary"
             android:exported="false">
 
         </provider>

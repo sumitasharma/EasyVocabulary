@@ -6,7 +6,7 @@
     android:background="@drawable/library"
     android:backgroundTint="#90FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context="com.example.sumitasharma.easyvocabulary.wordui.WordQuizSummaryActivity">
+    tools:context="com.sumitasharma.app.easyvocabulary.wordui.WordQuizSummaryActivity">
 
     <FrameLayout
         android:id="@+id/quiz_answer_summary"

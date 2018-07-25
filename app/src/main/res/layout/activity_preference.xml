@@ -2,7 +2,7 @@
 
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/preference_word_fragment"
-    android:name="com.example.sumitasharma.easyvocabulary.fragments.PreferenceSettingsFragment"
+    android:name="com.sumitasharma.app.easyvocabulary.fragments.PreferenceSettingsFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 

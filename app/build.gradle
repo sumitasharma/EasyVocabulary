@@ -11,13 +11,13 @@ android {
         EasyVocabProdConfig {
             keyAlias 'EasyVocalProdKey'
             keyPassword 'ksUm1sH@323'
-            storeFile file('C:/Projects/keystores/easyvocabprod.jks')
+            storeFile file('/Users/amithanda/AndroidStudioProjects/keystore/easyvocabprod.jks')
             storePassword 'sUm1sH@323'
         }
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.sumitasharma.easyvocabulary"
+        applicationId "com.sumitasharma.app.easyvocabulary"
         minSdkVersion 26
         targetSdkVersion 26
         versionCode 1
@@ -43,12 +43,12 @@ android {
     flavorDimensions "vocabulary"
     productFlavors {
         free {
-            //applicationId "com.example.sumitasharma.easyvocabulary.free"
+            //applicationId "com.sumitasharma.app.easyvocabulary.free"
             dimension "vocabulary"
             buildConfigField "boolean", "PAID_VERSION", "false"
         }
         paid {
-            //applicationId "com.example.sumitasharma.easyvocabulary.paid"
+            //applicationId "com.sumitasharma.app.easyvocabulary.paid"
             dimension "vocabulary"
             buildConfigField "boolean", "PAID_VERSION", "true"
         }
@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.google.firebase:firebase-messaging:11.0.4'
+    //implementation 'com.google.firebase:firebase-messaging:11.0.4'
     implementation 'com.android.support:support-compat:26.1.0'
     //freeCompile dependecy on google play services
     compile 'com.google.android.gms:play-services-ads:11.0.4'

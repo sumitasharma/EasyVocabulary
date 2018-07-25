@@ -7,7 +7,7 @@
     android:background="@drawable/books"
     android:backgroundTint="#90FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context="com.example.sumitasharma.easyvocabulary.wordui.MainActivity">
+    tools:context="com.sumitasharma.app.easyvocabulary.wordui.MainActivity">
 
     <FrameLayout
         android:id="@+id/practice_word_frame_layout"
