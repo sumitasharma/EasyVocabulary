@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.MobileAds;
 import com.sumitasharma.app.easyvocabulary.R;
 import com.sumitasharma.app.easyvocabulary.fragments.DictionaryFragment;
 import com.sumitasharma.app.easyvocabulary.fragments.ProgressFragment;
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                 .build());
+
+        //Initialize ADMOB APP Id
+        MobileAds.initialize(this, getResources().getString(R.string.ADMOB_APP_ID));
 
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);

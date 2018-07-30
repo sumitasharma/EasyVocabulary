@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="@string/ADMOB_AD_UNIT_ID" />
 
     <include layout="@layout/first_card" />
 

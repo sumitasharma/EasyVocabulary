@@ -24,7 +24,6 @@
     <string name="out_of_answers">out of 4</string>
     <string name="correct_answers">Check For Answers</string>
     <string name="internet_connectivity">Kindly check your Internet Connection</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="notification_text">Time for learning some new words !!!</string>
     <string name="widget_message">No data to show. Check your Internet Connectivity</string>
     <string name="main_menu">Main Menu</string>
