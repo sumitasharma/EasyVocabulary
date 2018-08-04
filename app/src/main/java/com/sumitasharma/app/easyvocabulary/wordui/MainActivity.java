@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
 import com.sumitasharma.app.easyvocabulary.R;
 import com.sumitasharma.app.easyvocabulary.fragments.DictionaryFragment;
@@ -35,7 +36,6 @@ import com.sumitasharma.app.easyvocabulary.services.NotificationPublisher;
 import com.sumitasharma.app.easyvocabulary.services.WordDbPopulatorJobService;
 import com.sumitasharma.app.easyvocabulary.util.NotificationHelper;
 import com.sumitasharma.app.easyvocabulary.util.WordsDbUtil;
-import com.facebook.stetho.Stetho;
 
 import timber.log.Timber;
 
@@ -210,19 +210,20 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NOTIFICATION_CHANNEL);
+            //Notification Channel
+            CharSequence channelName = NOTIFICATION_CHANNEL_NAME;
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL_NAME, importance);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+
+            NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
         }
-        //Notification Channel
-        CharSequence channelName = NOTIFICATION_CHANNEL_NAME;
-        int importance = NotificationManager.IMPORTANCE_LOW;
-        NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL_NAME, importance);
-        notificationChannel.enableLights(true);
-        notificationChannel.setLightColor(Color.RED);
-        notificationChannel.enableVibration(true);
-        notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
 
-
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.createNotificationChannel(notificationChannel);
 
 
         builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)

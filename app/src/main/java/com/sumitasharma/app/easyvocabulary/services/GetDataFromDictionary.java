@@ -81,6 +81,8 @@ class GetDataFromDictionary {
                                     longestDefinitionIndex = i;
                                 }
                             }
+                            if (exampleList == null)
+                                return;
                             if (exampleList.get(longestDefinitionIndex).getType().equals("abbreviation") || exampleList.get(longestDefinitionIndex).getType() == null) {
                                 return;
                             }
