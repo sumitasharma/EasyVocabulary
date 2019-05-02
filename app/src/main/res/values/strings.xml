@@ -41,5 +41,7 @@
     <string name="no_more_data">Kindly wait for new words or (Refresh) and load the page back from Main to start again.</string>
     <string name="example">Example</string>
     <string name="definition">Definition</string>
+    <string name="policy_link">&lt;a href="https://sites.google.com/view/easyvocabulary/privacy-policy">Privacy Policy&lt;/a></string>
+
 
 </resources>

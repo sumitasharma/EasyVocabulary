@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/EasyVocabulary.iml" filepath="$PROJECT_DIR$/.idea/EasyVocabulary.iml" />
-      <module fileurl="file://C:\Projects\August2018\EasyVocabulary\EasyVocabulary.iml" filepath="C:\Projects\August2018\EasyVocabulary\EasyVocabulary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EasyVocabulary.iml" filepath="$PROJECT_DIR$/EasyVocabulary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
