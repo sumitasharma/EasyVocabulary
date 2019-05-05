@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.stetho.Stetho;
-import com.google.android.gms.ads.MobileAds;
 import com.sumitasharma.app.easyvocabulary.R;
 import com.sumitasharma.app.easyvocabulary.fragments.DictionaryFragment;
 import com.sumitasharma.app.easyvocabulary.fragments.ProgressFragment;
@@ -53,6 +52,8 @@ import static com.sumitasharma.app.easyvocabulary.util.WordUtil.STATE_WORD_PRACT
 import static com.sumitasharma.app.easyvocabulary.util.WordUtil.WORD_MEANING_CARD_VIEW_IDENTIFIER;
 import static com.sumitasharma.app.easyvocabulary.util.WordUtil.isOnline;
 
+//import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity implements WordMainFragment.PassCardViewInformation, WordPracticeFragment.PassTheState, DictionaryFragment.PassTheStateDictionary {
     public static final String TAG = MainActivity.class.getSimpleName();
     String dictionary_word;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements WordMainFragment.
                 .build());
 
         //Initialize ADMOB APP Id
-        MobileAds.initialize(this, getResources().getString(R.string.ADMOB_APP_ID));
+//        MobileAds.initialize(this, getResources().getString(R.string.ADMOB_APP_ID));
 
         Log.i(TAG, "Inside onCreate");
         setContentView(R.layout.activity_main);
